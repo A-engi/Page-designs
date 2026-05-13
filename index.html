@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.6</title>
+  <title>RF Atlas Shell v0.1.9</title>
 
   <style>
     :root {
@@ -28,8 +28,14 @@
       --purple-dark: #491962;
 
       --top-shell-height: 148px;
+      --content-radius: 20px;
+
       --bottom-nav-height: 50px;
       --bottom-lift: 8px;
+
+      /* Top shell can sit over the content sheet. Bottom sheet now stops above buttons. */
+      --top-overlap: 10px;
+      --content-to-buttons-gap: 10px;
     }
 
     * {
@@ -77,31 +83,17 @@
       min-height: 100dvh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 50% 37%, rgba(255,255,255,0.78), transparent 39%),
-        linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
+        radial-gradient(circle at 50% 0%, rgba(255, 222, 158, 0.10), transparent 34%),
+        linear-gradient(180deg, var(--navy-top) 0%, var(--navy-low) 100%);
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
       isolation: isolate;
-    }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.20;
-      background-image:
-        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.08) 37.2%, transparent 37.8%),
-        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.06) 58.2%, transparent 58.9%),
-        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.045), transparent 18%),
-        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.04), transparent 20%);
     }
 
     .top-shell {
       position: fixed;
       left: 50%;
       top: 0;
-      z-index: 30;
+      z-index: 40;
       width: min(100vw, var(--page-width));
       height: var(--top-shell-height);
       transform: translateX(-50%);
@@ -110,9 +102,19 @@
       background:
         radial-gradient(circle at 52% -12%, rgba(255, 222, 158, 0.13), transparent 38%),
         linear-gradient(180deg, var(--navy-top) 0%, var(--navy-mid) 62%, var(--navy-low) 100%);
-      border-bottom: 1px solid rgba(237, 191, 99, 0.28);
-      border-radius: 0 0 19px 19px;
-      box-shadow: 0 14px 30px rgba(3, 10, 20, 0.32);
+      border-bottom: 1px solid rgba(237, 191, 99, 0.18);
+      box-shadow: 0 12px 26px rgba(3, 10, 20, 0.24);
+    }
+
+    .top-shell::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -18px;
+      height: 18px;
+      background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
+      pointer-events: none;
     }
 
     .brand-row {
@@ -206,7 +208,6 @@
         0 8px 18px rgba(0,0,0,0.16);
     }
 
-    /* CSS-drawn magnifier stops the weird SVG/bat distortion on iPhone */
     .search-symbol {
       width: 22px;
       height: 22px;
@@ -338,27 +339,46 @@
 
     .content-canvas {
       position: relative;
-      z-index: 1;
-      min-height: 100dvh;
-      padding: calc(var(--top-shell-height) + 10px) 0 calc(var(--bottom-nav-height) + var(--bottom-lift) + 12px);
+      z-index: 10;
+      height: calc(
+        100dvh
+        - var(--top-shell-height)
+        - var(--bottom-nav-height)
+        - var(--bottom-lift)
+        - var(--content-to-buttons-gap)
+        + var(--top-overlap)
+      );
+      margin-top: calc(var(--top-shell-height) - var(--top-overlap));
+      margin-bottom: calc(var(--bottom-nav-height) + var(--bottom-lift) + var(--content-to-buttons-gap));
+      padding: 10px 0;
+      border-radius: var(--content-radius);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 37%, rgba(255,255,255,0.78), transparent 39%),
+        linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
+      box-shadow:
+        0 -1px 0 rgba(237, 191, 99, 0.26),
+        0 1px 0 rgba(237, 191, 99, 0.22);
     }
 
-    .content-canvas::after {
+    .content-canvas::before {
       content: "";
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      width: min(100vw, var(--page-width));
-      height: 84px;
-      transform: translateX(-50%);
-      z-index: 5;
-      background:
-        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.66) 48%, #061425 100%);
+      position: absolute;
+      inset: 0;
       pointer-events: none;
+      z-index: 0;
+      opacity: 0.20;
+      background-image:
+        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.08) 37.2%, transparent 37.8%),
+        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.06) 58.2%, transparent 58.9%),
+        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.045), transparent 18%),
+        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.04), transparent 20%);
     }
 
     .blank-canvas {
-      min-height: calc(100dvh - var(--top-shell-height) - var(--bottom-nav-height) - var(--bottom-lift) - 22px);
+      position: relative;
+      z-index: 1;
+      height: 100%;
       width: 100%;
       background:
         radial-gradient(circle at 50% 34%, rgba(255,255,255,0.34), transparent 48%);
@@ -368,10 +388,23 @@
       position: fixed;
       left: 50%;
       bottom: var(--bottom-lift);
-      z-index: 30;
+      z-index: 40;
       width: min(100vw, var(--page-width));
       transform: translateX(-50%);
       padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .bottom-shell::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(var(--bottom-lift) * -1);
+      height: calc(var(--bottom-nav-height) + var(--bottom-lift));
+      z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.52) 44%, #061425 100%);
       pointer-events: none;
     }
 
@@ -456,13 +489,15 @@
     @media (max-width: 390px) {
       :root {
         --top-shell-height: 142px;
+        --content-radius: 18px;
         --bottom-nav-height: 48px;
         --bottom-lift: 8px;
+        --top-overlap: 9px;
+        --content-to-buttons-gap: 9px;
       }
 
       .top-shell {
         padding: 6px 8px 7px;
-        border-radius: 0 0 18px 18px;
       }
 
       .brand-row {
@@ -544,7 +579,7 @@
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.6">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.9">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
