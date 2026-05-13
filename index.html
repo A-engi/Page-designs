@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.11</title>
+  <title>RF Atlas Shell v0.1.13</title>
 
   <style>
     :root {
@@ -30,14 +30,16 @@
       --purple: #733091;
       --purple-dark: #491962;
 
-      --top-shell-height: 136px;
+      --top-shell-height: 138px;
       --content-radius: 20px;
 
       --bottom-nav-height: 50px;
       --bottom-lift: 8px;
 
+      --content-gap: 10px;
+      --shell-gap-blue: #06182b;
       --top-overlap: 0px;
-      --content-to-buttons-gap: 10px;
+      --content-to-buttons-gap: var(--content-gap);
     }
 
     * {
@@ -85,8 +87,8 @@
       min-height: 100dvh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 50% 0%, rgba(255, 222, 158, 0.10), transparent 34%),
-        linear-gradient(180deg, var(--navy-top) 0%, var(--navy-low) 100%);
+        radial-gradient(circle at 50% 0%, rgba(255, 222, 158, 0.08), transparent 34%),
+        linear-gradient(180deg, var(--shell-gap-blue) 0%, #051321 100%);
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
       isolation: isolate;
     }
@@ -99,7 +101,7 @@
       width: min(100vw, var(--page-width));
       height: var(--top-shell-height);
       transform: translateX(-50%);
-      padding: 6px 9px 4px;
+      padding: 6px 9px var(--content-gap);
       color: #fff;
       background:
         radial-gradient(circle at 52% -12%, rgba(255, 222, 158, 0.13), transparent 38%),
@@ -347,24 +349,26 @@
         - var(--top-shell-height)
         - var(--bottom-nav-height)
         - var(--bottom-lift)
-        - var(--content-to-buttons-gap)
+        - var(--content-gap)
         + var(--top-overlap)
       );
-      margin-top: calc(var(--top-shell-height) - var(--top-overlap));
-      margin-bottom: calc(var(--bottom-nav-height) + var(--bottom-lift) + var(--content-to-buttons-gap));
+      margin:
+        calc(var(--top-shell-height) - var(--top-overlap))
+        var(--content-gap)
+        calc(var(--bottom-nav-height) + var(--bottom-lift) + var(--content-gap));
       padding: 10px 0;
       border-radius: var(--content-radius);
       overflow: hidden;
       background:
         radial-gradient(circle at 50% 37%, rgba(255,255,255,0.78), transparent 39%),
         linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
-      border: 2px solid rgba(237, 191, 99, 0.72);
+      border: 2px solid rgba(237, 191, 99, 0.78);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.66),
-        inset 0 0 0 1px rgba(255, 231, 168, 0.22),
-        0 -2px 0 rgba(255, 226, 160, 0.18),
-        0 0 0 1px rgba(85, 55, 10, 0.10),
-        0 12px 28px rgba(2, 9, 20, 0.22);
+        inset 0 1px 0 rgba(255,255,255,0.68),
+        inset 0 0 0 1px rgba(255, 231, 168, 0.26),
+        0 -2px 0 rgba(255, 226, 160, 0.20),
+        0 0 0 1px rgba(85, 55, 10, 0.14),
+        0 14px 30px rgba(2, 9, 20, 0.26);
     }
 
     .content-canvas::before {
@@ -466,16 +470,18 @@
     }
 
     .nav-item.is-active {
-      margin: 0;
+      margin: 1px 5px;
       color: var(--gold-soft);
       border-radius: 10px;
-      border: 1px solid rgba(237, 191, 99, 0.50);
+      border: 1px solid rgba(237, 191, 99, 0.62);
       background:
-        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.22), transparent 36%),
-        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.01));
+        radial-gradient(circle at 50% 12%, rgba(255,255,255,0.06), transparent 38%),
+        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.18), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,0.048), rgba(255,255,255,0.01));
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 0 12px rgba(255, 199, 75, 0.18);
+        inset 0 1px 0 rgba(255,255,255,0.13),
+        0 0 0 1px rgba(255, 220, 140, 0.08),
+        0 0 13px rgba(255, 199, 75, 0.18);
       transform: translateY(-1px);
     }
 
@@ -488,22 +494,38 @@
       height: 2px;
       transform: translateX(-50%);
       border-radius: 99px;
-      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.82), transparent);
-      box-shadow: 0 0 6px rgba(255, 224, 150, 0.55);
+      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.78), transparent);
+      box-shadow: 0 0 6px rgba(255, 224, 150, 0.52);
+    }
+
+    .nav-item.is-active::after {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: 2px;
+      height: 2px;
+      width: auto;
+      top: auto;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 120, 0.92), transparent);
+      box-shadow: 0 0 8px rgba(255, 199, 75, 0.55);
     }
 
     @media (max-width: 390px) {
       :root {
-        --top-shell-height: 127px;
+        --top-shell-height: 129px;
         --content-radius: 18px;
         --bottom-nav-height: 48px;
         --bottom-lift: 8px;
+        --content-gap: 9px;
         --top-overlap: 0px;
-        --content-to-buttons-gap: 9px;
+        --content-to-buttons-gap: var(--content-gap);
       }
 
       .top-shell {
-        padding: 6px 8px 4px;
+        padding: 6px 8px var(--content-gap);
       }
 
       .brand-row {
@@ -584,6 +606,7 @@
       }
 
       .nav-item.is-active {
+        margin: 1px 4px;
         border-radius: 9px;
       }
     }
@@ -591,7 +614,7 @@
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.11">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.13">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
