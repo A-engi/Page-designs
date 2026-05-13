@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.15</title>
+  <title>RF Atlas Shell v0.1.16</title>
 
   <style>
     :root {
@@ -12,16 +12,15 @@
       --navy-top: #09213b;
       --navy-mid: #071a30;
       --navy-low: #051321;
+      --shell-gap-blue: #06182b;
       --navy-outline: rgba(42, 67, 93, 0.72);
-      --navy-outline-soft: rgba(255, 255, 255, 0.105);
 
-      --cream-50: #fffaf0;
-      --cream-100: #f7ecd4;
+      --cream-top: #fffaf0;
+      --cream-bottom: #f7ecd4;
 
       --gold: #edbf63;
       --gold-soft: #ffdda0;
-      --gold-line: rgba(237, 191, 99, 0.58);
-      --gold-line-soft: rgba(237, 191, 99, 0.32);
+      --gold-border: rgba(237, 191, 99, 0.78);
 
       --green: #15733a;
       --green-dark: #0d4d2a;
@@ -31,15 +30,10 @@
       --purple-dark: #491962;
 
       --top-shell-height: 138px;
-      --content-radius: 20px;
-
       --bottom-nav-height: 50px;
       --bottom-lift: 8px;
-
       --content-gap: 10px;
-      --shell-gap-blue: #06182b;
-      --top-overlap: 0px;
-      --content-to-buttons-gap: var(--content-gap);
+      --content-radius: 20px;
     }
 
     * {
@@ -49,12 +43,12 @@
 
     html,
     body {
-      margin: 0;
       min-height: 100%;
+      margin: 0;
+      color: #102033;
       background:
         radial-gradient(circle at 50% 0%, rgba(38, 104, 156, 0.20), transparent 42%),
         linear-gradient(180deg, #031020 0%, #06172a 46%, #04111f 100%);
-      color: #102033;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     }
 
@@ -71,9 +65,9 @@
 
     button {
       border: 0;
+      cursor: pointer;
       appearance: none;
       -webkit-appearance: none;
-      cursor: pointer;
     }
 
     svg {
@@ -86,22 +80,22 @@
       width: min(100vw, var(--page-width));
       min-height: 100dvh;
       overflow-x: hidden;
+      isolation: isolate;
       background:
         radial-gradient(circle at 50% 0%, rgba(255, 222, 158, 0.08), transparent 34%),
-        linear-gradient(180deg, var(--shell-gap-blue) 0%, #051321 100%);
+        linear-gradient(180deg, var(--shell-gap-blue) 0%, var(--navy-low) 100%);
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
-      isolation: isolate;
     }
 
     .top-shell {
       position: fixed;
-      left: 50%;
       top: 0;
+      left: 50%;
       z-index: 40;
       width: min(100vw, var(--page-width));
       height: var(--top-shell-height);
-      transform: translateX(-50%);
       padding: 6px 9px var(--content-gap);
+      transform: translateX(-50%);
       color: #fff;
       background:
         radial-gradient(circle at 52% -12%, rgba(255, 222, 158, 0.13), transparent 38%),
@@ -117,8 +111,8 @@
       right: 0;
       bottom: -18px;
       height: 18px;
-      background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
       pointer-events: none;
+      background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
     }
 
     .brand-row {
@@ -132,17 +126,17 @@
     .menu-button {
       width: 34px;
       height: 34px;
-      border-radius: 8px;
       display: grid;
       place-items: center;
       color: var(--gold-soft);
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.058), rgba(255,255,255,0.014)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.014)),
         rgba(8, 28, 50, 0.90);
       border: 1px solid var(--navy-outline);
+      border-radius: 8px;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.085),
-        0 7px 15px rgba(0,0,0,0.16);
+        inset 0 1px 0 rgba(255, 255, 255, 0.085),
+        0 7px 15px rgba(0, 0, 0, 0.16);
     }
 
     .menu-button svg {
@@ -179,7 +173,7 @@
       line-height: 0.92;
       letter-spacing: 0.035em;
       white-space: nowrap;
-      text-shadow: 0 2px 0 rgba(0,0,0,0.15);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     }
 
     .brand-subtitle {
@@ -194,22 +188,22 @@
     }
 
     .search-shell {
-      margin-top: 7px;
       height: 36px;
+      margin-top: 7px;
+      padding: 0 7px 0 11px;
       display: grid;
       grid-template-columns: 24px minmax(0, 1fr) 28px;
       align-items: center;
       gap: 7px;
-      padding: 0 7px 0 11px;
-      border-radius: 10px;
       color: #fff;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.064), rgba(255,255,255,0.018)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.064), rgba(255, 255, 255, 0.018)),
         rgba(10, 32, 56, 0.94);
       border: 1px solid var(--navy-outline);
+      border-radius: 10px;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 8px 18px rgba(0,0,0,0.15);
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 8px 18px rgba(0, 0, 0, 0.15);
     }
 
     .search-symbol {
@@ -226,7 +220,7 @@
       top: 2px;
       width: 12px;
       height: 12px;
-      border: 3px solid rgba(255,255,255,0.94);
+      border: 3px solid rgba(255, 255, 255, 0.94);
       border-radius: 50%;
     }
 
@@ -238,7 +232,7 @@
       width: 9px;
       height: 3px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.94);
+      background: rgba(255, 255, 255, 0.94);
       transform: rotate(45deg);
       transform-origin: left center;
     }
@@ -250,14 +244,13 @@
       outline: 0;
       background: transparent;
       color: #fff;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       font-size: clamp(11.5px, 3.15vw, 13px);
       font-weight: 500;
       letter-spacing: 0.005em;
     }
 
     .search-shell input::placeholder {
-      color: rgba(255,255,255,0.70);
+      color: rgba(255, 255, 255, 0.70);
     }
 
     .filter-button {
@@ -265,9 +258,9 @@
       height: 28px;
       display: grid;
       place-items: center;
-      border-radius: 8px;
-      background: transparent;
       color: var(--gold-soft);
+      background: transparent;
+      border-radius: 8px;
     }
 
     .filter-button svg {
@@ -290,507 +283,12 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      border-radius: 8px;
       color: #fff;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      border-radius: 8px;
       font-size: clamp(11.5px, 3.25vw, 13.5px);
       font-weight: 760;
       letter-spacing: 0.01em;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 7px 16px rgba(0,0,0,0.17);
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 7px 16px rgba(0, 0, 0, 0.17);
       overflow: hidden;
-    }
-
-    .quick-chip svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .quick-chip span {
-      white-space: nowrap;
-      min-width: 0;
-    }
-
-    .quick-chip.is-dtt {
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.13), transparent 42%),
-        linear-gradient(135deg, var(--green), var(--green-dark));
-      border: 1px solid rgba(22, 83, 46, 0.70);
-    }
-
-    .quick-chip.is-dab {
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.13), transparent 42%),
-        linear-gradient(135deg, var(--blue), var(--blue-dark));
-      border: 1px solid rgba(14, 64, 120, 0.78);
-    }
-
-    .quick-chip.is-fm {
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.15), transparent 42%),
-        linear-gradient(135deg, var(--purple), var(--purple-dark));
-      border: 1px solid rgba(83, 33, 105, 0.78);
-    }
-
-    .quick-chip.is-more {
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.09), transparent 42%),
-        linear-gradient(135deg, #183350, #0b1d33);
-      border: 1px solid var(--navy-outline);
-      font-weight: 720;
-    }
-
-    .content-canvas {
-      position: relative;
-      z-index: 10;
-      height: calc(
-        100dvh
-        - var(--top-shell-height)
-        - var(--bottom-nav-height)
-        - var(--bottom-lift)
-        - var(--content-gap)
-        + var(--top-overlap)
-      );
-      margin:
-        calc(var(--top-shell-height) - var(--top-overlap))
-        var(--content-gap)
-        calc(var(--bottom-nav-height) + var(--bottom-lift) + var(--content-gap));
-      padding: 10px 0;
-      border-radius: var(--content-radius);
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 37%, rgba(255,255,255,0.78), transparent 39%),
-        linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
-      border: 2px solid rgba(237, 191, 99, 0.78);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.68),
-        inset 0 0 0 1px rgba(255, 231, 168, 0.26),
-        0 -2px 0 rgba(255, 226, 160, 0.20),
-        0 0 0 1px rgba(85, 55, 10, 0.14),
-        0 14px 30px rgba(2, 9, 20, 0.26);
-    }
-
-    .content-canvas::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.20;
-      background-image:
-        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.08) 37.2%, transparent 37.8%),
-        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.06) 58.2%, transparent 58.9%),
-        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.045), transparent 18%),
-        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.04), transparent 20%);
-    }
-
-    .blank-canvas {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      width: 100%;
-      background:
-        radial-gradient(circle at 50% 34%, rgba(255,255,255,0.34), transparent 48%);
-    }
-
-    .bottom-shell {
-      position: fixed;
-      left: 50%;
-      bottom: var(--bottom-lift);
-      z-index: 40;
-      width: min(100vw, var(--page-width));
-      transform: translateX(-50%);
-      padding: 0 10px;
-      pointer-events: none;
-    }
-
-    .bottom-shell::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: calc(var(--bottom-lift) * -1);
-      height: calc(var(--bottom-nav-height) + var(--bottom-lift));
-      z-index: -1;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(6, 24, 43, 0),
-          var(--shell-gap-blue) 40%,
-          var(--shell-gap-blue) 100%
-        );
-      pointer-events: none;
-    }
-
-    .bottom-nav {
-      height: var(--bottom-nav-height);
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0;
-      overflow: visible;
-      pointer-events: auto;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-    }
-
-    .nav-item {
-      position: relative;
-      min-width: 0;
-      display: grid;
-      place-items: center;
-      align-content: center;
-      gap: 2px;
-      color: rgba(255,255,255,0.84);
-      font-size: 8.5px;
-      font-weight: 680;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.07), transparent 34%),
-        linear-gradient(180deg, #0d2540, #07182a);
-      border-top: 1px solid var(--navy-outline);
-      border-bottom: 1px solid var(--navy-outline);
-      border-right: 1px solid rgba(52, 78, 104, 0.72);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.075),
-        0 -5px 18px rgba(4, 10, 18, 0.22);
-    }
-
-    .nav-item:first-child {
-      border-left: 1px solid var(--navy-outline);
-      border-radius: 12px 0 0 12px;
-    }
-
-    .nav-item:last-child {
-      border-radius: 0 12px 12px 0;
-    }
-
-    .nav-item::after {
-      content: "";
-      position: absolute;
-      right: -1px;
-      top: 11px;
-      bottom: 11px;
-      width: 1px;
-      background: rgba(52, 78, 104, 0.72);
-    }
-
-    .nav-item:last-child::after,
-    .nav-item.is-active::after,
-    .nav-item:has(+ .nav-item.is-active)::after {
-      display: none;
-    }
-
-    .nav-item:has(+ .nav-item.is-active) {
-      border-radius: 0 12px 12px 0;
-      border-right: 1px solid var(--navy-outline);
-    }
-
-    .nav-item.is-active + .nav-item {
-      border-left: 1px solid var(--navy-outline);
-      border-radius: 12px 0 0 12px;
-    }
-
-    .nav-item svg {
-      width: 17px;
-      height: 17px;
-      stroke-width: 2.15;
-    }
-
-    .nav-item span {
-      position: relative;
-      z-index: 2;
-    }
-
-    .nav-item.is-active {
-      margin: 0 8px;
-      color: var(--gold-soft);
-      border-radius: 10px;
-      border: 1px solid rgba(237, 191, 99, 0.68);
-      background:
-        radial-gradient(circle at 50% 12%, rgba(255,255,255,0.06), transparent 38%),
-        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.18), transparent 38%),
-        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.012)),
-        linear-gradient(180deg, #0d2540, #07182a);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.13),
-        0 0 0 1px rgba(255, 220, 140, 0.10),
-        0 0 13px rgba(255, 199, 75, 0.18);
-      transform: translateY(-1px);
-      z-index: 3;
-      overflow: hidden;
-    }
-
-    .nav-item.is-active::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 3px;
-      width: 22px;
-      height: 2px;
-      transform: translateX(-50%);
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.78), transparent);
-      box-shadow: 0 0 6px rgba(255, 224, 150, 0.52);
-      pointer-events: none;
-    }
-
-    .nav-item.is-active::after {
-      display: block;
-      content: "";
-      position: absolute;
-      left: 20%;
-      right: 20%;
-      bottom: 2px;
-      height: 2px;
-      width: auto;
-      top: auto;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(255, 215, 120, 0.92), transparent);
-      box-shadow: 0 0 8px rgba(255, 199, 75, 0.55);
-      pointer-events: none;
-    }
-
-    @media (max-width: 390px) {
-      :root {
-        --top-shell-height: 129px;
-        --content-radius: 18px;
-        --bottom-nav-height: 48px;
-        --bottom-lift: 8px;
-        --content-gap: 9px;
-        --top-overlap: 0px;
-        --content-to-buttons-gap: var(--content-gap);
-      }
-
-      .top-shell {
-        padding: 6px 8px var(--content-gap);
-      }
-
-      .brand-row {
-        height: 33px;
-        grid-template-columns: 33px minmax(0, 1fr) 33px;
-      }
-
-      .menu-button {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-      }
-
-      .menu-button svg {
-        width: 19px;
-        height: 19px;
-      }
-
-      .brand {
-        gap: 5px;
-      }
-
-      .brand-mark {
-        width: 24px;
-        height: 24px;
-      }
-
-      .brand-title {
-        font-size: clamp(19px, 5.45vw, 23px);
-      }
-
-      .brand-subtitle {
-        font-size: 8.5px;
-      }
-
-      .search-shell {
-        height: 35px;
-        margin-top: 6px;
-        border-radius: 9px;
-      }
-
-      .quick-access {
-        margin-top: 5px;
-        gap: 5px;
-      }
-
-      .quick-chip {
-        height: 35px;
-        padding-inline: 4px;
-        gap: 4px;
-        border-radius: 7px;
-      }
-
-      .quick-chip svg {
-        width: 17px;
-        height: 17px;
-      }
-
-      .quick-chip.is-more {
-        font-size: 11px;
-      }
-
-      .bottom-shell {
-        padding-inline: 9px;
-      }
-
-      .nav-item {
-        font-size: 8px;
-      }
-
-      .nav-item:first-child {
-        border-radius: 11px 0 0 11px;
-      }
-
-      .nav-item:last-child {
-        border-radius: 0 11px 11px 0;
-      }
-
-      .nav-item:has(+ .nav-item.is-active) {
-        border-radius: 0 11px 11px 0;
-      }
-
-      .nav-item.is-active + .nav-item {
-        border-radius: 11px 0 0 11px;
-      }
-
-      .nav-item svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      .nav-item.is-active {
-        margin: 0 6px;
-        border-radius: 9px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.15">
-    <header class="top-shell">
-      <section class="brand-row" aria-label="App header">
-        <button class="menu-button" type="button" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
-          </svg>
-        </button>
-
-        <div class="brand" aria-label="RF Atlas">
-          <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="24" cy="15" r="4" stroke-width="2.6" />
-            <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.6" stroke-linecap="round" />
-          </svg>
-
-          <div class="brand-copy">
-            <h1 class="brand-title">RF ATLAS</h1>
-            <p class="brand-subtitle">Your radio network companion</p>
-          </div>
-        </div>
-
-        <span aria-hidden="true"></span>
-      </section>
-
-      <form class="search-shell" role="search" aria-label="Search sites, paths and services">
-        <span class="search-symbol" aria-hidden="true"></span>
-
-        <input type="search" placeholder="Search sites, paths, services..." aria-label="Search" />
-
-        <button class="filter-button" type="button" aria-label="Open filters">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke-width="2" stroke-linecap="round" />
-            <circle cx="9" cy="7" r="2" fill="currentColor" stroke="none" />
-            <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
-            <circle cx="11" cy="17" r="2" fill="currentColor" stroke="none" />
-          </svg>
-        </button>
-      </form>
-
-      <nav class="quick-access" aria-label="Quick access">
-        <button class="quick-chip is-dtt" type="button">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M16 14v15M11 29l5-15 5 15M10 20h12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="16" cy="10" r="3" stroke-width="2.5" />
-            <path d="M8 11a8 8 0 0 1 0-8M24 3a8 8 0 0 1 0 8" stroke-width="2.5" stroke-linecap="round" />
-          </svg>
-          <span>DTT</span>
-        </button>
-
-        <button class="quick-chip is-dab" type="button">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M3 17h5l3-7 5 16 4-18 4 9h5" stroke-width="2.45" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span>DAB</span>
-        </button>
-
-        <button class="quick-chip is-fm" type="button">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <circle cx="16" cy="16" r="8" stroke-width="2.75" />
-          </svg>
-          <span>FM</span>
-        </button>
-
-        <button class="quick-chip is-more" type="button">
-          <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-            <circle cx="9" cy="16" r="2.5" />
-            <circle cx="16" cy="16" r="2.5" />
-            <circle cx="23" cy="16" r="2.5" />
-          </svg>
-          <span>More</span>
-        </button>
-      </nav>
-    </header>
-
-    <section class="content-canvas" aria-label="Content canvas">
-      <div class="blank-canvas" aria-hidden="true"></div>
-    </section>
-
-    <footer class="bottom-shell">
-      <nav class="bottom-nav" aria-label="Primary navigation">
-        <button class="nav-item" type="button" aria-label="Map">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M3 6.5 9 4l6 2.5 6-2.5v13.5L15 20l-6-2.5L3 20V6.5Z" stroke-linejoin="round" />
-            <path d="M9 4v13.5M15 6.5V20" />
-          </svg>
-          <span>Map</span>
-        </button>
-
-        <button class="nav-item" type="button" aria-label="Sites">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M4 11.5 12 5l8 6.5V20H6v-8" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M10 20v-6h4v6" stroke-linejoin="round" />
-          </svg>
-          <span>Sites</span>
-        </button>
-
-        <button class="nav-item is-active" type="button" aria-label="RF, selected" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M12 10v11M8 21l4-11 4 11M8.5 16h7" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="12" cy="7" r="2.25" />
-            <path d="M6.5 8a6 6 0 0 1 0-6M17.5 2a6 6 0 0 1 0 6M3.5 10a10 10 0 0 1 0-10M20.5 0a10 10 0 0 1 0 10" stroke-linecap="round" />
-          </svg>
-          <span>RF</span>
-        </button>
-
-        <button class="nav-item" type="button" aria-label="Network">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <circle cx="6" cy="6" r="2.2" />
-            <circle cx="18" cy="6" r="2.2" />
-            <circle cx="6" cy="18" r="2.2" />
-            <circle cx="18" cy="18" r="2.2" />
-            <circle cx="12" cy="12" r="2.2" />
-            <path d="M7.7 7.7 10.3 10.3M16.3 7.7 13.7 10.3M7.7 16.3 10.3 13.7M16.3 16.3 13.7 13.7" />
-          </svg>
-          <span>Network</span>
-        </button>
-
-        <button class="nav-item" type="button" aria-label="Tools">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M14.5 5.5a5 5 0 0 0 6 6L10 22 4 16 14.5 5.5Z" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M6.5 17.5 8.5 19.5" stroke-linecap="round" />
-          </svg>
-          <span>Tools</span>
-        </button>
-      </nav>
-    </footer>
-  </main>
-</body>
-</html>
