@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.32</title>
+  <title>RF Atlas Shell v0.1.33</title>
 
   <style>
     /* =========================================================
@@ -406,42 +406,55 @@
         transform 140ms ease;
     }
 
-    /* The quick toggle is a small handle that collapses or expands the service row. */
+    /* The quick toggle is a real thin tab that collapses or expands the service row. */
     .quick-toggle {
       position: absolute;
       left: 50%;
-      bottom: 3px;
-      width: 54px;
-      height: 8px;
+      bottom: 0;
+      width: 68px;
+      height: 10px;
       padding: 0;
       display: grid;
       place-items: center;
       transform: translateX(-50%);
       color: var(--gold-soft);
-      background: transparent;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01)),
+        linear-gradient(180deg, var(--panel-blue), var(--panel-blue-low));
+      border: 1px solid rgba(237, 191, 99, 0.42);
+      border-bottom: 0;
+      border-radius: 10px 10px 0 0;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.10),
+        0 -4px 12px rgba(0, 0, 0, 0.16);
       cursor: pointer;
     }
 
-    /* The toggle handle reads as a subtle gold grip rather than another full button. */
+    /* The glow sits inside the tab instead of floating on its own. */
     .quick-toggle::before {
       content: "";
-      width: 34px;
+      width: 42px;
       height: 3px;
       border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.90), transparent);
-      box-shadow: 0 0 7px rgba(255, 199, 75, 0.45);
+      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.92), transparent);
+      box-shadow: 0 0 7px rgba(255, 199, 75, 0.50);
     }
 
-    /* The collapsed shell hides the DTT/DAB/FM/More row while keeping the handle tappable. */
+    /* The collapsed shell hides the DTT/DAB/FM/More row while keeping the tab tappable. */
     .phone.quick-collapsed .quick-access {
       opacity: 0;
       transform: translateY(-8px);
       pointer-events: none;
     }
 
-    /* The collapsed handle flips into a smaller prompt for reopening the service row. */
+    /* The collapsed tab becomes slightly narrower so it reads as a reopen handle. */
+    .phone.quick-collapsed .quick-toggle {
+      width: 56px;
+    }
+
+    /* The collapsed tab keeps a smaller internal glow. */
     .phone.quick-collapsed .quick-toggle::before {
-      width: 24px;
+      width: 28px;
       opacity: 0.82;
     }
 
@@ -760,7 +773,7 @@
        App shell
        The main element represents one mobile app screen.
   ======================================================== -->
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.32">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.33">
 
     <!-- =====================================================
          Top shell
@@ -778,7 +791,7 @@
 
         <button class="atlas-command" type="button" aria-label="Open search">
           <span class="search-symbol" aria-hidden="true"></span>
-          <span class="command-search-text">Searchâ¦</span>
+          <span class="command-search-text">Search</span>
           <span class="command-divider" aria-hidden="true"></span>
           <span class="atlas-identity" aria-label="ATLAS">
             <svg class="atlas-transmitter" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
