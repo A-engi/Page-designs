@@ -3,30 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.0</title>
+  <title>RF Atlas Shell v0.1.2</title>
 
   <style>
     :root {
-      --ink: #071627;
-      --navy: #071a2f;
-      --navy-2: #09213c;
-      --navy-3: #0d2b4a;
-      --cream: #f7ecd4;
-      --cream-2: #fff8e9;
+      --navy: #06172a;
+      --navy-2: #0a2038;
+      --cream: #fff6e5;
+      --cream-2: #f7ead1;
       --gold: #f3c76c;
       --gold-2: #ffe29b;
-      --line: rgba(243, 199, 108, 0.42);
-      --soft-line: rgba(12, 30, 50, 0.12);
+      --gold-line: rgba(243, 199, 108, 0.48);
+      --white-line: rgba(255, 255, 255, 0.14);
       --text: #102033;
-      --muted: rgba(255, 255, 255, 0.72);
-      --green: #14813a;
-      --blue: #0d5db9;
-      --purple: #77269c;
-      --shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
-      --radius-xl: 30px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --bottom-nav-height: 96px;
+      --bottom-nav-height: 94px;
+      --bottom-lift: 14px;
     }
 
     * {
@@ -36,11 +27,11 @@
 
     html,
     body {
-      min-height: 100%;
       margin: 0;
+      min-height: 100%;
       background:
-        radial-gradient(circle at 50% 0%, rgba(24, 80, 128, 0.25), transparent 42%),
-        linear-gradient(180deg, #031020 0%, #06172a 42%, #04111f 100%);
+        radial-gradient(circle at 50% 0%, rgba(36, 104, 160, 0.25), transparent 42%),
+        linear-gradient(180deg, #031020 0%, #06172a 46%, #04111f 100%);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -48,19 +39,27 @@
     body {
       display: flex;
       justify-content: center;
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    svg {
+      display: block;
+      flex: 0 0 auto;
     }
 
     .phone {
       width: min(100vw, 430px);
-      min-height: 100svh;
+      min-height: 100dvh;
       position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(7, 21, 39, 0.98) 0 282px, transparent 282px),
-        radial-gradient(circle at 50% 18%, rgba(255, 226, 155, 0.08), transparent 30%),
-        var(--cream-2);
-      border: 1px solid rgba(243, 199, 108, 0.34);
-      box-shadow: var(--shadow);
+      overflow-x: hidden;
+      background: var(--cream);
+      border-inline: 1px solid rgba(243, 199, 108, 0.22);
+      box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
       isolation: isolate;
     }
 
@@ -69,42 +68,43 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.42;
+      opacity: 0.34;
       background-image:
         radial-gradient(circle at 18% 12%, rgba(243, 199, 108, 0.12) 0 1px, transparent 1px),
         radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px),
         linear-gradient(110deg, transparent 0 42%, rgba(255, 255, 255, 0.04) 48%, transparent 54%);
       background-size: 34px 34px, 47px 47px, 100% 100%;
       mix-blend-mode: screen;
+      z-index: 0;
     }
 
     .top-shell {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: calc(env(safe-area-inset-top) + 14px) 14px 18px;
-      color: white;
+      padding: 12px 15px 16px;
+      color: #fff;
       background:
-        radial-gradient(circle at 48% 0%, rgba(255, 216, 139, 0.15), transparent 34%),
+        radial-gradient(circle at 50% 0%, rgba(255, 216, 139, 0.15), transparent 34%),
         linear-gradient(180deg, #071a2f 0%, #081a2e 60%, #061425 100%);
       border-bottom: 1px solid rgba(243, 199, 108, 0.32);
-      border-radius: 0 0 28px 28px;
+      border-radius: 0 0 26px 26px;
       box-shadow: 0 18px 36px rgba(3, 10, 20, 0.32);
     }
 
     .brand-row {
-      min-height: 68px;
+      min-height: 62px;
       display: grid;
-      grid-template-columns: 56px 1fr 56px;
+      grid-template-columns: 52px minmax(0, 1fr) 10px;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .icon-button {
-      width: 54px;
-      height: 54px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--gold-line);
+      border-radius: 17px;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
         rgba(8, 25, 45, 0.94);
@@ -114,61 +114,67 @@
         0 12px 26px rgba(0, 0, 0, 0.18);
       display: grid;
       place-items: center;
-      border: 0;
       cursor: pointer;
     }
 
     .icon-button svg {
-      width: 28px;
-      height: 28px;
+      width: 27px;
+      height: 27px;
       stroke-width: 2.7;
     }
 
     .brand {
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-width: 0;
-      text-align: left;
+      gap: 8px;
+      overflow: hidden;
     }
 
     .brand-mark {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
       color: var(--gold);
       filter: drop-shadow(0 4px 12px rgba(243, 199, 108, 0.24));
+    }
+
+    .brand-copy {
+      min-width: 0;
     }
 
     .brand-title {
       margin: 0;
       color: #fffdf7;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(31px, 9.8vw, 44px);
-      letter-spacing: 0.055em;
-      line-height: 0.9;
+      font-size: clamp(26px, 7.2vw, 33px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
       text-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
     }
 
     .brand-subtitle {
-      margin: 6px 0 0;
+      margin: 5px 0 0;
       color: var(--gold-2);
-      font-size: clamp(12px, 3.5vw, 15px);
-      font-weight: 600;
-      letter-spacing: 0.012em;
+      font-size: clamp(11px, 3.2vw, 13px);
+      font-weight: 650;
+      letter-spacing: 0.004em;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .search-shell {
-      margin-top: 14px;
-      height: 58px;
+      margin-top: 12px;
+      height: 56px;
       display: grid;
-      grid-template-columns: 42px 1fr 44px;
+      grid-template-columns: 34px minmax(0, 1fr) 42px;
       align-items: center;
-      gap: 8px;
-      padding: 0 12px 0 15px;
+      gap: 9px;
+      padding: 0 10px 0 16px;
       border: 1px solid rgba(243, 199, 108, 0.42);
       border-radius: 20px;
       background:
@@ -179,20 +185,21 @@
         0 14px 30px rgba(0, 0, 0, 0.2);
     }
 
-    .search-shell svg {
+    .search-icon {
+      width: 30px;
+      height: 30px;
       color: rgba(255, 255, 255, 0.94);
     }
 
     .search-shell input {
       width: 100%;
+      min-width: 0;
       border: 0;
       outline: 0;
       background: transparent;
       color: white;
-      font: inherit;
-      font-size: 16px;
-      font-weight: 520;
-      min-width: 0;
+      font-size: clamp(15px, 4vw, 17px);
+      font-weight: 560;
     }
 
     .search-shell input::placeholder {
@@ -211,8 +218,13 @@
       cursor: pointer;
     }
 
+    .filter-button svg {
+      width: 29px;
+      height: 29px;
+    }
+
     .quick-access {
-      margin-top: 14px;
+      margin-top: 13px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
@@ -220,16 +232,17 @@
 
     .quick-chip {
       min-width: 0;
-      height: 64px;
-      border: 1px solid rgba(255, 255, 255, 0.17);
+      height: 60px;
+      padding: 0 8px;
+      border: 1px solid var(--white-line);
       border-radius: 18px;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      font-weight: 830;
-      font-size: clamp(14px, 4vw, 18px);
+      gap: 7px;
+      font-weight: 850;
+      font-size: clamp(15px, 4.3vw, 18px);
       letter-spacing: 0.02em;
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.18),
@@ -240,9 +253,13 @@
     }
 
     .quick-chip svg {
-      width: 27px;
-      height: 27px;
-      flex: 0 0 auto;
+      width: 25px;
+      height: 25px;
+    }
+
+    .quick-chip span {
+      min-width: 0;
+      white-space: nowrap;
     }
 
     .quick-chip.is-dtt {
@@ -271,17 +288,17 @@
         radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.12), transparent 42%),
         linear-gradient(135deg, #142c49, #081a2e);
       border-color: rgba(243, 199, 108, 0.34);
-      font-weight: 760;
+      font-weight: 790;
     }
 
     .content-canvas {
       position: relative;
       z-index: 1;
-      min-height: calc(100svh - 282px);
-      padding: 20px 14px calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 22px);
+      min-height: calc(100dvh - 238px);
+      padding: 20px 15px calc(var(--bottom-nav-height) + var(--bottom-lift) + 24px);
       background:
         radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.72), transparent 38%),
-        linear-gradient(180deg, #fff8e9 0%, #f6ead2 100%);
+        linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
     }
 
     .content-canvas::before {
@@ -289,40 +306,52 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.3;
+      opacity: 0.25;
       background-image:
         linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.10) 37.2%, transparent 37.8%),
         linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.08) 58.2%, transparent 58.9%),
         radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.055), transparent 18%),
         radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.05), transparent 20%);
-      filter: blur(0.2px);
     }
 
     .blank-hint {
       position: relative;
-      min-height: 52svh;
+      min-height: 50dvh;
       border: 1px dashed rgba(10, 31, 54, 0.14);
       border-radius: 24px;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.12));
+        linear-gradient(180deg, rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.13));
       display: grid;
       place-items: center;
-      color: rgba(16, 32, 51, 0.35);
+      color: rgba(16, 32, 51, 0.34);
       text-align: center;
-      font-weight: 750;
-      letter-spacing: 0.03em;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
     }
 
     .bottom-shell {
       position: fixed;
       left: 50%;
-      bottom: 0;
+      bottom: var(--bottom-lift);
       z-index: 20;
       width: min(100vw, 430px);
       transform: translateX(-50%);
-      padding: 8px 10px calc(env(safe-area-inset-bottom) + 8px);
+      padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .bottom-shell::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(var(--bottom-lift) * -1);
+      height: 130px;
       background:
-        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.86) 18%, #061425 100%);
+        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.82) 38%, #061425 100%);
+      z-index: -1;
+      pointer-events: none;
     }
 
     .bottom-nav {
@@ -339,6 +368,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.12),
         0 -8px 28px rgba(4, 10, 18, 0.3);
       overflow: hidden;
+      pointer-events: auto;
     }
 
     .nav-item {
@@ -351,9 +381,8 @@
       place-items: center;
       align-content: center;
       gap: 7px;
-      font: inherit;
       font-size: 12px;
-      font-weight: 680;
+      font-weight: 700;
       cursor: pointer;
     }
 
@@ -368,8 +397,7 @@
     }
 
     .nav-item:last-child::after,
-    .nav-item.is-active::after,
-    .nav-item:has(+ .is-active)::after {
+    .nav-item.is-active::after {
       display: none;
     }
 
@@ -406,48 +434,73 @@
       box-shadow: 0 0 12px rgba(255, 224, 150, 0.9);
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 390px) {
+      :root {
+        --bottom-nav-height: 88px;
+        --bottom-lift: 12px;
+      }
+
+      .top-shell {
+        padding-inline: 13px;
+      }
+
       .brand-row {
-        grid-template-columns: 50px 1fr 32px;
-      }
-
-      .icon-button {
-        width: 50px;
-        height: 50px;
-      }
-
-      .brand {
+        grid-template-columns: 49px minmax(0, 1fr) 6px;
         gap: 8px;
       }
 
+      .icon-button {
+        width: 48px;
+        height: 48px;
+      }
+
+      .brand {
+        gap: 7px;
+      }
+
       .brand-mark {
-        width: 38px;
-        height: 38px;
+        width: 33px;
+        height: 33px;
+      }
+
+      .brand-title {
+        font-size: clamp(24px, 7vw, 30px);
+        letter-spacing: 0.03em;
+      }
+
+      .brand-subtitle {
+        font-size: 11px;
+      }
+
+      .quick-access {
+        gap: 7px;
       }
 
       .quick-chip {
-        height: 58px;
+        height: 56px;
+        padding-inline: 6px;
         gap: 5px;
       }
 
       .quick-chip svg {
-        width: 23px;
-        height: 23px;
+        width: 22px;
+        height: 22px;
       }
 
-      .bottom-nav {
-        height: 88px;
+      .quick-chip.is-more {
+        font-size: 15px;
       }
 
-      :root {
-        --bottom-nav-height: 88px;
+      .nav-item svg {
+        width: 25px;
+        height: 25px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.2">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
         <button class="icon-button" type="button" aria-label="Open menu">
@@ -463,7 +516,7 @@
             <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.4" stroke-linecap="round" />
           </svg>
 
-          <div>
+          <div class="brand-copy">
             <h1 class="brand-title">RF ATLAS</h1>
             <p class="brand-subtitle">Your radio network companion</p>
           </div>
@@ -473,12 +526,12 @@
       </section>
 
       <form class="search-shell" role="search" aria-label="Search sites, paths and services">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <circle cx="11" cy="11" r="7" stroke-width="2.3" />
           <path d="m16.5 16.5 4 4" stroke-width="2.3" stroke-linecap="round" />
         </svg>
 
-        <input type="search" placeholder="Search sites, paths, services..." aria-label="Search" />
+        <input type="search" placeholder="Search sites, paths, services" aria-label="Search" />
 
         <button class="filter-button" type="button" aria-label="Open filters">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
