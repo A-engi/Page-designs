@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.13</title>
+  <title>RF Atlas Shell v0.1.15</title>
 
   <style>
     :root {
@@ -414,7 +414,12 @@
       height: calc(var(--bottom-nav-height) + var(--bottom-lift));
       z-index: -1;
       background:
-        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.52) 44%, #061425 100%);
+        linear-gradient(
+          180deg,
+          rgba(6, 24, 43, 0),
+          var(--shell-gap-blue) 40%,
+          var(--shell-gap-blue) 100%
+        );
       pointer-events: none;
     }
 
@@ -422,17 +427,12 @@
       height: var(--bottom-nav-height);
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 1px;
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 0;
+      overflow: visible;
       pointer-events: auto;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.09), transparent 34%),
-        linear-gradient(180deg, #0d2540, #07182a);
-      border: 1px solid var(--navy-outline);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 -5px 18px rgba(4, 10, 18, 0.28);
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     .nav-item {
@@ -442,16 +442,33 @@
       place-items: center;
       align-content: center;
       gap: 2px;
-      background: transparent;
       color: rgba(255,255,255,0.84);
       font-size: 8.5px;
       font-weight: 680;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.07), transparent 34%),
+        linear-gradient(180deg, #0d2540, #07182a);
+      border-top: 1px solid var(--navy-outline);
+      border-bottom: 1px solid var(--navy-outline);
+      border-right: 1px solid rgba(52, 78, 104, 0.72);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.075),
+        0 -5px 18px rgba(4, 10, 18, 0.22);
+    }
+
+    .nav-item:first-child {
+      border-left: 1px solid var(--navy-outline);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .nav-item:last-child {
+      border-radius: 0 12px 12px 0;
     }
 
     .nav-item::after {
       content: "";
       position: absolute;
-      right: 0;
+      right: -1px;
       top: 11px;
       bottom: 11px;
       width: 1px;
@@ -459,8 +476,19 @@
     }
 
     .nav-item:last-child::after,
-    .nav-item.is-active::after {
+    .nav-item.is-active::after,
+    .nav-item:has(+ .nav-item.is-active)::after {
       display: none;
+    }
+
+    .nav-item:has(+ .nav-item.is-active) {
+      border-radius: 0 12px 12px 0;
+      border-right: 1px solid var(--navy-outline);
+    }
+
+    .nav-item.is-active + .nav-item {
+      border-left: 1px solid var(--navy-outline);
+      border-radius: 12px 0 0 12px;
     }
 
     .nav-item svg {
@@ -469,33 +497,42 @@
       stroke-width: 2.15;
     }
 
+    .nav-item span {
+      position: relative;
+      z-index: 2;
+    }
+
     .nav-item.is-active {
-      margin: 1px 5px;
+      margin: 0 8px;
       color: var(--gold-soft);
       border-radius: 10px;
-      border: 1px solid rgba(237, 191, 99, 0.62);
+      border: 1px solid rgba(237, 191, 99, 0.68);
       background:
         radial-gradient(circle at 50% 12%, rgba(255,255,255,0.06), transparent 38%),
         radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.18), transparent 38%),
-        linear-gradient(180deg, rgba(255,255,255,0.048), rgba(255,255,255,0.01));
+        linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.012)),
+        linear-gradient(180deg, #0d2540, #07182a);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.13),
-        0 0 0 1px rgba(255, 220, 140, 0.08),
+        0 0 0 1px rgba(255, 220, 140, 0.10),
         0 0 13px rgba(255, 199, 75, 0.18);
       transform: translateY(-1px);
+      z-index: 3;
+      overflow: hidden;
     }
 
     .nav-item.is-active::before {
       content: "";
       position: absolute;
-      top: 3px;
       left: 50%;
+      top: 3px;
       width: 22px;
       height: 2px;
       transform: translateX(-50%);
-      border-radius: 99px;
+      border-radius: 999px;
       background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.78), transparent);
       box-shadow: 0 0 6px rgba(255, 224, 150, 0.52);
+      pointer-events: none;
     }
 
     .nav-item.is-active::after {
@@ -511,6 +548,7 @@
       border-radius: 999px;
       background: linear-gradient(90deg, transparent, rgba(255, 215, 120, 0.92), transparent);
       box-shadow: 0 0 8px rgba(255, 199, 75, 0.55);
+      pointer-events: none;
     }
 
     @media (max-width: 390px) {
@@ -592,12 +630,24 @@
         padding-inline: 9px;
       }
 
-      .bottom-nav {
-        border-radius: 11px;
-      }
-
       .nav-item {
         font-size: 8px;
+      }
+
+      .nav-item:first-child {
+        border-radius: 11px 0 0 11px;
+      }
+
+      .nav-item:last-child {
+        border-radius: 0 11px 11px 0;
+      }
+
+      .nav-item:has(+ .nav-item.is-active) {
+        border-radius: 0 11px 11px 0;
+      }
+
+      .nav-item.is-active + .nav-item {
+        border-radius: 11px 0 0 11px;
       }
 
       .nav-item svg {
@@ -606,7 +656,7 @@
       }
 
       .nav-item.is-active {
-        margin: 1px 4px;
+        margin: 0 6px;
         border-radius: 9px;
       }
     }
@@ -614,7 +664,7 @@
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.13">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.15">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
