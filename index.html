@@ -3,21 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.2</title>
+  <title>RF Atlas Shell v0.1.4</title>
 
   <style>
     :root {
-      --navy: #06172a;
-      --navy-2: #0a2038;
-      --cream: #fff6e5;
-      --cream-2: #f7ead1;
+      --page-width: 430px;
+
+      --navy-950: #031020;
+      --navy-900: #061426;
+      --navy-850: #071a2f;
+      --navy-800: #0a213a;
+      --navy-700: #102d4c;
+
+      --cream-50: #fff9ec;
+      --cream-100: #fbf0d8;
+      --cream-200: #f3dfb8;
+
       --gold: #f3c76c;
-      --gold-2: #ffe29b;
-      --gold-line: rgba(243, 199, 108, 0.48);
-      --white-line: rgba(255, 255, 255, 0.14);
-      --text: #102033;
-      --bottom-nav-height: 94px;
-      --bottom-lift: 14px;
+      --gold-soft: #ffe3a4;
+      --gold-line: rgba(243, 199, 108, 0.46);
+
+      --green: #16813b;
+      --blue: #1268c7;
+      --purple: #7d2ba3;
+
+      --top-shell-height: 178px;
+      --bottom-nav-height: 68px;
+      --bottom-lift: 10px;
     }
 
     * {
@@ -30,9 +42,9 @@
       margin: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at 50% 0%, rgba(36, 104, 160, 0.25), transparent 42%),
+        radial-gradient(circle at 50% 0%, rgba(36, 104, 160, 0.22), transparent 42%),
         linear-gradient(180deg, #031020 0%, #06172a 46%, #04111f 100%);
-      color: var(--text);
+      color: #102033;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
@@ -47,18 +59,27 @@
       font: inherit;
     }
 
+    button {
+      border: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
     svg {
       display: block;
       flex: 0 0 auto;
     }
 
     .phone {
-      width: min(100vw, 430px);
-      min-height: 100dvh;
       position: relative;
+      width: min(100vw, var(--page-width));
+      min-height: 100dvh;
       overflow-x: hidden;
-      background: var(--cream);
-      border-inline: 1px solid rgba(243, 199, 108, 0.22);
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.72), transparent 38%),
+        linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
+      border-inline: 1px solid rgba(243, 199, 108, 0.2);
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
       isolation: isolate;
     }
@@ -68,59 +89,58 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.34;
-      background-image:
-        radial-gradient(circle at 18% 12%, rgba(243, 199, 108, 0.12) 0 1px, transparent 1px),
-        radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px),
-        linear-gradient(110deg, transparent 0 42%, rgba(255, 255, 255, 0.04) 48%, transparent 54%);
-      background-size: 34px 34px, 47px 47px, 100% 100%;
-      mix-blend-mode: screen;
       z-index: 0;
+      opacity: 0.24;
+      background-image:
+        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.10) 37.2%, transparent 37.8%),
+        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.08) 58.2%, transparent 58.9%),
+        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.055), transparent 18%),
+        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.05), transparent 20%);
     }
 
     .top-shell {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: 12px 15px 16px;
+      height: var(--top-shell-height);
+      padding: 8px 11px 10px;
       color: #fff;
       background:
-        radial-gradient(circle at 50% 0%, rgba(255, 216, 139, 0.15), transparent 34%),
-        linear-gradient(180deg, #071a2f 0%, #081a2e 60%, #061425 100%);
-      border-bottom: 1px solid rgba(243, 199, 108, 0.32);
-      border-radius: 0 0 26px 26px;
-      box-shadow: 0 18px 36px rgba(3, 10, 20, 0.32);
+        radial-gradient(circle at 52% -16%, rgba(255, 226, 155, 0.18), transparent 36%),
+        linear-gradient(180deg, var(--navy-850) 0%, #071729 64%, #051322 100%);
+      border-bottom: 1px solid rgba(243, 199, 108, 0.34);
+      border-radius: 0 0 23px 23px;
+      box-shadow: 0 16px 34px rgba(3, 10, 20, 0.34);
     }
 
     .brand-row {
-      min-height: 62px;
+      height: 44px;
       display: grid;
-      grid-template-columns: 52px minmax(0, 1fr) 10px;
+      grid-template-columns: 42px minmax(0, 1fr) 42px;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
     }
 
-    .icon-button {
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--gold-line);
-      border-radius: 17px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-        rgba(8, 25, 45, 0.94);
-      color: var(--gold-2);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 12px 26px rgba(0, 0, 0, 0.18);
+    .menu-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      cursor: pointer;
+      color: var(--gold-soft);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        rgba(8, 25, 45, 0.94);
+      border: 1px solid rgba(243, 199, 108, 0.44);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 10px 22px rgba(0,0,0,0.18);
     }
 
-    .icon-button svg {
-      width: 27px;
-      height: 27px;
-      stroke-width: 2.7;
+    .menu-button svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 2.8;
     }
 
     .brand {
@@ -128,15 +148,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       overflow: hidden;
     }
 
     .brand-mark {
-      width: 36px;
-      height: 36px;
+      width: 31px;
+      height: 31px;
       color: var(--gold);
-      filter: drop-shadow(0 4px 12px rgba(243, 199, 108, 0.24));
+      filter: drop-shadow(0 4px 10px rgba(243, 199, 108, 0.24));
     }
 
     .brand-copy {
@@ -147,48 +167,47 @@
       margin: 0;
       color: #fffdf7;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(26px, 7.2vw, 33px);
+      font-size: clamp(23px, 6.5vw, 30px);
+      line-height: 0.92;
       letter-spacing: 0.04em;
-      line-height: 0.95;
-      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: clip;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.18);
     }
 
     .brand-subtitle {
-      margin: 5px 0 0;
-      color: var(--gold-2);
-      font-size: clamp(11px, 3.2vw, 13px);
+      margin: 4px 0 0;
+      color: var(--gold-soft);
+      font-size: clamp(10px, 2.8vw, 12px);
       font-weight: 650;
-      letter-spacing: 0.004em;
+      line-height: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .search-shell {
-      margin-top: 12px;
-      height: 56px;
+      margin-top: 9px;
+      height: 44px;
       display: grid;
-      grid-template-columns: 34px minmax(0, 1fr) 42px;
+      grid-template-columns: 30px minmax(0, 1fr) 34px;
       align-items: center;
-      gap: 9px;
-      padding: 0 10px 0 16px;
-      border: 1px solid rgba(243, 199, 108, 0.42);
-      border-radius: 20px;
+      gap: 8px;
+      padding: 0 8px 0 13px;
+      border-radius: 16px;
+      color: #fff;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
-        rgba(8, 24, 43, 0.93);
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025)),
+        rgba(8, 24, 43, 0.94);
+      border: 1px solid rgba(243, 199, 108, 0.44);
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 14px 30px rgba(0, 0, 0, 0.2);
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 11px 24px rgba(0,0,0,0.18);
     }
 
     .search-icon {
-      width: 30px;
-      height: 30px;
-      color: rgba(255, 255, 255, 0.94);
+      width: 26px;
+      height: 26px;
+      color: rgba(255,255,255,0.94);
     }
 
     .search-shell input {
@@ -197,137 +216,107 @@
       border: 0;
       outline: 0;
       background: transparent;
-      color: white;
-      font-size: clamp(15px, 4vw, 17px);
-      font-weight: 560;
+      color: #fff;
+      font-size: clamp(13px, 3.6vw, 15px);
+      font-weight: 540;
     }
 
     .search-shell input::placeholder {
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255,255,255,0.72);
     }
 
     .filter-button {
-      width: 42px;
-      height: 42px;
+      width: 34px;
+      height: 34px;
       display: grid;
       place-items: center;
-      border: 0;
-      border-radius: 14px;
-      color: var(--gold-2);
+      border-radius: 12px;
       background: transparent;
-      cursor: pointer;
+      color: var(--gold-soft);
     }
 
     .filter-button svg {
-      width: 29px;
-      height: 29px;
+      width: 24px;
+      height: 24px;
     }
 
     .quick-access {
-      margin-top: 13px;
+      margin-top: 9px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
+      gap: 7px;
     }
 
     .quick-chip {
       min-width: 0;
-      height: 60px;
-      padding: 0 8px;
-      border: 1px solid var(--white-line);
-      border-radius: 18px;
-      color: #fff;
+      height: 48px;
+      padding: 0 7px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      font-weight: 850;
-      font-size: clamp(15px, 4.3vw, 18px);
+      gap: 6px;
+      border-radius: 15px;
+      color: #fff;
+      font-size: clamp(13px, 3.7vw, 16px);
+      font-weight: 830;
       letter-spacing: 0.02em;
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.18),
-        0 12px 24px rgba(0, 0, 0, 0.22);
-      border-bottom-color: rgba(0, 0, 0, 0.32);
-      cursor: pointer;
+        inset 0 1px 0 rgba(255,255,255,0.19),
+        0 10px 21px rgba(0,0,0,0.22);
       overflow: hidden;
     }
 
     .quick-chip svg {
-      width: 25px;
-      height: 25px;
+      width: 22px;
+      height: 22px;
     }
 
     .quick-chip span {
-      min-width: 0;
       white-space: nowrap;
+      min-width: 0;
     }
 
     .quick-chip.is-dtt {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.18), transparent 42%),
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.18), transparent 42%),
         linear-gradient(135deg, #1d9b48, #0b562c);
-      border-color: rgba(93, 255, 133, 0.35);
+      border: 1px solid rgba(93, 255, 133, 0.34);
     }
 
     .quick-chip.is-dab {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.18), transparent 42%),
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.18), transparent 42%),
         linear-gradient(135deg, #127de4, #093a7e);
-      border-color: rgba(83, 176, 255, 0.42);
+      border: 1px solid rgba(83, 176, 255, 0.42);
     }
 
     .quick-chip.is-fm {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.2), transparent 42%),
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.2), transparent 42%),
         linear-gradient(135deg, #9a32bd, #4a176b);
-      border-color: rgba(234, 124, 255, 0.4);
+      border: 1px solid rgba(234, 124, 255, 0.4);
     }
 
     .quick-chip.is-more {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.12), transparent 42%),
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.12), transparent 42%),
         linear-gradient(135deg, #142c49, #081a2e);
-      border-color: rgba(243, 199, 108, 0.34);
-      font-weight: 790;
+      border: 1px solid rgba(243, 199, 108, 0.34);
+      font-weight: 760;
     }
 
     .content-canvas {
       position: relative;
       z-index: 1;
-      min-height: calc(100dvh - 238px);
-      padding: 20px 15px calc(var(--bottom-nav-height) + var(--bottom-lift) + 24px);
-      background:
-        radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.72), transparent 38%),
-        linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+      min-height: calc(100dvh - var(--top-shell-height));
+      padding: 13px 11px calc(var(--bottom-nav-height) + var(--bottom-lift) + 18px);
     }
 
-    .content-canvas::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.25;
-      background-image:
-        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.10) 37.2%, transparent 37.8%),
-        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.08) 58.2%, transparent 58.9%),
-        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.055), transparent 18%),
-        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.05), transparent 20%);
-    }
-
-    .blank-hint {
-      position: relative;
-      min-height: 50dvh;
-      border: 1px dashed rgba(10, 31, 54, 0.14);
-      border-radius: 24px;
+    .blank-canvas {
+      min-height: calc(100dvh - var(--top-shell-height) - var(--bottom-nav-height) - var(--bottom-lift) - 35px);
+      border-radius: 22px;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.13));
-      display: grid;
-      place-items: center;
-      color: rgba(16, 32, 51, 0.34);
-      text-align: center;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
+        radial-gradient(circle at 50% 34%, rgba(255,255,255,0.34), transparent 48%);
     }
 
     .bottom-shell {
@@ -335,9 +324,9 @@
       left: 50%;
       bottom: var(--bottom-lift);
       z-index: 20;
-      width: min(100vw, 430px);
+      width: min(100vw, var(--page-width));
       transform: translateX(-50%);
-      padding: 0 10px;
+      padding: 0 11px;
       pointer-events: none;
     }
 
@@ -347,10 +336,10 @@
       left: 0;
       right: 0;
       bottom: calc(var(--bottom-lift) * -1);
-      height: 130px;
-      background:
-        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.82) 38%, #061425 100%);
+      height: 108px;
       z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.78) 42%, #061425 100%);
       pointer-events: none;
     }
 
@@ -358,42 +347,40 @@
       height: var(--bottom-nav-height);
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 2px;
-      border: 1px solid rgba(243, 199, 108, 0.42);
-      border-radius: 26px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(255, 217, 133, 0.14), transparent 34%),
-        linear-gradient(180deg, #0b2139, #061625);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        0 -8px 28px rgba(4, 10, 18, 0.3);
+      gap: 1px;
+      border-radius: 22px;
       overflow: hidden;
       pointer-events: auto;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.14), transparent 34%),
+        linear-gradient(180deg, #0b2139, #061625);
+      border: 1px solid rgba(243, 199, 108, 0.42);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 -7px 24px rgba(4, 10, 18, 0.32);
     }
 
     .nav-item {
       position: relative;
       min-width: 0;
-      border: 0;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.84);
       display: grid;
       place-items: center;
       align-content: center;
-      gap: 7px;
-      font-size: 12px;
+      gap: 4px;
+      background: transparent;
+      color: rgba(255,255,255,0.86);
+      font-size: 10.5px;
       font-weight: 700;
-      cursor: pointer;
     }
 
     .nav-item::after {
       content: "";
       position: absolute;
       right: 0;
-      top: 16px;
-      bottom: 16px;
+      top: 14px;
+      bottom: 14px;
       width: 1px;
-      background: rgba(243, 199, 108, 0.16);
+      background: rgba(243, 199, 108, 0.14);
     }
 
     .nav-item:last-child::after,
@@ -402,108 +389,124 @@
     }
 
     .nav-item svg {
-      width: 27px;
-      height: 27px;
-      stroke-width: 2.2;
+      width: 23px;
+      height: 23px;
+      stroke-width: 2.25;
     }
 
     .nav-item.is-active {
-      color: var(--gold-2);
       margin: -1px 0;
-      border: 1px solid rgba(255, 223, 130, 0.8);
-      border-radius: 24px;
+      color: var(--gold-soft);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 223, 130, 0.82);
       background:
-        radial-gradient(circle at 50% 102%, rgba(255, 190, 47, 0.5), transparent 32%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015));
+        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.5), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015));
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.18),
-        0 0 24px rgba(255, 199, 75, 0.35);
-      transform: translateY(-4px);
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        0 0 22px rgba(255, 199, 75, 0.32);
+      transform: translateY(-3px);
     }
 
     .nav-item.is-active::before {
       content: "";
       position: absolute;
-      top: 5px;
+      top: 4px;
       left: 50%;
-      width: 38px;
+      width: 34px;
       height: 3px;
       transform: translateX(-50%);
       border-radius: 99px;
-      background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
-      box-shadow: 0 0 12px rgba(255, 224, 150, 0.9);
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+      box-shadow: 0 0 10px rgba(255, 224, 150, 0.88);
     }
 
     @media (max-width: 390px) {
       :root {
-        --bottom-nav-height: 88px;
-        --bottom-lift: 12px;
+        --top-shell-height: 170px;
+        --bottom-nav-height: 64px;
+        --bottom-lift: 9px;
       }
 
       .top-shell {
-        padding-inline: 13px;
+        padding: 7px 10px 9px;
+        border-radius: 0 0 22px 22px;
       }
 
       .brand-row {
-        grid-template-columns: 49px minmax(0, 1fr) 6px;
-        gap: 8px;
+        height: 42px;
+        grid-template-columns: 41px minmax(0, 1fr) 41px;
       }
 
-      .icon-button {
-        width: 48px;
-        height: 48px;
-      }
-
-      .brand {
-        gap: 7px;
+      .menu-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 13px;
       }
 
       .brand-mark {
-        width: 33px;
-        height: 33px;
+        width: 29px;
+        height: 29px;
       }
 
       .brand-title {
-        font-size: clamp(24px, 7vw, 30px);
-        letter-spacing: 0.03em;
+        font-size: clamp(22px, 6.1vw, 28px);
       }
 
       .brand-subtitle {
-        font-size: 11px;
+        font-size: 10px;
+      }
+
+      .search-shell {
+        height: 42px;
+        margin-top: 8px;
       }
 
       .quick-access {
-        gap: 7px;
+        margin-top: 8px;
+        gap: 6px;
       }
 
       .quick-chip {
-        height: 56px;
-        padding-inline: 6px;
+        height: 45px;
+        padding-inline: 5px;
         gap: 5px;
       }
 
       .quick-chip svg {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
       }
 
       .quick-chip.is-more {
-        font-size: 15px;
+        font-size: 13px;
+      }
+
+      .bottom-shell {
+        padding-inline: 10px;
+      }
+
+      .bottom-nav {
+        border-radius: 20px;
+      }
+
+      .nav-item {
+        font-size: 10px;
       }
 
       .nav-item svg {
-        width: 25px;
-        height: 25px;
+        width: 22px;
+        height: 22px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.2">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.4">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
-        <button class="icon-button" type="button" aria-label="Open menu">
+        <button class="menu-button" type="button" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
           </svg>
@@ -511,9 +514,9 @@
 
         <div class="brand" aria-label="RF Atlas">
           <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="24" cy="15" r="4" stroke-width="2.4" />
-            <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="24" cy="15" r="4" stroke-width="2.55" />
+            <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.55" stroke-linecap="round" />
           </svg>
 
           <div class="brand-copy">
@@ -531,7 +534,7 @@
           <path d="m16.5 16.5 4 4" stroke-width="2.3" stroke-linecap="round" />
         </svg>
 
-        <input type="search" placeholder="Search sites, paths, services" aria-label="Search" />
+        <input type="search" placeholder="Search sites, paths, services..." aria-label="Search" />
 
         <button class="filter-button" type="button" aria-label="Open filters">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -546,23 +549,23 @@
       <nav class="quick-access" aria-label="Quick access">
         <button class="quick-chip is-dtt" type="button">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M16 14v15M11 29l5-15 5 15M10 20h12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="16" cy="10" r="3" stroke-width="2.2" />
-            <path d="M8 11a8 8 0 0 1 0-8M24 3a8 8 0 0 1 0 8" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M16 14v15M11 29l5-15 5 15M10 20h12" stroke-width="2.45" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="16" cy="10" r="3" stroke-width="2.45" />
+            <path d="M8 11a8 8 0 0 1 0-8M24 3a8 8 0 0 1 0 8" stroke-width="2.45" stroke-linecap="round" />
           </svg>
           <span>DTT</span>
         </button>
 
         <button class="quick-chip is-dab" type="button">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M3 17h5l3-7 5 16 4-18 4 9h5" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 17h5l3-7 5 16 4-18 4 9h5" stroke-width="2.45" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <span>DAB</span>
         </button>
 
         <button class="quick-chip is-fm" type="button">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true">
-            <circle cx="16" cy="16" r="8" stroke-width="2.5" />
+            <circle cx="16" cy="16" r="8" stroke-width="2.75" />
           </svg>
           <span>FM</span>
         </button>
@@ -579,7 +582,7 @@
     </header>
 
     <section class="content-canvas" aria-label="Content canvas">
-      <div class="blank-hint">CONTENT AREA</div>
+      <div class="blank-canvas" aria-hidden="true"></div>
     </section>
 
     <footer class="bottom-shell">
