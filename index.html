@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.28</title>
+  <title>RF Atlas Shell v0.1.29</title>
 
   <style>
     /* =========================================================
@@ -36,7 +36,7 @@
       --purple: #733091;
       --purple-dark: #491962;
 
-      --top-shell-height: 134px;
+      --top-shell-height: 98px;
       --bottom-nav-height: 38px;
       --bottom-lift: 8px;
       --content-gap: 10px;
@@ -44,7 +44,7 @@
 
       --nav-button-width: 76px;
       --nav-active-gap: 8px;
-      --search-height: 32px;
+      --command-height: 38px;
 
       --control-bg:
         linear-gradient(180deg, rgba(255, 255, 255, 0.064), rgba(255, 255, 255, 0.018)),
@@ -143,10 +143,10 @@
 
     /* =========================================================
        04. Top shell
-       The top shell contains the menu button, brand, search bar, and quick-access chips.
+       The top shell contains one command bar plus the quick-access chips.
     ========================================================= */
 
-    /* The top shell is a compact navy ribbon with a soft shadow beneath it. */
+    /* The top shell is now a shorter navy ribbon with the brand folded into the command bar. */
     .top-shell {
       top: 0;
       height: var(--top-shell-height);
@@ -171,25 +171,25 @@
       background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
     }
 
-    /* The brand row keeps the menu button and logo centred without adding extra height. */
-    .brand-row {
-      height: 35px;
+    /* The command row holds the menu button and the branded search capsule. */
+    .command-row {
+      height: var(--command-height);
       display: grid;
-      grid-template-columns: 35px minmax(0, 1fr) 35px;
+      grid-template-columns: 34px minmax(0, 1fr);
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
-    /* Shared raised-control styling keeps the menu, search, and quick buttons visually related. */
+    /* Shared raised-control styling keeps the menu, command bar, and quick chips related. */
     .menu-button,
-    .search-shell,
+    .atlas-command,
     .quick-chip {
       box-shadow: var(--control-shadow);
     }
 
-    /* Menu and search share the same navy glass surface. */
+    /* Menu and command bar share the same navy glass surface. */
     .menu-button,
-    .search-shell {
+    .atlas-command {
       background: var(--control-bg);
       border: 1px solid var(--navy-outline);
     }
@@ -211,67 +211,15 @@
       stroke-width: 2.75;
     }
 
-    /* The brand group centres the antenna mark with the title copy. */
-    .brand {
+    /* The command bar reads as search first, brand second, RF identity third. */
+    .atlas-command {
+      height: var(--command-height);
       min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      overflow: hidden;
-    }
-
-    /* The brand mark uses gold to match the RF theme. */
-    .brand-mark {
-      width: 25px;
-      height: 25px;
-      color: var(--gold);
-      filter: drop-shadow(0 3px 8px rgba(237, 191, 99, 0.20));
-    }
-
-    /* The brand copy is allowed to shrink without breaking the row. */
-    .brand-copy {
-      min-width: 0;
-    }
-
-    /* The main title uses a serif face for the atlas-style identity. */
-    .brand-title {
-      margin: 0;
-      color: #fffdf7;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(20px, 5.65vw, 25px);
-      line-height: 0.92;
-      letter-spacing: 0.035em;
-      white-space: nowrap;
-      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
-    }
-
-    /* The subtitle is small, gold, and clipped if the viewport is tight. */
-    .brand-subtitle {
-      margin: 2px 0 0;
-      color: var(--gold-soft);
-      font-size: clamp(8.5px, 2.45vw, 10px);
-      font-weight: 640;
-      line-height: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* =========================================================
-       05. Search
-       The search bar is shorter than the nav buttons using the 5.5:6.5 ratio.
-    ========================================================= */
-
-    /* The search bar uses a compact grid for icon, input, and filter button. */
-    .search-shell {
-      height: var(--search-height);
-      margin-top: 7px;
-      padding: 0 7px 0 11px;
+      padding: 0 10px 0 11px;
       display: grid;
-      grid-template-columns: 22px minmax(0, 1fr) 26px;
+      grid-template-columns: 20px minmax(0, 1fr) 24px;
       align-items: center;
-      gap: 7px;
+      gap: 9px;
       color: #fff;
       border-radius: 10px;
     }
@@ -310,39 +258,26 @@
       transform-origin: left center;
     }
 
-    /* The input text is slightly smaller than the button labels. */
-    .search-shell input {
-      width: 100%;
+    /* ATLAS is the compact brand wordmark inside the search capsule. */
+    .atlas-word {
       min-width: 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: #fff;
-      font-size: clamp(10.8px, 3vw, 12.3px);
-      font-weight: 500;
-      letter-spacing: 0.005em;
+      color: #fffdf7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 5vw, 22px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     }
 
-    /* The placeholder is subdued but still readable. */
-    .search-shell input::placeholder {
-      color: rgba(255, 255, 255, 0.70);
-    }
-
-    /* The filter button sits inside the search field without adding another border. */
-    .filter-button {
-      width: 26px;
-      height: 26px;
-      display: grid;
-      place-items: center;
-      color: var(--gold-soft);
-      background: transparent;
-      border-radius: 8px;
-    }
-
-    /* The filter icon is smaller than the search field height. */
-    .filter-button svg {
-      width: 18px;
-      height: 18px;
+    /* The transmitter mark anchors the command bar back to the RF identity. */
+    .atlas-transmitter {
+      width: 22px;
+      height: 22px;
+      color: var(--gold);
+      filter: drop-shadow(0 3px 8px rgba(237, 191, 99, 0.20));
     }
 
     /* =========================================================
@@ -611,11 +546,11 @@
     @media (max-width: 390px) {
       /* Narrow screens use smaller fixed geometry while preserving the same ratios. */
       :root {
-        --top-shell-height: 124px;
+        --top-shell-height: 91px;
         --bottom-nav-height: 35px;
         --nav-button-width: 70px;
         --nav-active-gap: 6px;
-        --search-height: 30px;
+        --command-height: 35px;
         --content-gap: 9px;
         --content-radius: 18px;
       }
@@ -625,10 +560,11 @@
         padding: 6px 8px var(--content-gap);
       }
 
-      /* The brand row shrinks the side columns but keeps the logo centred. */
-      .brand-row {
-        height: 33px;
-        grid-template-columns: 33px minmax(0, 1fr) 33px;
+      /* The command row shrinks with the menu button. */
+      .command-row {
+        height: var(--command-height);
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 6px;
       }
 
       /* The menu button shrinks by two pixels on narrow screens. */
@@ -643,34 +579,24 @@
         height: 19px;
       }
 
-      /* The brand spacing tightens slightly on narrow screens. */
-      .brand {
-        gap: 5px;
-      }
-
-      /* The brand mark shrinks slightly on narrow screens. */
-      .brand-mark {
-        width: 24px;
-        height: 24px;
-      }
-
-      /* The title uses a smaller clamp on narrow screens. */
-      .brand-title {
-        font-size: clamp(19px, 5.45vw, 23px);
-      }
-
-      /* The subtitle shrinks to preserve the compact header. */
-      .brand-subtitle {
-        font-size: 8.5px;
-      }
-
-      /* The search bar keeps the ratio but tightens its top spacing. */
-      .search-shell {
-        margin-top: 6px;
+      /* The command bar follows the shorter narrow-screen height. */
+      .atlas-command {
+        height: var(--command-height);
         border-radius: 9px;
       }
 
-      /* The quick-access row moves slightly closer to the search bar. */
+      /* The compact wordmark scales down slightly on narrow screens. */
+      .atlas-word {
+        font-size: clamp(17px, 4.8vw, 20px);
+      }
+
+      /* The transmitter mark shrinks by one pixel on narrow screens. */
+      .atlas-transmitter {
+        width: 21px;
+        height: 21px;
+      }
+
+      /* The quick-access row moves slightly closer to the command bar. */
       .quick-access {
         margin-top: 5px;
       }
@@ -735,53 +661,32 @@
        App shell
        The main element represents one mobile app screen.
   ======================================================== -->
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.28">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.29">
 
     <!-- =====================================================
          Top shell
-         This fixed ribbon holds the brand, search, and quick actions.
+         This fixed ribbon holds the command bar and quick actions.
     ====================================================== -->
     <header class="top-shell">
 
-      <!-- Brand row: menu button, centred RF Atlas logo, and right spacer. -->
-      <section class="brand-row" aria-label="App header">
+      <!-- Command row: menu button plus search-style ATLAS identity capsule. -->
+      <section class="command-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
           </svg>
         </button>
 
-        <!-- Brand lockup: antenna mark and title copy. -->
-        <div class="brand" aria-label="RF Atlas">
-          <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
+        <button class="atlas-command" type="button" aria-label="Open search">
+          <span class="search-symbol" aria-hidden="true"></span>
+          <span class="atlas-word">ATLAS</span>
+          <svg class="atlas-transmitter" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
             <circle cx="24" cy="15" r="4" stroke-width="2.6" />
             <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.6" stroke-linecap="round" />
           </svg>
-
-          <div class="brand-copy">
-            <h1 class="brand-title">RF ATLAS</h1>
-            <p class="brand-subtitle">Your radio network companion</p>
-          </div>
-        </div>
-
-        <span aria-hidden="true"></span>
-      </section>
-
-      <!-- Search row: CSS icon, input, and filter control. -->
-      <form class="search-shell" role="search" aria-label="Search sites, paths and services">
-        <span class="search-symbol" aria-hidden="true"></span>
-        <input type="search" placeholder="Search sites, paths, services..." aria-label="Search" />
-
-        <button class="filter-button" type="button" aria-label="Open filters">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke-width="2" stroke-linecap="round" />
-            <circle cx="9" cy="7" r="2" fill="currentColor" stroke="none" />
-            <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
-            <circle cx="11" cy="17" r="2" fill="currentColor" stroke="none" />
-          </svg>
         </button>
-      </form>
+      </section>
 
       <!-- Quick actions: service category buttons. -->
       <nav class="quick-access" aria-label="Quick access">
