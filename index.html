@@ -3,9 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.27</title>
+  <title>RF Atlas Shell v0.1.28</title>
 
   <style>
+    /* =========================================================
+       01. Design tokens
+       These variables control colour, spacing, sizing, and reusable effects.
+    ========================================================= */
+
     :root {
       --page-width: 430px;
 
@@ -32,32 +37,39 @@
       --purple-dark: #491962;
 
       --top-shell-height: 134px;
+      --bottom-nav-height: 38px;
       --bottom-lift: 8px;
       --content-gap: 10px;
       --content-radius: 20px;
 
-      /* Geometry */
-      --bottom-nav-height: 38px;
       --nav-button-width: 76px;
       --nav-active-gap: 8px;
       --search-height: 32px;
 
-      --control-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 8px 18px rgba(0, 0, 0, 0.15);
       --control-bg:
         linear-gradient(180deg, rgba(255, 255, 255, 0.064), rgba(255, 255, 255, 0.018)),
         rgba(10, 32, 56, 0.94);
+
       --button-bg:
         radial-gradient(circle at 50% 0%, rgba(255, 217, 133, 0.07), transparent 34%),
         linear-gradient(180deg, var(--panel-blue), var(--panel-blue-low));
+
+      --control-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 8px 18px rgba(0, 0, 0, 0.15);
     }
+
+    /* =========================================================
+       02. Base reset
+       These rules remove browser quirks and keep mobile taps clean.
+    ========================================================= */
 
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* The page background frames the app shell when the viewport is wider than the phone canvas. */
     html,
     body {
       min-height: 100%;
@@ -70,16 +82,19 @@
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     }
 
+    /* The body centres the fixed-width mobile shell. */
     body {
       display: flex;
       justify-content: center;
     }
 
+    /* Form controls inherit the page font so labels stay consistent. */
     button,
     input {
       font: inherit;
     }
 
+    /* Buttons are visually controlled entirely by custom CSS. */
     button {
       border: 0;
       cursor: pointer;
@@ -87,17 +102,25 @@
       -webkit-appearance: none;
     }
 
+    /* SVG icons stay crisp and avoid flex shrinking. */
     svg {
       display: block;
       flex: 0 0 auto;
     }
 
+    /* =========================================================
+       03. App canvas
+       This is the phone-sized stage that holds the fixed header, content sheet, and dock.
+    ========================================================= */
+
+    /* These three shell layers share the same mobile width. */
     .phone,
     .top-shell,
     .bottom-shell {
       width: min(100vw, var(--page-width));
     }
 
+    /* The phone layer provides the dark blue gutter behind the cream content sheet. */
     .phone {
       position: relative;
       min-height: 100dvh;
@@ -109,6 +132,7 @@
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
     }
 
+    /* Fixed shell pieces stay pinned while the content area owns the middle. */
     .top-shell,
     .bottom-shell {
       position: fixed;
@@ -117,6 +141,12 @@
       transform: translateX(-50%);
     }
 
+    /* =========================================================
+       04. Top shell
+       The top shell contains the menu button, brand, search bar, and quick-access chips.
+    ========================================================= */
+
+    /* The top shell is a compact navy ribbon with a soft shadow beneath it. */
     .top-shell {
       top: 0;
       height: var(--top-shell-height);
@@ -129,6 +159,7 @@
       box-shadow: 0 12px 26px rgba(3, 10, 20, 0.24);
     }
 
+    /* The top shadow blends the ribbon into the content sheet below. */
     .top-shell::after {
       content: "";
       position: absolute;
@@ -140,6 +171,7 @@
       background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
     }
 
+    /* The brand row keeps the menu button and logo centred without adding extra height. */
     .brand-row {
       height: 35px;
       display: grid;
@@ -148,18 +180,21 @@
       gap: 6px;
     }
 
+    /* Shared raised-control styling keeps the menu, search, and quick buttons visually related. */
     .menu-button,
     .search-shell,
     .quick-chip {
       box-shadow: var(--control-shadow);
     }
 
+    /* Menu and search share the same navy glass surface. */
     .menu-button,
     .search-shell {
       background: var(--control-bg);
       border: 1px solid var(--navy-outline);
     }
 
+    /* The menu button is square and compact. */
     .menu-button {
       width: 34px;
       height: 34px;
@@ -169,12 +204,14 @@
       border-radius: 8px;
     }
 
+    /* The hamburger keeps the same width and stroke while using wider vertical spacing. */
     .menu-button svg {
       width: 20px;
       height: 20px;
       stroke-width: 2.75;
     }
 
+    /* The brand group centres the antenna mark with the title copy. */
     .brand {
       min-width: 0;
       display: flex;
@@ -184,6 +221,7 @@
       overflow: hidden;
     }
 
+    /* The brand mark uses gold to match the RF theme. */
     .brand-mark {
       width: 25px;
       height: 25px;
@@ -191,10 +229,12 @@
       filter: drop-shadow(0 3px 8px rgba(237, 191, 99, 0.20));
     }
 
+    /* The brand copy is allowed to shrink without breaking the row. */
     .brand-copy {
       min-width: 0;
     }
 
+    /* The main title uses a serif face for the atlas-style identity. */
     .brand-title {
       margin: 0;
       color: #fffdf7;
@@ -206,6 +246,7 @@
       text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     }
 
+    /* The subtitle is small, gold, and clipped if the viewport is tight. */
     .brand-subtitle {
       margin: 2px 0 0;
       color: var(--gold-soft);
@@ -217,6 +258,12 @@
       text-overflow: ellipsis;
     }
 
+    /* =========================================================
+       05. Search
+       The search bar is shorter than the nav buttons using the 5.5:6.5 ratio.
+    ========================================================= */
+
+    /* The search bar uses a compact grid for icon, input, and filter button. */
     .search-shell {
       height: var(--search-height);
       margin-top: 7px;
@@ -229,6 +276,7 @@
       border-radius: 10px;
     }
 
+    /* The search icon is drawn in CSS so Safari does not distort the SVG. */
     .search-symbol {
       width: 18px;
       height: 18px;
@@ -236,6 +284,7 @@
       display: block;
     }
 
+    /* The search icon lens is deliberately thin and small. */
     .search-symbol::before {
       content: "";
       position: absolute;
@@ -247,6 +296,7 @@
       border-radius: 50%;
     }
 
+    /* The search icon handle is matched to the thinner lens weight. */
     .search-symbol::after {
       content: "";
       position: absolute;
@@ -260,6 +310,7 @@
       transform-origin: left center;
     }
 
+    /* The input text is slightly smaller than the button labels. */
     .search-shell input {
       width: 100%;
       min-width: 0;
@@ -272,10 +323,12 @@
       letter-spacing: 0.005em;
     }
 
+    /* The placeholder is subdued but still readable. */
     .search-shell input::placeholder {
       color: rgba(255, 255, 255, 0.70);
     }
 
+    /* The filter button sits inside the search field without adding another border. */
     .filter-button {
       width: 26px;
       height: 26px;
@@ -286,11 +339,18 @@
       border-radius: 8px;
     }
 
+    /* The filter icon is smaller than the search field height. */
     .filter-button svg {
       width: 18px;
       height: 18px;
     }
 
+    /* =========================================================
+       06. Quick access chips
+       These coloured buttons provide fast access to radio service categories.
+    ========================================================= */
+
+    /* The quick-access row uses four equal columns. */
     .quick-access {
       margin-top: 6px;
       display: grid;
@@ -298,6 +358,7 @@
       gap: 5px;
     }
 
+    /* Each quick chip is compact, readable, and aligned to the nav height. */
     .quick-chip {
       min-width: 0;
       height: 38px;
@@ -314,36 +375,42 @@
       overflow: hidden;
     }
 
+    /* Quick-chip icons stay the same size across all four buttons. */
     .quick-chip svg {
       width: 18px;
       height: 18px;
       flex: 0 0 18px;
     }
 
+    /* Quick-chip labels stay centred and never wrap. */
     .quick-chip span {
       min-width: 0;
       white-space: nowrap;
       text-align: center;
     }
 
+    /* The DTT chip owns the green broadcast colour pair. */
     .is-dtt {
       --chip-main: var(--green);
       --chip-dark: var(--green-dark);
       --chip-border: rgba(22, 83, 46, 0.70);
     }
 
+    /* The DAB chip owns the blue waveform colour pair. */
     .is-dab {
       --chip-main: var(--blue);
       --chip-dark: var(--blue-dark);
       --chip-border: rgba(14, 64, 120, 0.78);
     }
 
+    /* The FM chip owns the purple frequency colour pair. */
     .is-fm {
       --chip-main: var(--purple);
       --chip-dark: var(--purple-dark);
       --chip-border: rgba(83, 33, 105, 0.78);
     }
 
+    /* The coloured service chips share one gradient recipe. */
     .quick-chip:not(.is-more) {
       background:
         radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.13), transparent 42%),
@@ -351,6 +418,7 @@
       border: 1px solid var(--chip-border);
     }
 
+    /* The More chip uses the same navy family as the rest of the shell. */
     .quick-chip.is-more {
       background:
         radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.09), transparent 42%),
@@ -359,6 +427,12 @@
       font-weight: 720;
     }
 
+    /* =========================================================
+       07. Content sheet
+       The cream inlay is the future page body and sits between the fixed shells.
+    ========================================================= */
+
+    /* The content sheet uses equal blue gutters on the top, sides, and bottom. */
     .content-canvas {
       position: relative;
       z-index: 10;
@@ -379,6 +453,7 @@
         0 14px 30px rgba(2, 9, 20, 0.26);
     }
 
+    /* The content texture and glow use absolute overlays. */
     .content-canvas::before,
     .blank-canvas {
       position: absolute;
@@ -387,6 +462,7 @@
       content: "";
     }
 
+    /* The texture overlay gives the cream sheet a quiet map-paper feel. */
     .content-canvas::before {
       z-index: 0;
       opacity: 0.20;
@@ -397,17 +473,25 @@
         radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.04), transparent 20%);
     }
 
+    /* The blank canvas glow keeps the empty shell from feeling flat. */
     .blank-canvas {
       z-index: 1;
       background: radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.34), transparent 48%);
     }
 
+    /* =========================================================
+       08. Bottom dock
+       The bottom navigation uses separated button groups with a highlighted RF tab.
+    ========================================================= */
+
+    /* The dock floats above the phone bottom with a small lift. */
     .bottom-shell {
       bottom: var(--bottom-lift);
       padding: 0 10px;
       pointer-events: none;
     }
 
+    /* The dock fade seats the nav buttons into the dark shell. */
     .bottom-shell::before {
       content: "";
       position: absolute;
@@ -421,6 +505,7 @@
         linear-gradient(180deg, rgba(6, 24, 43, 0), var(--shell-blue) 40%, var(--shell-blue) 100%);
     }
 
+    /* The nav uses fixed-width buttons so every tab stays 2:1 width-to-height. */
     .bottom-nav {
       height: var(--bottom-nav-height);
       display: flex;
@@ -433,6 +518,7 @@
       pointer-events: auto;
     }
 
+    /* Each nav button has its own panel surface so the RF tab can be physically separated. */
     .nav-item {
       position: relative;
       width: var(--nav-button-width);
@@ -454,24 +540,28 @@
         0 -5px 18px rgba(4, 10, 18, 0.22);
     }
 
+    /* Left edges are rounded only at the start of a visual button group. */
     .nav-item:first-child,
     .nav-item.is-group-start {
       border-left: 1px solid var(--navy-outline);
       border-radius: 12px 0 0 12px;
     }
 
+    /* Right edges are rounded only at the end of a visual button group. */
     .nav-item:last-child,
     .nav-item.is-group-end {
       border-right: 1px solid var(--navy-outline);
       border-radius: 0 12px 12px 0;
     }
 
+    /* Nav icons are intentionally small to stay crisp in the compact dock. */
     .nav-item svg {
       width: 16px;
       height: 16px;
       stroke-width: 2.1;
     }
 
+    /* Nav labels are centred below their icons. */
     .nav-item span {
       position: relative;
       z-index: 2;
@@ -480,6 +570,7 @@
       line-height: 1;
     }
 
+    /* The active RF tab is separated with real blue gutter space on both sides. */
     .nav-item.is-active {
       z-index: 3;
       margin-inline: var(--nav-active-gap);
@@ -498,6 +589,7 @@
       overflow: hidden;
     }
 
+    /* The active tab shimmer sits directly on the bottom border. */
     .nav-item.is-active::after {
       content: "";
       position: absolute;
@@ -511,7 +603,13 @@
       box-shadow: 0 0 8px rgba(255, 199, 75, 0.55);
     }
 
+    /* =========================================================
+       09. Narrow phones
+       These overrides keep the shell proportional on smaller iPhone widths.
+    ========================================================= */
+
     @media (max-width: 390px) {
+      /* Narrow screens use smaller fixed geometry while preserving the same ratios. */
       :root {
         --top-shell-height: 124px;
         --bottom-nav-height: 35px;
@@ -522,90 +620,109 @@
         --content-radius: 18px;
       }
 
+      /* The top shell uses narrower side padding on smaller screens. */
       .top-shell {
         padding: 6px 8px var(--content-gap);
       }
 
+      /* The brand row shrinks the side columns but keeps the logo centred. */
       .brand-row {
         height: 33px;
         grid-template-columns: 33px minmax(0, 1fr) 33px;
       }
 
+      /* The menu button shrinks by two pixels on narrow screens. */
       .menu-button {
         width: 32px;
         height: 32px;
       }
 
+      /* The hamburger icon shrinks with the button. */
       .menu-button svg {
         width: 19px;
         height: 19px;
       }
 
+      /* The brand spacing tightens slightly on narrow screens. */
       .brand {
         gap: 5px;
       }
 
+      /* The brand mark shrinks slightly on narrow screens. */
       .brand-mark {
         width: 24px;
         height: 24px;
       }
 
+      /* The title uses a smaller clamp on narrow screens. */
       .brand-title {
         font-size: clamp(19px, 5.45vw, 23px);
       }
 
+      /* The subtitle shrinks to preserve the compact header. */
       .brand-subtitle {
         font-size: 8.5px;
       }
 
+      /* The search bar keeps the ratio but tightens its top spacing. */
       .search-shell {
         margin-top: 6px;
         border-radius: 9px;
       }
 
+      /* The quick-access row moves slightly closer to the search bar. */
       .quick-access {
         margin-top: 5px;
       }
 
+      /* Quick chips match the smaller nav-button height. */
       .quick-chip {
         height: 35px;
         padding-inline: 4px;
         border-radius: 7px;
       }
 
+      /* Quick-chip icons shrink by one pixel on narrow screens. */
       .quick-chip svg {
         width: 17px;
         height: 17px;
         flex-basis: 17px;
       }
 
+      /* The More label is reduced because it has the tightest button. */
       .quick-chip.is-more {
         font-size: 11px;
       }
 
+      /* The bottom shell aligns with the narrower side gutter. */
       .bottom-shell {
         padding-inline: 9px;
       }
 
+      /* Group starts use slightly smaller corner radii. */
       .nav-item:first-child,
       .nav-item.is-group-start {
         border-radius: 11px 0 0 11px;
       }
 
+      /* Group ends use slightly smaller corner radii. */
       .nav-item:last-child,
       .nav-item.is-group-end {
         border-radius: 0 11px 11px 0;
       }
 
+      /* Nav labels are slightly smaller to avoid blur and crowding. */
       .nav-item {
         font-size: 7.5px;
       }
 
+      /* Nav icons shrink by one pixel on narrow screens. */
       .nav-item svg {
         width: 15px;
         height: 15px;
       }
 
+      /* The active tab radius follows the smaller dock height. */
       .nav-item.is-active {
         border-radius: 9px;
       }
@@ -614,8 +731,19 @@
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.27">
+  <!-- =======================================================
+       App shell
+       The main element represents one mobile app screen.
+  ======================================================== -->
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.28">
+
+    <!-- =====================================================
+         Top shell
+         This fixed ribbon holds the brand, search, and quick actions.
+    ====================================================== -->
     <header class="top-shell">
+
+      <!-- Brand row: menu button, centred RF Atlas logo, and right spacer. -->
       <section class="brand-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -623,6 +751,7 @@
           </svg>
         </button>
 
+        <!-- Brand lockup: antenna mark and title copy. -->
         <div class="brand" aria-label="RF Atlas">
           <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -639,9 +768,9 @@
         <span aria-hidden="true"></span>
       </section>
 
+      <!-- Search row: CSS icon, input, and filter control. -->
       <form class="search-shell" role="search" aria-label="Search sites, paths and services">
         <span class="search-symbol" aria-hidden="true"></span>
-
         <input type="search" placeholder="Search sites, paths, services..." aria-label="Search" />
 
         <button class="filter-button" type="button" aria-label="Open filters">
@@ -654,6 +783,7 @@
         </button>
       </form>
 
+      <!-- Quick actions: service category buttons. -->
       <nav class="quick-access" aria-label="Quick access">
         <button class="quick-chip is-dtt" type="button" aria-label="DTT">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -714,12 +844,22 @@
       </nav>
     </header>
 
+    <!-- =====================================================
+         Content sheet
+         This blank cream panel is the reserved page body.
+    ====================================================== -->
     <section class="content-canvas" aria-label="Content canvas">
       <div class="blank-canvas" aria-hidden="true"></div>
     </section>
 
+    <!-- =====================================================
+         Bottom dock
+         This fixed nav keeps the RF tab active and separated.
+    ====================================================== -->
     <footer class="bottom-shell">
       <nav class="bottom-nav" aria-label="Primary navigation">
+
+        <!-- Map tab. -->
         <button class="nav-item" type="button" aria-label="Map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M3 6.5 9 4l6 2.5 6-2.5v13.5L15 20l-6-2.5L3 20V6.5Z" stroke-linejoin="round" />
@@ -728,6 +868,7 @@
           <span>Map</span>
         </button>
 
+        <!-- Sites tab ends the left grouped pair. -->
         <button class="nav-item is-group-end" type="button" aria-label="Sites">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M4 11.5 12 5l8 6.5V20H6v-8" stroke-linecap="round" stroke-linejoin="round" />
@@ -736,6 +877,7 @@
           <span>Sites</span>
         </button>
 
+        <!-- RF tab is active and physically separated by the blue gutter. -->
         <button class="nav-item is-active" type="button" aria-label="RF, selected" aria-current="page">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M12 10v11M8 21l4-11 4 11M8.5 16h7" stroke-linecap="round" stroke-linejoin="round" />
@@ -745,6 +887,7 @@
           <span>RF</span>
         </button>
 
+        <!-- Network tab starts the right grouped pair. -->
         <button class="nav-item is-group-start" type="button" aria-label="Network">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="9" y="3" width="6" height="5" rx="1.1" />
@@ -755,6 +898,7 @@
           <span>Network</span>
         </button>
 
+        <!-- Tools tab uses a readable single-wrench icon. -->
         <button class="nav-item" type="button" aria-label="Tools">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 6.4a5 5 0 0 1-6.3 6.2L8.1 19.2a2.6 2.6 0 0 1-3.7-3.7l6.6-6.6A5 5 0 0 1 17.2 2.6l-3 3 2.2 2.2 3-3c.6.4 1.1.9 1.6 1.6Z" />
