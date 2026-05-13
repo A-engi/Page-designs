@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.29</title>
+  <title>RF Atlas Shell v0.1.32</title>
 
   <style>
     /* =========================================================
@@ -37,6 +37,7 @@
       --purple-dark: #491962;
 
       --top-shell-height: 98px;
+      --top-shell-height-collapsed: 58px;
       --bottom-nav-height: 38px;
       --bottom-lift: 8px;
       --content-gap: 10px;
@@ -132,6 +133,11 @@
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
     }
 
+    /* The collapsed state shortens the fixed header so the content snaps upward. */
+    .phone.quick-collapsed {
+      --top-shell-height: var(--top-shell-height-collapsed);
+    }
+
     /* Fixed shell pieces stay pinned while the content area owns the middle. */
     .top-shell,
     .bottom-shell {
@@ -155,8 +161,10 @@
       background:
         radial-gradient(circle at 52% -12%, rgba(255, 222, 158, 0.13), transparent 38%),
         linear-gradient(180deg, var(--navy-top) 0%, var(--navy-mid) 62%, var(--navy-low) 100%);
+      overflow: hidden;
       border-bottom: 1px solid rgba(237, 191, 99, 0.18);
       box-shadow: 0 12px 26px rgba(3, 10, 20, 0.24);
+      transition: height 160ms ease;
     }
 
     /* The top shadow blends the ribbon into the content sheet below. */
@@ -171,7 +179,7 @@
       background: linear-gradient(180deg, rgba(3, 10, 20, 0.24), rgba(3, 10, 20, 0));
     }
 
-    /* The command row holds the menu button and the branded search capsule. */
+    /* The command row holds the menu button and a compact search capsule with the ATLAS mark at the right. */
     .command-row {
       height: var(--command-height);
       display: grid;
@@ -211,15 +219,15 @@
       stroke-width: 2.75;
     }
 
-    /* The command bar reads as search first, brand second, RF identity third. */
+    /* The command bar reads as search first, then a divider, then the transmitter mark and ATLAS word. */
     .atlas-command {
       height: var(--command-height);
       min-width: 0;
       padding: 0 10px 0 11px;
       display: grid;
-      grid-template-columns: 20px minmax(0, 1fr) 24px;
+      grid-template-columns: 20px minmax(0, 1fr) 1px auto;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       color: #fff;
       border-radius: 10px;
     }
@@ -258,26 +266,55 @@
       transform-origin: left center;
     }
 
-    /* ATLAS is the compact brand wordmark inside the search capsule. */
-    .atlas-word {
+    /* The search text gives the capsule a clear action without making it noisy. */
+    .command-search-text {
       min-width: 0;
-      color: #fffdf7;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(18px, 5vw, 22px);
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.70);
+      font-size: clamp(10.8px, 3vw, 12.3px);
+      font-weight: 500;
+      letter-spacing: 0.005em;
       line-height: 1;
-      text-align: center;
       white-space: nowrap;
-      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* The transmitter mark anchors the command bar back to the RF identity. */
+    /* The divider separates search from the ATLAS identity mark. */
+    .command-divider {
+      width: 1px;
+      height: 18px;
+      border-radius: 99px;
+      background: rgba(237, 191, 99, 0.30);
+      box-shadow: 0 0 8px rgba(237, 191, 99, 0.10);
+    }
+
+    /* The right identity group keeps the transmitter and ATLAS word together. */
+    .atlas-identity {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    /* The transmitter mark anchors the command bar back to the RF Atlas identity. */
     .atlas-transmitter {
       width: 22px;
       height: 22px;
       color: var(--gold);
       filter: drop-shadow(0 3px 8px rgba(237, 191, 99, 0.20));
+    }
+
+    /* The small ATLAS word sits after the transmitter mark on the right. */
+    .atlas-mini-word {
+      color: #fffdf7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(13px, 3.7vw, 16px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      white-space: nowrap;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     }
 
     /* =========================================================
@@ -362,6 +399,52 @@
       font-weight: 720;
     }
 
+    /* The quick row fades away when the service bar is collapsed. */
+    .quick-access {
+      transition:
+        opacity 140ms ease,
+        transform 140ms ease;
+    }
+
+    /* The quick toggle is a small handle that collapses or expands the service row. */
+    .quick-toggle {
+      position: absolute;
+      left: 50%;
+      bottom: 3px;
+      width: 54px;
+      height: 8px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      transform: translateX(-50%);
+      color: var(--gold-soft);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* The toggle handle reads as a subtle gold grip rather than another full button. */
+    .quick-toggle::before {
+      content: "";
+      width: 34px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 221, 160, 0.90), transparent);
+      box-shadow: 0 0 7px rgba(255, 199, 75, 0.45);
+    }
+
+    /* The collapsed shell hides the DTT/DAB/FM/More row while keeping the handle tappable. */
+    .phone.quick-collapsed .quick-access {
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+    }
+
+    /* The collapsed handle flips into a smaller prompt for reopening the service row. */
+    .phone.quick-collapsed .quick-toggle::before {
+      width: 24px;
+      opacity: 0.82;
+    }
+
     /* =========================================================
        07. Content sheet
        The cream inlay is the future page body and sits between the fixed shells.
@@ -386,6 +469,9 @@
         0 -2px 0 rgba(255, 226, 160, 0.20),
         0 0 0 1px rgba(85, 55, 10, 0.14),
         0 14px 30px rgba(2, 9, 20, 0.26);
+      transition:
+        height 160ms ease,
+        margin 160ms ease;
     }
 
     /* The content texture and glow use absolute overlays. */
@@ -547,6 +633,7 @@
       /* Narrow screens use smaller fixed geometry while preserving the same ratios. */
       :root {
         --top-shell-height: 91px;
+        --top-shell-height-collapsed: 54px;
         --bottom-nav-height: 35px;
         --nav-button-width: 70px;
         --nav-active-gap: 6px;
@@ -585,15 +672,27 @@
         border-radius: 9px;
       }
 
-      /* The compact wordmark scales down slightly on narrow screens. */
-      .atlas-word {
-        font-size: clamp(17px, 4.8vw, 20px);
+      /* The search text stays compact on narrow screens. */
+      .command-search-text {
+        font-size: clamp(10.2px, 2.9vw, 11.8px);
       }
 
-      /* The transmitter mark shrinks by one pixel on narrow screens. */
+      /* The divider and ATLAS identity shrink slightly on narrow screens. */
+      .command-divider {
+        height: 16px;
+      }
+
+      .atlas-identity {
+        gap: 4px;
+      }
+
       .atlas-transmitter {
         width: 21px;
         height: 21px;
+      }
+
+      .atlas-mini-word {
+        font-size: clamp(12px, 3.3vw, 14px);
       }
 
       /* The quick-access row moves slightly closer to the command bar. */
@@ -661,7 +760,7 @@
        App shell
        The main element represents one mobile app screen.
   ======================================================== -->
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.29">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.32">
 
     <!-- =====================================================
          Top shell
@@ -669,7 +768,7 @@
     ====================================================== -->
     <header class="top-shell">
 
-      <!-- Command row: menu button plus search-style ATLAS identity capsule. -->
+      <!-- Command row: menu button plus search text, divider, and ATLAS transmitter mark. -->
       <section class="command-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -679,12 +778,16 @@
 
         <button class="atlas-command" type="button" aria-label="Open search">
           <span class="search-symbol" aria-hidden="true"></span>
-          <span class="atlas-word">ATLAS</span>
-          <svg class="atlas-transmitter" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="24" cy="15" r="4" stroke-width="2.6" />
-            <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.6" stroke-linecap="round" />
-          </svg>
+          <span class="command-search-text">Searchâ¦</span>
+          <span class="command-divider" aria-hidden="true"></span>
+          <span class="atlas-identity" aria-label="ATLAS">
+            <svg class="atlas-transmitter" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M24 19v24M17 43l7-24 7 24M15 31h18M19 22h10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="24" cy="15" r="4" stroke-width="2.6" />
+              <path d="M14 16a12 12 0 0 1 0-12M34 4a12 12 0 0 1 0 12M8 20a20 20 0 0 1 0-20M40 0a20 20 0 0 1 0 20" stroke-width="2.6" stroke-linecap="round" />
+            </svg>
+            <span class="atlas-mini-word">ATLAS</span>
+          </span>
         </button>
       </section>
 
@@ -747,6 +850,9 @@
           <span>More</span>
         </button>
       </nav>
+
+      <!-- Service-row toggle: collapses or expands the DTT/DAB/FM/More bar. -->
+      <button class="quick-toggle" type="button" aria-label="Collapse service buttons" aria-expanded="true"></button>
     </header>
 
     <!-- =====================================================
@@ -814,5 +920,33 @@
       </nav>
     </footer>
   </main>
+
+  <script>
+    /* =======================================================
+       Shell interaction
+       This keeps the service row collapsible and lets the content snap to it.
+    ======================================================== */
+
+    (() => {
+      const app = document.querySelector(".phone");
+      const toggle = document.querySelector(".quick-toggle");
+
+      if (!app || !toggle) return;
+
+      const setCollapsed = (collapsed) => {
+        app.classList.toggle("quick-collapsed", collapsed);
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+        toggle.setAttribute(
+          "aria-label",
+          collapsed ? "Expand service buttons" : "Collapse service buttons"
+        );
+      };
+
+      toggle.addEventListener("click", () => {
+        setCollapsed(!app.classList.contains("quick-collapsed"));
+      });
+    })();
+  </script>
+
 </body>
 </html>
