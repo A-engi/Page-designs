@@ -3,32 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>RF Atlas Shell v0.1.4</title>
+  <title>RF Atlas Shell v0.1.5</title>
 
   <style>
     :root {
       --page-width: 430px;
 
-      --navy-950: #031020;
-      --navy-900: #061426;
-      --navy-850: #071a2f;
-      --navy-800: #0a213a;
-      --navy-700: #102d4c;
+      /* Closer to the original concept: cleaner blue/navy, less black */
+      --navy-950: #041426;
+      --navy-900: #071c33;
+      --navy-850: #0a2440;
+      --navy-800: #102e50;
+      --navy-700: #183a61;
 
-      --cream-50: #fff9ec;
-      --cream-100: #fbf0d8;
-      --cream-200: #f3dfb8;
+      /* Slightly less yellow than v0.1.4 */
+      --cream-50: #fffaf0;
+      --cream-100: #f8efd9;
+      --cream-200: #ead8ad;
 
-      --gold: #f3c76c;
-      --gold-soft: #ffe3a4;
-      --gold-line: rgba(243, 199, 108, 0.46);
+      --gold: #edbf63;
+      --gold-soft: #ffdda0;
+      --gold-line: rgba(237, 191, 99, 0.42);
 
-      --green: #16813b;
-      --blue: #1268c7;
-      --purple: #7d2ba3;
+      /* Muted to match the original generated design more closely */
+      --green: #16733a;
+      --green-dark: #0d4d2a;
+      --blue: #0f5fab;
+      --blue-dark: #0a3975;
+      --purple: #733091;
+      --purple-dark: #491962;
 
-      --top-shell-height: 178px;
-      --bottom-nav-height: 68px;
+      --top-shell-height: 160px;
+      --bottom-nav-height: 58px;
       --bottom-lift: 10px;
     }
 
@@ -42,7 +48,7 @@
       margin: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at 50% 0%, rgba(36, 104, 160, 0.22), transparent 42%),
+        radial-gradient(circle at 50% 0%, rgba(38, 104, 156, 0.20), transparent 42%),
         linear-gradient(180deg, #031020 0%, #06172a 46%, #04111f 100%);
       color: #102033;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -77,9 +83,9 @@
       min-height: 100dvh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.72), transparent 38%),
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.76), transparent 38%),
         linear-gradient(180deg, var(--cream-50) 0%, var(--cream-100) 100%);
-      border-inline: 1px solid rgba(243, 199, 108, 0.2);
+      border-inline: 1px solid rgba(237, 191, 99, 0.18);
       box-shadow: 0 22px 60px rgba(2, 9, 20, 0.32);
       isolation: isolate;
     }
@@ -90,12 +96,12 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.24;
+      opacity: 0.22;
       background-image:
-        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.10) 37.2%, transparent 37.8%),
-        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.08) 58.2%, transparent 58.9%),
-        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.055), transparent 18%),
-        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.05), transparent 20%);
+        linear-gradient(25deg, transparent 0 37%, rgba(66, 44, 18, 0.08) 37.2%, transparent 37.8%),
+        linear-gradient(143deg, transparent 0 58%, rgba(66, 44, 18, 0.06) 58.2%, transparent 58.9%),
+        radial-gradient(circle at 18% 28%, rgba(33, 90, 120, 0.048), transparent 18%),
+        radial-gradient(circle at 82% 56%, rgba(33, 90, 120, 0.044), transparent 20%);
     }
 
     .top-shell {
@@ -103,43 +109,43 @@
       top: 0;
       z-index: 10;
       height: var(--top-shell-height);
-      padding: 8px 11px 10px;
+      padding: 7px 10px 9px;
       color: #fff;
       background:
-        radial-gradient(circle at 52% -16%, rgba(255, 226, 155, 0.18), transparent 36%),
-        linear-gradient(180deg, var(--navy-850) 0%, #071729 64%, #051322 100%);
-      border-bottom: 1px solid rgba(243, 199, 108, 0.34);
-      border-radius: 0 0 23px 23px;
-      box-shadow: 0 16px 34px rgba(3, 10, 20, 0.34);
+        radial-gradient(circle at 52% -12%, rgba(255, 222, 158, 0.14), transparent 36%),
+        linear-gradient(180deg, var(--navy-850) 0%, var(--navy-900) 64%, #061626 100%);
+      border-bottom: 1px solid rgba(237, 191, 99, 0.30);
+      border-radius: 0 0 21px 21px;
+      box-shadow: 0 14px 30px rgba(3, 10, 20, 0.30);
     }
 
     .brand-row {
-      height: 44px;
+      height: 39px;
       display: grid;
-      grid-template-columns: 42px minmax(0, 1fr) 42px;
+      grid-template-columns: 38px minmax(0, 1fr) 38px;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .menu-button {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
       color: var(--gold-soft);
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
-        rgba(8, 25, 45, 0.94);
-      border: 1px solid rgba(243, 199, 108, 0.44);
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.018)),
+        rgba(8, 28, 50, 0.92);
+      border: 1px solid rgba(237, 191, 99, 0.40);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 10px 22px rgba(0,0,0,0.18);
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 8px 18px rgba(0,0,0,0.16);
     }
 
     .menu-button svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       stroke-width: 2.8;
     }
 
@@ -148,15 +154,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 6px;
       overflow: hidden;
     }
 
     .brand-mark {
-      width: 31px;
-      height: 31px;
+      width: 28px;
+      height: 28px;
       color: var(--gold);
-      filter: drop-shadow(0 4px 10px rgba(243, 199, 108, 0.24));
+      filter: drop-shadow(0 3px 8px rgba(237, 191, 99, 0.22));
     }
 
     .brand-copy {
@@ -167,18 +173,18 @@
       margin: 0;
       color: #fffdf7;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(23px, 6.5vw, 30px);
+      font-size: clamp(21px, 6.1vw, 27px);
       line-height: 0.92;
       letter-spacing: 0.04em;
       white-space: nowrap;
-      text-shadow: 0 2px 0 rgba(0,0,0,0.18);
+      text-shadow: 0 2px 0 rgba(0,0,0,0.16);
     }
 
     .brand-subtitle {
-      margin: 4px 0 0;
+      margin: 3px 0 0;
       color: var(--gold-soft);
-      font-size: clamp(10px, 2.8vw, 12px);
-      font-weight: 650;
+      font-size: clamp(9.5px, 2.65vw, 11px);
+      font-weight: 640;
       line-height: 1;
       white-space: nowrap;
       overflow: hidden;
@@ -186,27 +192,27 @@
     }
 
     .search-shell {
-      margin-top: 9px;
-      height: 44px;
+      margin-top: 8px;
+      height: 40px;
       display: grid;
-      grid-template-columns: 30px minmax(0, 1fr) 34px;
+      grid-template-columns: 27px minmax(0, 1fr) 31px;
       align-items: center;
-      gap: 8px;
-      padding: 0 8px 0 13px;
-      border-radius: 16px;
+      gap: 7px;
+      padding: 0 8px 0 12px;
+      border-radius: 15px;
       color: #fff;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025)),
-        rgba(8, 24, 43, 0.94);
-      border: 1px solid rgba(243, 199, 108, 0.44);
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.022)),
+        rgba(10, 32, 56, 0.94);
+      border: 1px solid rgba(237, 191, 99, 0.38);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 11px 24px rgba(0,0,0,0.18);
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 9px 20px rgba(0,0,0,0.16);
     }
 
     .search-icon {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       color: rgba(255,255,255,0.94);
     }
 
@@ -217,58 +223,58 @@
       outline: 0;
       background: transparent;
       color: #fff;
-      font-size: clamp(13px, 3.6vw, 15px);
+      font-size: clamp(12px, 3.35vw, 14px);
       font-weight: 540;
     }
 
     .search-shell input::placeholder {
-      color: rgba(255,255,255,0.72);
+      color: rgba(255,255,255,0.70);
     }
 
     .filter-button {
-      width: 34px;
-      height: 34px;
+      width: 31px;
+      height: 31px;
       display: grid;
       place-items: center;
-      border-radius: 12px;
+      border-radius: 11px;
       background: transparent;
       color: var(--gold-soft);
     }
 
     .filter-button svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
     }
 
     .quick-access {
-      margin-top: 9px;
+      margin-top: 8px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 7px;
+      gap: 6px;
     }
 
     .quick-chip {
       min-width: 0;
-      height: 48px;
-      padding: 0 7px;
+      height: 42px;
+      padding: 0 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      border-radius: 15px;
+      gap: 5px;
+      border-radius: 14px;
       color: #fff;
-      font-size: clamp(13px, 3.7vw, 16px);
-      font-weight: 830;
-      letter-spacing: 0.02em;
+      font-size: clamp(12px, 3.45vw, 14.5px);
+      font-weight: 820;
+      letter-spacing: 0.018em;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.19),
-        0 10px 21px rgba(0,0,0,0.22);
+        inset 0 1px 0 rgba(255,255,255,0.16),
+        0 8px 18px rgba(0,0,0,0.20);
       overflow: hidden;
     }
 
     .quick-chip svg {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
     }
 
     .quick-chip span {
@@ -278,45 +284,45 @@
 
     .quick-chip.is-dtt {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.18), transparent 42%),
-        linear-gradient(135deg, #1d9b48, #0b562c);
-      border: 1px solid rgba(93, 255, 133, 0.34);
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.16), transparent 42%),
+        linear-gradient(135deg, var(--green), var(--green-dark));
+      border: 1px solid rgba(90, 226, 126, 0.28);
     }
 
     .quick-chip.is-dab {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.18), transparent 42%),
-        linear-gradient(135deg, #127de4, #093a7e);
-      border: 1px solid rgba(83, 176, 255, 0.42);
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.16), transparent 42%),
+        linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border: 1px solid rgba(80, 165, 240, 0.34);
     }
 
     .quick-chip.is-fm {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.2), transparent 42%),
-        linear-gradient(135deg, #9a32bd, #4a176b);
-      border: 1px solid rgba(234, 124, 255, 0.4);
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.18), transparent 42%),
+        linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border: 1px solid rgba(210, 112, 236, 0.32);
     }
 
     .quick-chip.is-more {
       background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.12), transparent 42%),
-        linear-gradient(135deg, #142c49, #081a2e);
-      border: 1px solid rgba(243, 199, 108, 0.34);
-      font-weight: 760;
+        radial-gradient(circle at 25% 18%, rgba(255,255,255,0.10), transparent 42%),
+        linear-gradient(135deg, #183350, #0b1d33);
+      border: 1px solid rgba(237, 191, 99, 0.30);
+      font-weight: 740;
     }
 
     .content-canvas {
       position: relative;
       z-index: 1;
       min-height: calc(100dvh - var(--top-shell-height));
-      padding: 13px 11px calc(var(--bottom-nav-height) + var(--bottom-lift) + 18px);
+      padding: 12px 10px calc(var(--bottom-nav-height) + var(--bottom-lift) + 16px);
     }
 
     .blank-canvas {
-      min-height: calc(100dvh - var(--top-shell-height) - var(--bottom-nav-height) - var(--bottom-lift) - 35px);
-      border-radius: 22px;
+      min-height: calc(100dvh - var(--top-shell-height) - var(--bottom-nav-height) - var(--bottom-lift) - 30px);
+      border-radius: 21px;
       background:
-        radial-gradient(circle at 50% 34%, rgba(255,255,255,0.34), transparent 48%);
+        radial-gradient(circle at 50% 34%, rgba(255,255,255,0.36), transparent 48%);
     }
 
     .bottom-shell {
@@ -326,7 +332,7 @@
       z-index: 20;
       width: min(100vw, var(--page-width));
       transform: translateX(-50%);
-      padding: 0 11px;
+      padding: 0 10px;
       pointer-events: none;
     }
 
@@ -336,10 +342,10 @@
       left: 0;
       right: 0;
       bottom: calc(var(--bottom-lift) * -1);
-      height: 108px;
+      height: 92px;
       z-index: -1;
       background:
-        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.78) 42%, #061425 100%);
+        linear-gradient(180deg, rgba(7, 22, 39, 0), rgba(7, 22, 39, 0.72) 44%, #061425 100%);
       pointer-events: none;
     }
 
@@ -348,16 +354,16 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 1px;
-      border-radius: 22px;
+      border-radius: 20px;
       overflow: hidden;
       pointer-events: auto;
       background:
-        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.14), transparent 34%),
-        linear-gradient(180deg, #0b2139, #061625);
-      border: 1px solid rgba(243, 199, 108, 0.42);
+        radial-gradient(circle at 50% 0%, rgba(255,217,133,0.11), transparent 34%),
+        linear-gradient(180deg, #0d2540, #07182a);
+      border: 1px solid rgba(237, 191, 99, 0.38);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 -7px 24px rgba(4, 10, 18, 0.32);
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 -6px 21px rgba(4, 10, 18, 0.30);
     }
 
     .nav-item {
@@ -366,10 +372,10 @@
       display: grid;
       place-items: center;
       align-content: center;
-      gap: 4px;
+      gap: 3px;
       background: transparent;
-      color: rgba(255,255,255,0.86);
-      font-size: 10.5px;
+      color: rgba(255,255,255,0.84);
+      font-size: 9.5px;
       font-weight: 700;
     }
 
@@ -377,10 +383,10 @@
       content: "";
       position: absolute;
       right: 0;
-      top: 14px;
-      bottom: 14px;
+      top: 13px;
+      bottom: 13px;
       width: 1px;
-      background: rgba(243, 199, 108, 0.14);
+      background: rgba(237, 191, 99, 0.13);
     }
 
     .nav-item:last-child::after,
@@ -389,23 +395,23 @@
     }
 
     .nav-item svg {
-      width: 23px;
-      height: 23px;
-      stroke-width: 2.25;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.2;
     }
 
     .nav-item.is-active {
       margin: -1px 0;
       color: var(--gold-soft);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 223, 130, 0.82);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 223, 130, 0.74);
       background:
-        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.5), transparent 35%),
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015));
+        radial-gradient(circle at 50% 104%, rgba(255, 190, 47, 0.34), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.012));
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.18),
-        0 0 22px rgba(255, 199, 75, 0.32);
-      transform: translateY(-3px);
+        inset 0 1px 0 rgba(255,255,255,0.15),
+        0 0 17px rgba(255, 199, 75, 0.24);
+      transform: translateY(-2px);
     }
 
     .nav-item.is-active::before {
@@ -413,97 +419,102 @@
       position: absolute;
       top: 4px;
       left: 50%;
-      width: 34px;
-      height: 3px;
+      width: 30px;
+      height: 2px;
       transform: translateX(-50%);
       border-radius: 99px;
       background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-      box-shadow: 0 0 10px rgba(255, 224, 150, 0.88);
+      box-shadow: 0 0 8px rgba(255, 224, 150, 0.72);
     }
 
     @media (max-width: 390px) {
       :root {
-        --top-shell-height: 170px;
-        --bottom-nav-height: 64px;
+        --top-shell-height: 154px;
+        --bottom-nav-height: 56px;
         --bottom-lift: 9px;
       }
 
       .top-shell {
-        padding: 7px 10px 9px;
-        border-radius: 0 0 22px 22px;
+        padding: 7px 9px 8px;
+        border-radius: 0 0 20px 20px;
       }
 
       .brand-row {
-        height: 42px;
-        grid-template-columns: 41px minmax(0, 1fr) 41px;
+        height: 37px;
+        grid-template-columns: 37px minmax(0, 1fr) 37px;
       }
 
       .menu-button {
-        width: 40px;
-        height: 40px;
-        border-radius: 13px;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+      }
+
+      .menu-button svg {
+        width: 21px;
+        height: 21px;
       }
 
       .brand-mark {
-        width: 29px;
-        height: 29px;
+        width: 26px;
+        height: 26px;
       }
 
       .brand-title {
-        font-size: clamp(22px, 6.1vw, 28px);
+        font-size: clamp(20px, 5.8vw, 25px);
       }
 
       .brand-subtitle {
-        font-size: 10px;
+        font-size: 9.5px;
       }
 
       .search-shell {
-        height: 42px;
-        margin-top: 8px;
+        height: 39px;
+        margin-top: 7px;
       }
 
       .quick-access {
-        margin-top: 8px;
-        gap: 6px;
-      }
-
-      .quick-chip {
-        height: 45px;
-        padding-inline: 5px;
+        margin-top: 7px;
         gap: 5px;
       }
 
+      .quick-chip {
+        height: 40px;
+        padding-inline: 5px;
+        gap: 4px;
+      }
+
       .quick-chip svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
 
       .quick-chip.is-more {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       .bottom-shell {
-        padding-inline: 10px;
+        padding-inline: 9px;
       }
 
       .bottom-nav {
-        border-radius: 20px;
+        border-radius: 18px;
       }
 
       .nav-item {
-        font-size: 10px;
+        font-size: 9px;
       }
 
       .nav-item svg {
-        width: 22px;
-        height: 22px;
+        width: 19px;
+        height: 19px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.4">
+  <main class="phone" aria-label="RF Atlas app shell" data-version="0.1.5">
     <header class="top-shell">
       <section class="brand-row" aria-label="App header">
         <button class="menu-button" type="button" aria-label="Open menu">
