@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.47
+   RF ATLAS PAGE CONTENT v0.1.48
    Shared prototype content components.
 ========================================================= */
 
@@ -1166,7 +1166,7 @@
 }
 
 
-/* 09. RF v0.1.47 full rebuild
+/* 09. RF v0.1.48 full rebuild
    This rebuild follows the corrected outline: one network shell containing the map
    and recently opened band, then a dark path card, then two compact lower cards. */
 .phone[data-page="rf"] .content-canvas {
@@ -1589,7 +1589,7 @@
 }
 
 
-/* 10. RF v0.1.47 corrected contents rebuild
+/* 10. RF v0.1.48 corrected contents rebuild
    The Network title/buttons now sit directly on the contents page.
    The map plate now encloses the map, legend, and recently-opened area as one continuous block. */
 .phone[data-page="rf"] .content-canvas {
@@ -2032,7 +2032,7 @@
 }
 
 
-/* 11. RF v0.1.47 annotation fix
+/* 11. RF v0.1.48 annotation fix
    Removes the extra outer box around the network/map/recent section.
    Removes the gap between recently opened and path details. */
 .phone[data-page="rf"] .content-canvas {
@@ -2472,4 +2472,85 @@
   font-size: 6px;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+
+/* 12. RF v0.1.48 colour/graph polish
+   Matches the content page to the recently-opened eggshell, removes the extra button outline,
+   softens recent typography, and adds contouring + cleaner transmitter icons. */
+.phone[data-page="rf"] .content-canvas {
+  background: #fff7e6 !important;
+}
+
+.phone[data-page="rf"] .content-canvas::before {
+  opacity: 0.06 !important;
+}
+
+.rfv47-recent {
+  background: #fff7e6 !important;
+  box-shadow: none !important;
+}
+
+.rfv47-viewall {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding-inline: 2px !important;
+  color: #09203a !important;
+  font-weight: 500 !important;
+}
+
+.rfv47-recent-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 520 !important;
+  letter-spacing: 0.055em;
+}
+
+.rfv47-clock {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: #09203a;
+  stroke-width: 1.7;
+}
+
+.rfv47-recent-name {
+  font-weight: 520 !important;
+  letter-spacing: 0.015em;
+}
+
+.rfv47-status {
+  font-weight: 380 !important;
+}
+
+.rfv47-recent-card {
+  background: #fff9eb !important;
+}
+
+.rfv47-map-paper {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.72), transparent 44%),
+    linear-gradient(180deg, #fff8e8, #f8ecd2) !important;
+}
+
+.rfv47-map-paper::before {
+  opacity: 0.32 !important;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20360%20210%27%3E%0A%3Cg%20fill%3D%27none%27%20stroke%3D%27%25237c7768%27%20stroke-width%3D%270.65%27%20opacity%3D%270.34%27%3E%0A%3Cpath%20d%3D%27M-20%2045%20C25%2018%2055%2028%2088%2020%20S142%2018%20174%2042%20S231%2064%20270%2036%20S338%2018%20386%2044%27/%3E%0A%3Cpath%20d%3D%27M-12%2082%20C26%2062%2050%2070%2082%2058%20S137%2054%20168%2078%20S220%20106%20258%2078%20S328%2056%20376%2082%27/%3E%0A%3Cpath%20d%3D%27M-30%20126%20C18%20104%2057%20112%2092%2096%20S150%2096%20184%20120%20S238%20150%20282%20122%20S334%20100%20392%20128%27/%3E%0A%3Cpath%20d%3D%27M-18%20166%20C30%20144%2065%20154%20100%20136%20S154%20140%20192%20164%20S244%20190%20286%20164%20S342%20142%20390%20164%27/%3E%0A%3Cpath%20d%3D%27M20%20-8%20C42%2026%2038%2052%2058%2076%20S92%20108%2076%20138%20S70%20184%20102%20222%27/%3E%0A%3Cpath%20d%3D%27M146%20-14%20C164%2022%20156%2052%20178%2076%20S214%20112%20198%20144%20S192%20182%20228%20224%27/%3E%0A%3Cpath%20d%3D%27M274%20-16%20C290%2018%20286%2050%20308%2076%20S344%20110%20328%20142%20S322%20180%20360%20222%27/%3E%0A%3C/g%3E%0A%3Cg%20fill%3D%27none%27%20stroke%3D%27%2523b7aa8f%27%20stroke-width%3D%270.45%27%20opacity%3D%270.28%27%3E%0A%3Cpath%20d%3D%27M0%2030%20C44%2044%2072%2040%20112%2030%20S188%2018%20230%2028%20S300%2054%20360%2034%27/%3E%0A%3Cpath%20d%3D%27M0%20108%20C48%20124%2082%20114%20122%20104%20S198%2090%20242%20108%20S304%20138%20360%20112%27/%3E%0A%3Cpath%20d%3D%27M0%20190%20C42%20202%2084%20192%20126%20184%20S204%20172%20248%20190%20S312%20216%20360%20198%27/%3E%0A%3C/g%3E%0A%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+}
+
+.rfv47-map-label,
+.rfv47-map-label-small {
+  paint-order: stroke;
+  stroke: rgba(255,248,232,0.86);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+
+.rfv47-legend {
+  background: #fff7e6 !important;
+  border-color: rgba(130,91,22,0.12) !important;
 }
