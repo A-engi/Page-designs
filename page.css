@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.41
+   RF ATLAS PAGE CONTENT v0.1.42
    Shared prototype content components.
 ========================================================= */
 
@@ -596,4 +596,152 @@
   .bottom-panels {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+
+/* 07. RF compact fit pass
+   This pass halves the RF dashboard height so the full layout fits the phone better. */
+.content-canvas .page-content {
+  padding: 8px;
+}
+
+.dashboard-grid {
+  gap: 7px;
+}
+
+.rf-shell-card {
+  padding: 8px;
+  border-radius: 15px;
+}
+
+.rf-panel-head {
+  margin-bottom: 6px;
+}
+
+.rf-panel-title {
+  font-size: 13px;
+}
+
+.rf-tab {
+  padding: 4px 7px;
+  font-size: 8px;
+}
+
+.rf-map {
+  min-height: 205px;
+  border-radius: 13px;
+}
+
+.rf-legend {
+  margin-top: 6px;
+  padding: 5px;
+  font-size: 8px;
+  border-radius: 10px;
+}
+
+.recent-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.recent-mini {
+  min-height: 46px;
+  padding: 5px;
+  grid-template-columns: minmax(0, 1fr) 7px;
+  gap: 3px;
+}
+
+.recent-mini-icon {
+  display: none;
+}
+
+.recent-mini-name {
+  font-size: 8px;
+}
+
+.recent-mini-status {
+  margin-top: 2px;
+  font-size: 7px;
+}
+
+.path-detail {
+  padding: 9px;
+  border-radius: 14px;
+}
+
+.path-head {
+  margin-bottom: 6px;
+}
+
+.path-head-title {
+  font-size: 12px;
+}
+
+.path-line {
+  grid-template-columns: 1fr minmax(82px, 104px) 1fr;
+  gap: 6px;
+}
+
+.path-site {
+  font-size: 9px;
+}
+
+.path-site small {
+  font-size: 7px;
+}
+
+.path-frequency {
+  font-size: 19px;
+}
+
+.path-sub {
+  font-size: 7px;
+}
+
+.path-wave {
+  height: 20px;
+  margin: 7px 0;
+}
+
+.path-stat {
+  padding: 6px 3px;
+}
+
+.path-stat strong {
+  font-size: 10px;
+}
+
+.path-stat span {
+  margin-top: 3px;
+  font-size: 6.5px;
+}
+
+.bottom-panels {
+  gap: 7px;
+}
+
+.compact-table {
+  font-size: 8.5px;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 4px 3px;
+}
+
+.equipment-grid {
+  gap: 5px;
+}
+
+.equipment-item {
+  padding: 7px 4px;
+}
+
+.equipment-item strong {
+  font-size: 16px;
+}
+
+.equipment-item span {
+  margin-top: 3px;
+  font-size: 7px;
 }
