@@ -4,34 +4,34 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>RF Atlas</title>
-  <link rel="stylesheet" href="./shell.css?v=0.1.46" />
-  <link rel="stylesheet" href="./page.css?v=0.1.46" />
+  <link rel="stylesheet" href="./shell.css?v=0.1.47" />
+  <link rel="stylesheet" href="./page.css?v=0.1.47" />
 </head>
 
 <body>
-  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.46">
+  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.47">
     <section class="content-canvas" aria-label="RF Atlas content">
-      <article class="rfv46-home">
-        <section class="rfv46-network">
-          <div class="rfv46-network-head">
-            <h1 class="rfv46-title">Network map</h1>
-            <div class="rfv46-tabs">
-              <span class="rfv46-tab is-active">RF</span>
-              <span class="rfv46-tab">IP</span>
-              <span class="rfv46-tab">MW</span>
-              <span class="rfv46-tab">All</span>
+      <article class="rfv47-home">
+        <section class="rfv47-network">
+          <div class="rfv47-network-head">
+            <h1 class="rfv47-title">Network map</h1>
+            <div class="rfv47-tabs">
+              <span class="rfv47-tab is-active">RF</span>
+              <span class="rfv47-tab">IP</span>
+              <span class="rfv47-tab">MW</span>
+              <span class="rfv47-tab">All</span>
             </div>
           </div>
 
-          <div class="rfv46-plate">
-            <div class="rfv46-map-paper">
+          <div class="rfv47-map-recent">
+            <div class="rfv47-map-paper">
               <svg viewBox="0 0 360 210" fill="none" aria-hidden="true">
                 <defs>
-                  <filter id="rfv46Glow" x="-40%" y="-40%" width="180%" height="180%">
+                  <filter id="rfv47Glow" x="-40%" y="-40%" width="180%" height="180%">
                     <feGaussianBlur stdDeviation="2.5" result="blur"/>
                     <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
                   </filter>
-                  <g id="rfv46Mast" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+                  <g id="rfv47Mast" stroke="white" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="0" cy="-5" r="2.4" fill="none" stroke-width="1.6"/>
                     <path d="M0 -2v13M-5 11 0 -2l5 13M-6 5H6" stroke-width="1.6"/>
                     <path d="M-8 -4a8 8 0 0 1 0 -8M8 -12a8 8 0 0 1 0 8" stroke-width="1.35"/>
@@ -44,89 +44,89 @@
                 <path d="M205 162 279 78" stroke="#e33b24" stroke-width="4"/>
                 <path d="M188 52 279 78" stroke="#147c39" stroke-width="2.1" opacity=".78"/>
 
-                <g filter="url(#rfv46Glow)">
-                  <g transform="translate(64 38)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(123 80)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(188 52)"><circle r="14" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(205 162)"><circle r="20" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(86 150)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(309 122)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
-                  <g transform="translate(279 78)"><circle r="17" fill="#df3521" stroke="#fff4d8" stroke-width="3"/><use href="#rfv46Mast"/></g>
+                <g filter="url(#rfv47Glow)">
+                  <g transform="translate(64 38)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(123 80)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(188 52)"><circle r="14" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(205 162)"><circle r="20" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(86 150)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(309 122)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(279 78)"><circle r="17" fill="#df3521" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
                 </g>
 
-                <text class="rfv46-map-label" x="82" y="38">GLASGOW</text>
-                <text class="rfv46-map-label-small" x="82" y="49">CORE SITE</text>
-                <text class="rfv46-map-label" x="140" y="84">MANCHESTER</text>
-                <text class="rfv46-map-label-small" x="140" y="95">MAIN SITE</text>
-                <text class="rfv46-map-label" x="204" y="52">EDINBURGH</text>
-                <text class="rfv46-map-label-small" x="204" y="63">CORE SITE</text>
-                <text class="rfv46-map-label" x="224" y="184">LONDON</text>
-                <text class="rfv46-map-label-small" x="224" y="195">CORE SITE</text>
-                <text class="rfv46-map-label" x="300" y="77">HILLTOP</text>
-                <text class="rfv46-map-label-small" x="300" y="88">RELAY</text>
-                <text class="rfv46-map-label" x="104" y="172">VALLEY</text>
-                <text class="rfv46-map-label-small" x="104" y="183">REMOTE</text>
+                <text class="rfv47-map-label" x="82" y="38">GLASGOW</text>
+                <text class="rfv47-map-label-small" x="82" y="49">CORE SITE</text>
+                <text class="rfv47-map-label" x="140" y="84">MANCHESTER</text>
+                <text class="rfv47-map-label-small" x="140" y="95">MAIN SITE</text>
+                <text class="rfv47-map-label" x="204" y="52">EDINBURGH</text>
+                <text class="rfv47-map-label-small" x="204" y="63">CORE SITE</text>
+                <text class="rfv47-map-label" x="224" y="184">LONDON</text>
+                <text class="rfv47-map-label-small" x="224" y="195">CORE SITE</text>
+                <text class="rfv47-map-label" x="300" y="77">HILLTOP</text>
+                <text class="rfv47-map-label-small" x="300" y="88">RELAY</text>
+                <text class="rfv47-map-label" x="104" y="172">VALLEY</text>
+                <text class="rfv47-map-label-small" x="104" y="183">REMOTE</text>
               </svg>
 
-              <div class="rfv46-legend">
-                <span><i class="rfv46-dot" style="color:#0d8a3c"></i>Core</span>
-                <span><i class="rfv46-dot" style="color:#0d8a3c"></i>Main</span>
-                <span><i class="rfv46-dot" style="color:#df3521"></i>Relay</span>
-                <span><i class="rfv46-dot" style="color:#1264b2"></i>Remote</span>
+              <div class="rfv47-legend">
+                <span><i class="rfv47-dot" style="color:#0d8a3c"></i>Core</span>
+                <span><i class="rfv47-dot" style="color:#0d8a3c"></i>Main</span>
+                <span><i class="rfv47-dot" style="color:#df3521"></i>Relay</span>
+                <span><i class="rfv47-dot" style="color:#1264b2"></i>Remote</span>
               </div>
             </div>
 
-            <div class="rfv46-recent">
-              <div class="rfv46-recent-head">
-                <h2 class="rfv46-recent-title">Recently opened</h2>
-                <a class="rfv46-viewall" href="sites.html">View all</a>
+            <div class="rfv47-recent">
+              <div class="rfv47-recent-head">
+                <h2 class="rfv47-recent-title">Recently opened</h2>
+                <a class="rfv47-viewall" href="sites.html">View all</a>
               </div>
-              <div class="rfv46-recent-grid">
-                <a class="rfv46-recent-card" href="sites.html">
+              <div class="rfv47-recent-grid">
+                <a class="rfv47-recent-card" href="sites.html">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#df3521" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
-                  <span><span class="rfv46-recent-name">Hilltop<br>Relay</span><span class="rfv46-status">Online</span></span>
+                  <span><span class="rfv47-recent-name">Hilltop<br>Relay</span><span class="rfv47-status">Online</span></span>
                 </a>
-                <a class="rfv46-recent-card" href="sites.html">
+                <a class="rfv47-recent-card" href="sites.html">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#1264b2" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
-                  <span><span class="rfv46-recent-name">Ridgeway<br>Relay</span><span class="rfv46-status">Online</span></span>
+                  <span><span class="rfv47-recent-name">Ridgeway<br>Relay</span><span class="rfv47-status">Online</span></span>
                 </a>
-                <a class="rfv46-recent-card" href="sites.html">
+                <a class="rfv47-recent-card" href="sites.html">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#0d8a3c" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
-                  <span><span class="rfv46-recent-name">London<br>Core</span><span class="rfv46-status">Online</span></span>
+                  <span><span class="rfv47-recent-name">London<br>Core</span><span class="rfv47-status">Online</span></span>
                 </a>
-                <a class="rfv46-recent-card" href="sites.html">
+                <a class="rfv47-recent-card" href="sites.html">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#1264b2" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
-                  <span><span class="rfv46-recent-name">Pinewood<br>Remote</span><span class="rfv46-status">Online</span></span>
+                  <span><span class="rfv47-recent-name">Pinewood<br>Remote</span><span class="rfv47-status">Online</span></span>
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="rfv46-path">
-          <h2 class="rfv46-path-title">Path details</h2>
-          <div class="rfv46-path-main">
-            <div class="rfv46-path-site"><small>From</small>London<br>Core Site</div>
+        <section class="rfv47-path">
+          <h2 class="rfv47-path-title">Path details</h2>
+          <div class="rfv47-path-main">
+            <div class="rfv47-path-site"><small>From</small>London<br>Core Site</div>
             <div>
-              <div class="rfv46-freq">6.725 GHz</div>
-              <div class="rfv46-sub">Horizontal</div>
+              <div class="rfv47-freq">6.725 GHz</div>
+              <div class="rfv47-sub">Horizontal</div>
             </div>
-            <div class="rfv46-path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
+            <div class="rfv47-path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
           </div>
-          <div class="rfv46-wave"></div>
-          <div class="rfv46-path-stats">
-            <div class="rfv46-path-stat"><strong>DTT 1</strong><span>Service</span></div>
-            <div class="rfv46-path-stat"><strong>28</strong><span>MHz</span></div>
-            <div class="rfv46-path-stat"><strong>64QAM</strong><span>Mod</span></div>
-            <div class="rfv46-path-stat"><strong>18</strong><span>dBm</span></div>
-            <div class="rfv46-path-stat"><strong>99.98</strong><span>%</span></div>
+          <div class="rfv47-wave"></div>
+          <div class="rfv47-path-stats">
+            <div class="rfv47-path-stat"><strong>DTT 1</strong><span>Service</span></div>
+            <div class="rfv47-path-stat"><strong>28</strong><span>MHz</span></div>
+            <div class="rfv47-path-stat"><strong>64QAM</strong><span>Mod</span></div>
+            <div class="rfv47-path-stat"><strong>18</strong><span>dBm</span></div>
+            <div class="rfv47-path-stat"><strong>99.98</strong><span>%</span></div>
           </div>
         </section>
 
-        <div class="rfv46-bottom">
-          <section class="rfv46-small">
-            <h2 class="rfv46-small-title">Services</h2>
-            <table class="rfv46-table">
+        <div class="rfv47-bottom">
+          <section class="rfv47-small">
+            <h2 class="rfv47-small-title">Services</h2>
+            <table class="rfv47-table">
               <tr><th>Service</th><th>Type</th><th>Status</th></tr>
               <tr><td>DTT MUX 1</td><td>DTT</td><td><span class="status">Online</span></td></tr>
               <tr><td>DTT MUX 2</td><td>DTT</td><td><span class="status">Online</span></td></tr>
@@ -134,12 +134,12 @@
             </table>
           </section>
 
-          <section class="rfv46-small">
-            <h2 class="rfv46-small-title">Equipment</h2>
-            <div class="rfv46-equipment">
-              <div class="rfv46-equipment-item"><strong>2</strong><span>TX</span></div>
-              <div class="rfv46-equipment-item"><strong>3</strong><span>ANT</span></div>
-              <div class="rfv46-equipment-item"><strong>2</strong><span>Links</span></div>
+          <section class="rfv47-small">
+            <h2 class="rfv47-small-title">Equipment</h2>
+            <div class="rfv47-equipment">
+              <div class="rfv47-equipment-item"><strong>2</strong><span>TX</span></div>
+              <div class="rfv47-equipment-item"><strong>3</strong><span>ANT</span></div>
+              <div class="rfv47-equipment-item"><strong>2</strong><span>Links</span></div>
             </div>
           </section>
         </div>
@@ -147,6 +147,6 @@
     </section>
   </main>
 
-  <script src="./shell.js?v=0.1.46" defer></script>
+  <script src="./shell.js?v=0.1.47" defer></script>
 </body>
 </html>
