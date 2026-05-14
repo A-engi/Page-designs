@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.40
+   RF ATLAS SHELL v0.1.42
    Shared shell builder, page links, active states, burger,
    search panel, and collapsible quick row.
 ========================================================= */
@@ -228,6 +228,24 @@ const bootRfAtlasShell = () => {
           ${menuLink("Paths", "RF path analysis", pageLinks.paths)}
           ${menuLink("Settings", "Prototype settings", pageLinks.settings)}
         </div>
+
+        <div class="shell-menu-footer">
+          <div class="shell-menu-version">
+            <span>RF Atlas</span>
+            <strong>v0.1.42</strong>
+          </div>
+
+          <label class="github-key-label" for="githubKeyInput">GitHub key</label>
+          <div class="github-key-row">
+            <input id="githubKeyInput" class="github-key-input" type="password" placeholder="Stored on this device" autocomplete="off" />
+            <button class="github-key-button" type="button" data-save-github-key>Save</button>
+            <button class="github-key-button is-clear" type="button" data-clear-github-key>Clear</button>
+          </div>
+          <p class="github-key-note">
+            <span class="github-key-state" data-github-key-state>Not saved</span>.
+            Stored locally for online/offline use. Do not put real keys in public files.
+          </p>
+        </div>
       </div>
     </section>
   `;
@@ -316,6 +334,42 @@ const bootRfAtlasShell = () => {
   });
 
   searchInput.addEventListener("input", () => renderResults(searchInput.value));
+
+  const keyInput = app.querySelector("#githubKeyInput");
+  const keyState = app.querySelector("[data-github-key-state]");
+  const saveKey = app.querySelector("[data-save-github-key]");
+  const clearKey = app.querySelector("[data-clear-github-key]");
+  const tokenKey = "rfAtlas.githubToken";
+
+  const refreshKeyState = () => {
+    const saved = Boolean(localStorage.getItem(tokenKey));
+    const onlineText = navigator.onLine ? "Online" : "Offline";
+    if (keyState) keyState.textContent = saved ? `Saved locally - ${onlineText}` : `Not saved - ${onlineText}`;
+    if (keyInput) keyInput.value = saved ? "â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢" : "";
+  };
+
+  if (saveKey && keyInput) {
+    saveKey.addEventListener("click", () => {
+      const value = keyInput.value.trim();
+      if (value && !value.includes("â¢")) localStorage.setItem(tokenKey, value);
+      refreshKeyState();
+    });
+  }
+
+  if (clearKey) {
+    clearKey.addEventListener("click", () => {
+      localStorage.removeItem(tokenKey);
+      refreshKeyState();
+    });
+  }
+
+  window.addEventListener("online", refreshKeyState);
+  window.addEventListener("offline", refreshKeyState);
+  refreshKeyState();
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  }
 };
 
 if (document.readyState === "loading") {
