@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.44
+   RF ATLAS PAGE CONTENT v0.1.45
    Shared prototype content components.
 ========================================================= */
 
@@ -1157,6 +1157,429 @@
 }
 
 .rf-equipment-item span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(7,28,50,0.58);
+  font-size: 6px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+
+/* 09. RF v0.1.45 full rebuild
+   This rebuild follows the corrected outline: one network shell containing the map
+   and recently opened band, then a dark path card, then two compact lower cards. */
+.phone[data-page="rf"] .content-canvas {
+  margin-top: calc(var(--top-shell-height) + 4px);
+  height: calc(100dvh - var(--top-shell-height) - var(--bottom-nav-height) - var(--bottom-lift) - var(--content-gap) - 4px);
+  overflow: hidden;
+}
+
+.rfv45-home {
+  height: 100%;
+  min-height: 0;
+  padding: 7px;
+  display: grid;
+  grid-template-rows: 59fr 20fr 17fr;
+  gap: 7px;
+}
+
+.rfv45-network-shell {
+  min-height: 0;
+  padding: 7px;
+  display: grid;
+  grid-template-rows: 24px minmax(0, 1fr);
+  gap: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(130, 91, 22, 0.24);
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,0.55), transparent 48%),
+    linear-gradient(180deg, rgba(255,252,244,0.58), rgba(255,244,219,0.38));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.72),
+    inset 0 0 0 1px rgba(255,232,175,0.28),
+    0 7px 16px rgba(78,55,16,0.08);
+}
+
+.rfv45-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.rfv45-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rfv45-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.rfv45-tab {
+  height: 22px;
+  padding: 0 7px;
+  display: grid;
+  place-items: center;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.16);
+  border-radius: 8px;
+  font-size: 7.5px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rfv45-tab.is-active {
+  background: rgba(255,222,163,0.85);
+  border-color: rgba(130,91,22,0.30);
+}
+
+.rfv45-map-stage {
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.15);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(221,211,188,0.32), rgba(231,222,199,0.22));
+}
+
+.rfv45-map-paper {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 6px;
+  bottom: 36px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.13);
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.78), transparent 44%),
+    linear-gradient(180deg, rgba(255,252,244,0.88), rgba(255,241,208,0.54));
+}
+
+.rfv45-map-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.20;
+  background-image:
+    linear-gradient(24deg, transparent 0 42%, rgba(7,28,50,0.10) 42.25%, transparent 42.8%),
+    linear-gradient(136deg, transparent 0 54%, rgba(7,28,50,0.08) 54.25%, transparent 54.8%),
+    radial-gradient(circle at 22% 35%, rgba(33,90,120,0.08), transparent 18%),
+    radial-gradient(circle at 78% 48%, rgba(33,90,120,0.06), transparent 22%);
+}
+
+.rfv45-map-paper svg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.rfv45-map-label {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 8.3px;
+  font-weight: 900;
+}
+
+.rfv45-map-label-small {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 6.8px;
+  font-weight: 820;
+}
+
+.rfv45-recent {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  z-index: 3;
+  height: 64px;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr);
+  gap: 5px;
+  border: 1px solid rgba(130,91,22,0.15);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.55), transparent 48%),
+    linear-gradient(180deg, rgba(255,252,244,0.86), rgba(255,246,225,0.70));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.68),
+    0 -5px 12px rgba(80,55,15,0.06);
+}
+
+.rfv45-recent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rfv45-recent-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.rfv45-viewall {
+  padding: 3px 7px;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.14);
+  border-radius: 999px;
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.rfv45-recent-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.rfv45-recent-card {
+  min-width: 0;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 15px minmax(0, 1fr);
+  gap: 3px;
+  align-items: center;
+  overflow: hidden;
+  color: #071c32;
+  background: rgba(255,255,255,0.44);
+  border: 1px solid rgba(130,91,22,0.12);
+  border-radius: 9px;
+}
+
+.rfv45-recent-card svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rfv45-recent-name {
+  display: block;
+  font-size: 6.8px;
+  font-weight: 950;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.rfv45-status {
+  display: block;
+  margin-top: 2px;
+  color: #17692e;
+  font-size: 6.2px;
+  font-weight: 850;
+}
+
+.rfv45-path {
+  min-height: 0;
+  padding: 8px;
+  display: grid;
+  grid-template-rows: 15px minmax(0, 1fr) 16px 31px;
+  gap: 5px;
+  overflow: hidden;
+  color: #fff;
+  border: 1px solid rgba(237,191,99,0.56);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,217,133,0.10), transparent 36%),
+    linear-gradient(180deg, #0b243e, #06182b);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 7px 15px rgba(0,0,0,0.16);
+}
+
+.rfv45-path-title {
+  margin: 0;
+  color: #fff;
+  font-size: 10.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.rfv45-path-main {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 102px 1fr;
+  gap: 5px;
+  align-items: center;
+}
+
+.rfv45-path-site {
+  color: #fff;
+  font-size: 7.8px;
+  font-weight: 900;
+  line-height: 1.02;
+}
+
+.rfv45-path-site small {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(255,255,255,0.58);
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rfv45-freq {
+  color: var(--gold-soft);
+  text-align: center;
+  font-size: 17.5px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.rfv45-sub {
+  margin-top: 2px;
+  color: rgba(255,255,255,0.62);
+  text-align: center;
+  font-size: 6.2px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rfv45-wave {
+  height: 16px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,221,160,0.72), transparent 13%),
+    linear-gradient(90deg, #5bd858, var(--gold-soft), #ff563c);
+  box-shadow: 0 0 16px rgba(255,199,75,0.22);
+}
+
+.rfv45-path-stats {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.rfv45-path-stat {
+  padding: 5px 2px;
+  text-align: center;
+  background: rgba(255,255,255,0.045);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.rfv45-path-stat:last-child {
+  border-right: 0;
+}
+
+.rfv45-path-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 8.5px;
+  line-height: 1;
+}
+
+.rfv45-path-stat span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255,255,255,0.58);
+  font-size: 5.5px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rfv45-bottom {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.rfv45-small {
+  min-height: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.20);
+  border-radius: 13px;
+  background: rgba(255,255,255,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 6px 12px rgba(79,56,16,0.07);
+}
+
+.rfv45-small-title {
+  margin: 0 0 5px;
+  color: #071c32;
+  font-size: 9.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.rfv45-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071c32;
+  font-size: 6.5px;
+}
+
+.rfv45-table th,
+.rfv45-table td {
+  padding: 3px 2px;
+  text-align: left;
+  border-bottom: 1px solid rgba(130,91,22,0.13);
+}
+
+.rfv45-table th {
+  color: rgba(7,28,50,0.55);
+  font-size: 5.6px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rfv45-equipment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.rfv45-equipment-item {
+  padding: 7px 3px;
+  text-align: center;
+  border: 1px solid rgba(130,91,22,0.13);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.48);
+}
+
+.rfv45-equipment-item strong {
+  display: block;
+  color: #071c32;
+  font-size: 14.5px;
+  line-height: 1;
+}
+
+.rfv45-equipment-item span {
   display: block;
   margin-top: 3px;
   color: rgba(7,28,50,0.58);
