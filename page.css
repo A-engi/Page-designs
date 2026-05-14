@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.51
+   RF ATLAS PAGE CONTENT v0.1.52
    Shared prototype content components.
 ========================================================= */
 
@@ -1166,7 +1166,7 @@
 }
 
 
-/* 09. RF v0.1.51 full rebuild
+/* 09. RF v0.1.52 full rebuild
    This rebuild follows the corrected outline: one network shell containing the map
    and recently opened band, then a dark path card, then two compact lower cards. */
 .phone[data-page="rf"] .content-canvas {
@@ -1589,7 +1589,7 @@
 }
 
 
-/* 10. RF v0.1.51 corrected contents rebuild
+/* 10. RF v0.1.52 corrected contents rebuild
    The Network title/buttons now sit directly on the contents page.
    The map plate now encloses the map, legend, and recently-opened area as one continuous block. */
 .phone[data-page="rf"] .content-canvas {
@@ -2032,7 +2032,7 @@
 }
 
 
-/* 11. RF v0.1.51 annotation fix
+/* 11. RF v0.1.52 annotation fix
    Removes the extra outer box around the network/map/recent section.
    Removes the gap between recently opened and path details. */
 .phone[data-page="rf"] .content-canvas {
@@ -2475,7 +2475,7 @@
 }
 
 
-/* 12. RF v0.1.51 colour/graph polish
+/* 12. RF v0.1.52 colour/graph polish
    Matches the content page to the recently-opened eggshell, removes the extra button outline,
    softens recent typography, and adds contouring + cleaner transmitter icons. */
 .phone[data-page="rf"] .content-canvas {
@@ -2556,7 +2556,7 @@
 }
 
 
-/* 13. RF v0.1.51 path placeholder
+/* 13. RF v0.1.52 path placeholder
    The built-in Path Details box has been removed from the RF page markup.
    This neutral slot keeps the layout ready for the custom path-details code. */
 .rfv49-path-placeholder {
@@ -2582,7 +2582,7 @@
 }
 
 
-/* 14. RF v0.1.51 custom path-details slot
+/* 14. RF v0.1.52 custom path-details slot
    The neutral placeholder has been replaced with the supplied SVG path-details card. */
 .rfv50-path-slot {
   flex: 0 0 20%;
@@ -2665,7 +2665,7 @@
 }
 
 
-/* 15. RF v0.1.51 seam fix
+/* 15. RF v0.1.52 seam fix
    Removes the cream gap between Recently opened and Path Details,
    and gives the custom Path Details card a visible gold outer border. */
 .rfv47-home {
@@ -2702,4 +2702,20 @@
 .rfv50-path-slot .rf-path svg {
   transform: scale(1.012);
   transform-origin: center;
+}
+
+
+/* 16. RF v0.1.52 recently-opened rounding
+   Rounds only the Recently opened box. No layout height, order, or spacing changes. */
+.rfv47-recent {
+  position: relative !important;
+  z-index: 2 !important;
+  border: 1px solid rgba(130,91,22,0.14) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  background: #fff7e6 !important;
+}
+
+.rfv50-path-slot {
+  margin-top: -1px !important;
 }
