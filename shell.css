@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.44
+   RF ATLAS SHELL v0.1.45
    Shared shell styling for command bar, quick row, nav,
    burger menu, search panel, and collapsible service row.
 ========================================================= */
@@ -908,4 +908,17 @@ svg {
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.34),
     0 1px 2px rgba(0,0,0,0.24) !important;
+}
+
+
+/* 12. Final blue-frame alignment
+   The top ribbon should merge into the dark page instead of drawing a hard seam. */
+.top-shell {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.top-shell::after {
+  height: 6px !important;
+  background: linear-gradient(180deg, rgba(3,10,20,0.025), rgba(3,10,20,0)) !important;
 }
