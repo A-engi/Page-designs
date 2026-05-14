@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.42
+   RF ATLAS SHELL v0.1.43
    Shared shell styling for command bar, quick row, nav,
    burger menu, search panel, and collapsible service row.
 ========================================================= */
@@ -22,11 +22,11 @@
   --gold-soft: #ffdda0;
   --gold-border: rgba(237, 191, 99, 0.78);
 
-  --top-shell-height: 98px;
-  --top-shell-height-collapsed: 58px;
+  --top-shell-height: 94px;
+  --top-shell-height-collapsed: 54px;
   --bottom-nav-height: 38px;
   --bottom-lift: 8px;
-  --content-gap: 8px;
+  --content-gap: 7px;
   --content-radius: 20px;
   --nav-button-width: 76px;
   --nav-active-gap: 8px;
@@ -281,7 +281,7 @@ svg {
 
 .quick-chip {
   min-width: 0;
-  height: 38px;
+  height: 35px;
   padding: 0 5px;
   display: flex;
   align-items: center;
@@ -852,4 +852,31 @@ svg {
   .nav-item.is-active {
     border-radius: 9px;
   }
+}
+
+
+/* 10. Final shell merge pass
+   Removes the last hard seam and turns the pull control into a quiet centre grip. */
+.top-shell {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.top-shell::after {
+  background: linear-gradient(180deg, rgba(3,10,20,0.04), rgba(3,10,20,0)) !important;
+}
+
+.quick-toggle {
+  bottom: 3px !important;
+  width: 78px !important;
+  height: 10px !important;
+}
+
+.quick-toggle::before {
+  width: 48px !important;
+  height: 5px !important;
+  background: linear-gradient(180deg, rgba(194,199,204,0.92), rgba(116,123,132,0.86)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.34),
+    0 1px 2px rgba(0,0,0,0.24) !important;
 }
