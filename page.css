@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.43
+   RF ATLAS PAGE CONTENT v0.1.44
    Shared prototype content components.
 ========================================================= */
 
@@ -747,181 +747,420 @@
 }
 
 
-/* 08. Target-fit pass
-   Compresses the RF dashboard so the page behaves like the aim image, not a long report. */
-.content-canvas .page-content {
-  padding: 6px 7px 8px;
+
+
+/* 08. RF measured dashboard rebuild
+   Content panel proportions are based on the target image:
+   network block about 60%, path details about 18%, lower blocks about 18%, with small gaps. */
+.phone[data-page="rf"] .content-canvas {
+  overflow: hidden;
+  padding: 0;
 }
 
-.dashboard-grid {
-  gap: 6px;
-}
-
-.rf-shell-card {
+.phone[data-page="rf"] .content-canvas .page-content {
+  height: 100%;
+  min-height: 0;
   padding: 7px;
-  border-radius: 14px;
 }
 
-.rf-panel-head {
-  margin-bottom: 5px;
-  gap: 5px;
+.rf-home {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 60fr 18fr 18fr;
+  gap: 7px;
 }
 
-.rf-panel-title {
-  font-size: 12px;
-  letter-spacing: 0.035em;
+/* Network and recently opened live in one eggshell block. */
+.rf-network-block {
+  min-height: 0;
+  padding: 8px;
+  display: grid;
+  grid-template-rows: 24px minmax(0, 1fr) 72px;
+  gap: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(136,96,28,0.20);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,0.48), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.48), rgba(255,248,226,0.34));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.70),
+    0 7px 15px rgba(79,56,16,0.08);
 }
 
-.rf-panel-tabs {
+.rf-network-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.rf-network-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rf-network-tabs {
+  display: flex;
   gap: 4px;
 }
 
-.rf-tab {
-  padding: 3px 6px;
-  font-size: 7.5px;
+.rf-network-tab {
+  height: 22px;
+  padding: 0 7px;
+  display: grid;
+  place-items: center;
+  color: #071c32;
+  background: rgba(255,255,255,0.58);
+  border: 1px solid rgba(136,96,28,0.18);
   border-radius: 8px;
-}
-
-.rf-map {
-  min-height: 158px;
-  border-radius: 12px;
-}
-
-.rf-map svg text {
-  font-size: 10px;
-}
-
-.rf-legend {
-  margin-top: 5px;
-  padding: 4px 5px;
   font-size: 7.5px;
-  border-radius: 9px;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
-.rf-dot {
-  width: 6px;
-  height: 6px;
-  margin-right: 3px;
+.rf-network-tab.is-active {
+  background: rgba(255,221,160,0.78);
+  border-color: rgba(136,96,28,0.32);
 }
 
-.recent-row {
+/* The darker middle inset contains the map, but the map itself keeps the eggshell tone. */
+.rf-map-inset {
+  min-height: 0;
+  padding: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(136,96,28,0.12);
+  border-radius: 13px;
+  background: rgba(227,216,190,0.24);
+}
+
+.rf-map-paper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(136,96,28,0.12);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,0.72), transparent 44%),
+    linear-gradient(180deg, rgba(255,251,240,0.76), rgba(255,240,205,0.44));
+}
+
+.rf-map-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(27deg, transparent 0 42%, rgba(7,28,50,0.10) 42.2%, transparent 42.7%),
+    linear-gradient(132deg, transparent 0 54%, rgba(7,28,50,0.09) 54.2%, transparent 54.8%),
+    radial-gradient(circle at 23% 34%, rgba(33,90,120,0.08), transparent 18%),
+    radial-gradient(circle at 78% 48%, rgba(33,90,120,0.06), transparent 22%);
+}
+
+.rf-map-paper svg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.rf-map-label {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 8.6px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.rf-map-label-small {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 7.4px;
+  font-weight: 850;
+}
+
+/* Recently opened is the lower half of the network block, not a separate page section. */
+.rf-recent-band {
+  min-height: 0;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr);
+  gap: 5px;
+  border: 1px solid rgba(136,96,28,0.14);
+  border-radius: 12px;
+  background: rgba(255,251,240,0.56);
+}
+
+.rf-recent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rf-recent-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 10.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rf-view-all {
+  padding: 3px 7px;
+  color: #071c32;
+  background: rgba(255,255,255,0.64);
+  border: 1px solid rgba(136,96,28,0.16);
+  border-radius: 999px;
+  font-size: 7.5px;
+  font-weight: 900;
+}
+
+.rf-recent-cards {
+  min-height: 0;
+  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 5px;
 }
 
-.recent-mini {
-  min-height: 38px;
+.rf-recent-card {
+  min-width: 0;
   padding: 5px 4px;
-  grid-template-columns: minmax(0, 1fr);
-  text-align: center;
-}
-
-.recent-mini-name {
-  font-size: 7.6px;
-  line-height: 1.02;
-}
-
-.recent-mini-status {
-  margin-top: 2px;
-  font-size: 7px;
-}
-
-.recent-mini-arrow,
-.recent-mini-icon {
-  display: none;
-}
-
-.path-detail {
-  padding: 8px;
-  border-radius: 13px;
-}
-
-.path-head {
-  margin-bottom: 5px;
-}
-
-.path-head-title {
-  font-size: 11px;
-}
-
-.path-line {
-  grid-template-columns: 1fr minmax(76px, 96px) 1fr;
-  gap: 5px;
-}
-
-.path-site {
-  font-size: 8.4px;
-}
-
-.path-site small {
-  margin-bottom: 2px;
-  font-size: 6.5px;
-}
-
-.path-frequency {
-  font-size: 17px;
-}
-
-.path-sub {
-  margin-top: 1px;
-  font-size: 6px;
-}
-
-.path-wave {
-  height: 15px;
-  margin: 5px 0 6px;
-}
-
-.path-stats {
-  border-radius: 10px;
-}
-
-.path-stat {
-  padding: 4px 2px;
-}
-
-.path-stat strong {
-  font-size: 8.4px;
-}
-
-.path-stat span {
-  margin-top: 2px;
-  font-size: 5.6px;
-}
-
-.bottom-panels {
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
-
-.compact-table {
-  font-size: 7.4px;
-}
-
-.compact-table th {
-  font-size: 6px;
-}
-
-.compact-table th,
-.compact-table td {
-  padding: 3px 2px;
-}
-
-.equipment-grid {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-}
-
-.equipment-item {
-  padding: 6px 3px;
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  align-items: center;
+  gap: 3px;
+  overflow: hidden;
+  color: #071c32;
+  background: rgba(255,255,255,0.48);
+  border: 1px solid rgba(136,96,28,0.13);
   border-radius: 9px;
 }
 
-.equipment-item strong {
-  font-size: 14px;
+.rf-recent-card svg {
+  width: 16px;
+  height: 16px;
 }
 
-.equipment-item span {
+.rf-recent-name {
+  display: block;
+  font-size: 7.2px;
+  font-weight: 950;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.rf-recent-status {
+  display: block;
   margin-top: 2px;
+  color: #17692e;
+  font-size: 6.6px;
+  font-weight: 850;
+}
+
+/* Path details is a dark blue card with a gold outline immediately under the network block. */
+.rf-path-card {
+  min-height: 0;
+  padding: 8px;
+  display: grid;
+  grid-template-rows: 16px minmax(0, 1fr) 18px 34px;
+  gap: 5px;
+  color: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(237,191,99,0.48);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,217,133,0.10), transparent 36%),
+    linear-gradient(180deg, #0b243e, #06182b);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 7px 15px rgba(0,0,0,0.16);
+}
+
+.rf-path-title {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.rf-path-main {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 106px 1fr;
+  gap: 5px;
+  align-items: center;
+}
+
+.rf-path-site {
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1.02;
+}
+
+.rf-path-site small {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(255,255,255,0.58);
   font-size: 6px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rf-path-freq {
+  color: var(--gold-soft);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.rf-path-sub {
+  margin-top: 2px;
+  color: rgba(255,255,255,0.62);
+  text-align: center;
+  font-size: 6.5px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rf-wave {
+  height: 18px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,221,160,0.72), transparent 13%),
+    linear-gradient(90deg, #5bd858, var(--gold-soft), #ff563c);
+  box-shadow: 0 0 16px rgba(255,199,75,0.22);
+}
+
+.rf-path-stats {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.rf-path-stat {
+  padding: 5px 2px;
+  text-align: center;
+  background: rgba(255,255,255,0.045);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.rf-path-stat:last-child {
+  border-right: 0;
+}
+
+.rf-path-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 8.8px;
+  line-height: 1;
+}
+
+.rf-path-stat span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255,255,255,0.58);
+  font-size: 5.8px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Bottom two cards share the remaining space. */
+.rf-bottom-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.rf-small-card {
+  min-height: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(136,96,28,0.20);
+  border-radius: 13px;
+  background: rgba(255,255,255,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 6px 12px rgba(79,56,16,0.07);
+}
+
+.rf-small-title {
+  margin: 0 0 5px;
+  color: #071c32;
+  font-size: 9.8px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.rf-service-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071c32;
+  font-size: 6.7px;
+}
+
+.rf-service-table th,
+.rf-service-table td {
+  padding: 3px 2px;
+  text-align: left;
+  border-bottom: 1px solid rgba(136,96,28,0.13);
+}
+
+.rf-service-table th {
+  color: rgba(7,28,50,0.55);
+  font-size: 5.8px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rf-equipment-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.rf-equipment-item {
+  padding: 8px 3px;
+  text-align: center;
+  border: 1px solid rgba(136,96,28,0.13);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.48);
+}
+
+.rf-equipment-item strong {
+  display: block;
+  color: #071c32;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.rf-equipment-item span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(7,28,50,0.58);
+  font-size: 6px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
