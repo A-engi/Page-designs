@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.37
+   RF ATLAS SHELL v0.1.38
    Shared shell builder, page links, active states, burger,
    search panel, and collapsible quick row.
 ========================================================= */
