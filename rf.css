@@ -1,0 +1,490 @@
+/* =========================================================
+   RF ATLAS RF PAGE v0.1.54
+   Owns only the content inside the RF page's cream panel.
+   Shell/chrome styling lives in shell.css.
+========================================================= */
+
+/* 01. RF content canvas
+   Sets the RF-specific inside colour and removes scrolling for the dashboard layout. */
+.phone[data-page="rf"] .content-canvas {
+  overflow: hidden;
+  padding: 0;
+  background: #fcf8ee;
+}
+
+.phone[data-page="rf"] .content-canvas::before {
+  opacity: 0.06;
+}
+
+/* 02. Main RF dashboard grid
+   Keeps the page compact: map/recent area, path card, then two lower cards. */
+.rf-home {
+  height: 100%;
+  min-height: 0;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 03. Network header
+   The title and filter buttons sit directly on the RF content background. */
+.rf-network {
+  flex: 0 0 59%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 24px minmax(0, 1fr);
+  gap: 6px;
+}
+
+.rf-network-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 3px;
+}
+
+.rf-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rf-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.rf-tab {
+  height: 22px;
+  padding: 0 8px;
+  display: grid;
+  place-items: center;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.16);
+  border-radius: 8px;
+  font-size: 7.5px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rf-tab.is-active {
+  background: rgba(255,222,163,0.85);
+  border-color: rgba(130,91,22,0.30);
+}
+
+/* 04. Map and recently-opened block
+   This wrapper is layout-only. The visible panels are the map paper and recent panel. */
+.rf-map-recent {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 72px;
+  gap: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The map paper has the subtle contour texture. */
+.rf-map-paper {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-bottom: 0;
+  border-radius: 13px 13px 0 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.72), transparent 44%),
+    linear-gradient(180deg, #fff8e8, #f8ecd2);
+}
+
+.rf-map-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.30;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 18% 20%, transparent 0 34%, rgba(124,119,104,0.22) 35%, transparent 36%),
+    radial-gradient(ellipse at 72% 48%, transparent 0 36%, rgba(124,119,104,0.18) 37%, transparent 38%),
+    radial-gradient(ellipse at 48% 78%, transparent 0 30%, rgba(124,119,104,0.16) 31%, transparent 32%),
+    linear-gradient(24deg, transparent 0 42%, rgba(7,28,50,0.08) 42.25%, transparent 42.8%),
+    linear-gradient(136deg, transparent 0 54%, rgba(7,28,50,0.07) 54.25%, transparent 54.8%);
+  background-size: 100% 100%;
+}
+
+.rf-map-paper svg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.rf-map-label,
+.rf-map-label-small {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  paint-order: stroke;
+  stroke: rgba(255,248,232,0.86);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+
+.rf-map-label {
+  font-size: 8.3px;
+  font-weight: 900;
+}
+
+.rf-map-label-small {
+  font-size: 6.8px;
+  font-weight: 820;
+}
+
+.rf-legend {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  z-index: 4;
+  height: 18px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  color: rgba(7,28,50,0.72);
+  background: #fcf8ee;
+  border: 1px solid rgba(130,91,22,0.12);
+  border-radius: 8px;
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.rf-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 1px rgba(7,28,50,0.14);
+}
+
+/* 05. Recently opened
+   Solid light background, rounded, light typography, and no outlined View all button. */
+.rf-recent {
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr);
+  gap: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-radius: 14px;
+  background: #fcf8ee;
+  box-shadow: none;
+}
+
+.rf-recent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rf-recent-title {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #071c32;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 520;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.rf-clock {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: #09203a;
+  stroke-width: 1.7;
+}
+
+.rf-viewall {
+  padding: 3px 2px;
+  color: #09203a;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  font-size: 7px;
+  font-weight: 500;
+}
+
+.rf-recent-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.rf-recent-card {
+  min-width: 0;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 15px minmax(0, 1fr);
+  gap: 3px;
+  align-items: center;
+  overflow: hidden;
+  color: #071c32;
+  background: #fff9eb;
+  border: 1px solid rgba(130,91,22,0.12);
+  border-radius: 9px;
+}
+
+.rf-recent-card svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rf-recent-name {
+  display: block;
+  font-size: 6.8px;
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.rf-status {
+  display: block;
+  margin-top: 2px;
+  color: #17692e;
+  font-size: 6.2px;
+  font-weight: 380;
+}
+
+/* 06. Custom Path Details card
+   Wrapper and CSS for the supplied RF path SVG card. */
+.rf-path-slot {
+  flex: 0 0 20%;
+  min-height: 0;
+  margin-top: -1px;
+  padding: 0;
+  display: grid;
+  place-items: stretch;
+  overflow: hidden;
+  border: 2px solid rgba(237,191,99,0.74);
+  border-radius: 14px;
+  background: #011532;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 7px 15px rgba(0,0,0,0.16);
+}
+
+.rf-path-slot .rf-path {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #011532;
+  --bg: #011532;
+  --green: #01431c;
+  --green-edge: #5e6e51;
+  --red: #5f1217;
+  --red-edge: #8e575d;
+}
+
+.rf-path-slot .rf-path svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  font-family: Arial, sans-serif;
+  transform: scale(1.012);
+  transform-origin: center;
+}
+
+.rf-path-slot .rf-path .title,
+.rf-path-slot .rf-path .site,
+.rf-path-slot .rf-path .freq {
+  font-family: Georgia, "Times New Roman", serif;
+  fill: #fff;
+  font-weight: 700;
+  filter: drop-shadow(0 3px 1px rgba(0, 0, 0, .72));
+}
+
+.rf-path-slot .rf-path .label,
+.rf-path-slot .rf-path .metric-label {
+  fill: #b9bfcc;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.rf-path-slot .rf-path .metric-label {
+  fill: #b7bfcc;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+
+.rf-path-slot .rf-path .metric-value {
+  fill: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.rf-path-slot .rf-path .divider {
+  stroke: #b9c6d7;
+  stroke-opacity: .18;
+  stroke-width: 2;
+}
+
+.rf-path-slot .rf-path .signal {
+  fill: none;
+  stroke: url(#rf-signal);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(255, 225, 70, .95));
+}
+
+.rf-path-slot .rf-path .node-green {
+  filter: drop-shadow(0 0 8px rgba(140, 255, 67, .85));
+}
+
+.rf-path-slot .rf-path .node-red {
+  filter: drop-shadow(0 0 8px rgba(255, 68, 50, .85));
+}
+
+/* 07. Lower RF cards
+   Services and Equipment share the same tone as the content background. */
+.rf-bottom {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.rf-small {
+  min-height: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.20);
+  border-radius: 13px;
+  background: rgba(255,255,255,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 6px 12px rgba(79,56,16,0.07);
+}
+
+.rf-small-title {
+  margin: 0 0 5px;
+  color: #071c32;
+  font-size: 9.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.rf-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071c32;
+  font-size: 6.5px;
+}
+
+.rf-table th,
+.rf-table td {
+  padding: 3px 2px;
+  text-align: left;
+  border-bottom: 1px solid rgba(130,91,22,0.13);
+}
+
+.rf-table th {
+  color: rgba(7,28,50,0.55);
+  font-size: 5.6px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rf-equipment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.rf-equipment-item {
+  padding: 7px 3px;
+  text-align: center;
+  border: 1px solid rgba(130,91,22,0.13);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.48);
+}
+
+.rf-equipment-item strong {
+  display: block;
+  color: #071c32;
+  font-size: 14.5px;
+  line-height: 1;
+}
+
+.rf-equipment-item span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(7,28,50,0.58);
+  font-size: 6px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* 08. Narrow phones
+   Tiny reductions only, preserving the overall layout. */
+@media (max-width: 390px) {
+  .rf-home {
+    padding: 6px;
+  }
+
+  .rf-network {
+    grid-template-rows: 23px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .rf-tab {
+    padding-inline: 6px;
+  }
+
+  .rf-recent-grid {
+    gap: 4px;
+  }
+
+  .rf-recent-card {
+    grid-template-columns: 13px minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .rf-recent-card svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .rf-bottom {
+    gap: 6px;
+  }
+}
