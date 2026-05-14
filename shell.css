@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.39
+   RF ATLAS SHELL v0.1.40
    Shared shell styling for command bar, quick row, nav,
    burger menu, search panel, and collapsible service row.
 ========================================================= */
@@ -347,34 +347,30 @@ svg {
 .quick-toggle {
   position: absolute;
   left: 50%;
-  bottom: -1px;
-  width: 118px;
-  height: 18px;
+  bottom: 3px;
+  width: 154px;
+  height: 6px;
   padding: 0;
   display: grid;
   place-items: center;
   transform: translateX(-50%);
   color: var(--gold-soft);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 52%),
-    linear-gradient(180deg, rgba(18,32,45,0.98), rgba(10,22,35,0.98));
-  border: 1px solid rgba(237,191,99,0.24);
-  border-bottom: 0;
-  border-radius: 16px 16px 0 0;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.10),
-    0 -5px 12px rgba(0,0,0,0.24);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
 }
 
 .quick-toggle::before {
   content: "";
-  width: 56px;
-  height: 6px;
+  width: 128px;
+  height: 4px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(185,190,195,0.92), rgba(113,119,126,0.88));
+  background:
+    linear-gradient(180deg, rgba(185,190,195,0.88), rgba(105,112,120,0.86));
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.30),
-    0 1px 2px rgba(0,0,0,0.30);
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    0 0 8px rgba(255,199,75,0.22),
+    0 1px 2px rgba(0,0,0,0.22);
 }
 
 .phone.quick-collapsed .quick-access {
@@ -384,15 +380,15 @@ svg {
 }
 
 .phone.quick-collapsed .quick-toggle {
-  width: 96px;
-  height: 16px;
-  bottom: -1px;
+  width: 122px;
+  height: 6px;
+  bottom: 3px;
 }
 
 .phone.quick-collapsed .quick-toggle::before {
-  width: 44px;
-  height: 5px;
-  opacity: 0.92;
+  width: 92px;
+  height: 4px;
+  opacity: 0.88;
 }
 
 .content-canvas {
