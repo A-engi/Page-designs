@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.42
+   RF ATLAS PAGE CONTENT v0.1.43
    Shared prototype content components.
 ========================================================= */
 
@@ -744,4 +744,184 @@
 .equipment-item span {
   margin-top: 3px;
   font-size: 7px;
+}
+
+
+/* 08. Target-fit pass
+   Compresses the RF dashboard so the page behaves like the aim image, not a long report. */
+.content-canvas .page-content {
+  padding: 6px 7px 8px;
+}
+
+.dashboard-grid {
+  gap: 6px;
+}
+
+.rf-shell-card {
+  padding: 7px;
+  border-radius: 14px;
+}
+
+.rf-panel-head {
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.rf-panel-title {
+  font-size: 12px;
+  letter-spacing: 0.035em;
+}
+
+.rf-panel-tabs {
+  gap: 4px;
+}
+
+.rf-tab {
+  padding: 3px 6px;
+  font-size: 7.5px;
+  border-radius: 8px;
+}
+
+.rf-map {
+  min-height: 158px;
+  border-radius: 12px;
+}
+
+.rf-map svg text {
+  font-size: 10px;
+}
+
+.rf-legend {
+  margin-top: 5px;
+  padding: 4px 5px;
+  font-size: 7.5px;
+  border-radius: 9px;
+}
+
+.rf-dot {
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+}
+
+.recent-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.recent-mini {
+  min-height: 38px;
+  padding: 5px 4px;
+  grid-template-columns: minmax(0, 1fr);
+  text-align: center;
+}
+
+.recent-mini-name {
+  font-size: 7.6px;
+  line-height: 1.02;
+}
+
+.recent-mini-status {
+  margin-top: 2px;
+  font-size: 7px;
+}
+
+.recent-mini-arrow,
+.recent-mini-icon {
+  display: none;
+}
+
+.path-detail {
+  padding: 8px;
+  border-radius: 13px;
+}
+
+.path-head {
+  margin-bottom: 5px;
+}
+
+.path-head-title {
+  font-size: 11px;
+}
+
+.path-line {
+  grid-template-columns: 1fr minmax(76px, 96px) 1fr;
+  gap: 5px;
+}
+
+.path-site {
+  font-size: 8.4px;
+}
+
+.path-site small {
+  margin-bottom: 2px;
+  font-size: 6.5px;
+}
+
+.path-frequency {
+  font-size: 17px;
+}
+
+.path-sub {
+  margin-top: 1px;
+  font-size: 6px;
+}
+
+.path-wave {
+  height: 15px;
+  margin: 5px 0 6px;
+}
+
+.path-stats {
+  border-radius: 10px;
+}
+
+.path-stat {
+  padding: 4px 2px;
+}
+
+.path-stat strong {
+  font-size: 8.4px;
+}
+
+.path-stat span {
+  margin-top: 2px;
+  font-size: 5.6px;
+}
+
+.bottom-panels {
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.compact-table {
+  font-size: 7.4px;
+}
+
+.compact-table th {
+  font-size: 6px;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 3px 2px;
+}
+
+.equipment-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.equipment-item {
+  padding: 6px 3px;
+  border-radius: 9px;
+}
+
+.equipment-item strong {
+  font-size: 14px;
+}
+
+.equipment-item span {
+  margin-top: 2px;
+  font-size: 6px;
 }
