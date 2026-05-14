@@ -4,124 +4,142 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>RF Atlas</title>
-  <link rel="stylesheet" href="./shell.css?v=0.1.43" />
-  <link rel="stylesheet" href="./page.css?v=0.1.43" />
+  <link rel="stylesheet" href="./shell.css?v=0.1.44" />
+  <link rel="stylesheet" href="./page.css?v=0.1.44" />
 </head>
 
 <body>
-  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.43">
+  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.44">
     <section class="content-canvas" aria-label="RF Atlas content">
-      <article class="page-content">
-        <div class="dashboard-grid">
-          <section class="rf-shell-card">
-            <div class="rf-panel-head">
-              <h1 class="rf-panel-title">Network map</h1>
-              <div class="rf-panel-tabs">
-                <span class="rf-tab is-active">RF</span>
-                <span class="rf-tab">IP</span>
-                <span class="rf-tab">MW</span>
-                <span class="rf-tab">All</span>
-              </div>
+      <article class="page-content rf-home">
+        <section class="rf-network-block">
+          <div class="rf-network-head">
+            <h1 class="rf-network-title">Network map</h1>
+            <div class="rf-network-tabs">
+              <span class="rf-network-tab is-active">RF</span>
+              <span class="rf-network-tab">IP</span>
+              <span class="rf-network-tab">MW</span>
+              <span class="rf-network-tab">All</span>
             </div>
+          </div>
 
-            <div class="rf-map">
-              <svg viewBox="0 0 360 205" fill="none" aria-hidden="true">
-                <path d="M62 38 124 82 190 52 280 78 204 162 88 150 62 38Z" stroke="#147c39" stroke-width="2.4"/>
-                <path d="M88 150 204 162 304 122" stroke="#1264b2" stroke-width="2.4"/>
-                <path d="M204 162 280 78" stroke="#e33b24" stroke-width="4"/>
-                <path d="M124 82 204 162M190 52 280 78" stroke="#147c39" stroke-width="1.8" opacity=".72"/>
-                <g fill="#0d8a3c" stroke="#fff4d8" stroke-width="3">
-                  <circle cx="62" cy="38" r="14"/><circle cx="124" cy="82" r="15"/><circle cx="190" cy="52" r="14"/><circle cx="204" cy="162" r="20"/>
+          <div class="rf-map-inset">
+            <div class="rf-map-paper">
+              <svg viewBox="0 0 360 210" fill="none" aria-hidden="true">
+                <defs>
+                  <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="2.6" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <g id="mast" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="0" cy="-5" r="2.5" fill="none" stroke-width="1.7"/>
+                    <path d="M0 -2v13M-5 11 0 -2l5 13M-6 5H6" stroke-width="1.7"/>
+                    <path d="M-8 -4a8 8 0 0 1 0 -8M8 -12a8 8 0 0 1 0 8" stroke-width="1.4"/>
+                  </g>
+                </defs>
+
+                <path d="M64 38 123 80 188 52 279 78" stroke="#147c39" stroke-width="2.4"/>
+                <path d="M64 38 86 150 205 162 123 80" stroke="#147c39" stroke-width="2.2" opacity=".88"/>
+                <path d="M86 150 205 162 309 122" stroke="#1264b2" stroke-width="2.4"/>
+                <path d="M205 162 279 78" stroke="#e33b24" stroke-width="4"/>
+                <path d="M188 52 279 78" stroke="#147c39" stroke-width="2.1" opacity=".78"/>
+
+                <g filter="url(#softGlow)">
+                  <g transform="translate(64 38)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(123 80)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(188 52)"><circle r="14" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(205 162)"><circle r="20" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(86 150)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(309 122)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
+                  <g transform="translate(279 78)"><circle r="17" fill="#df3521" stroke="#fff4d8" stroke-width="3"/><use href="#mast"/></g>
                 </g>
-                <g fill="#1264b2" stroke="#fff4d8" stroke-width="3">
-                  <circle cx="88" cy="150" r="14"/><circle cx="304" cy="122" r="14"/>
-                </g>
-                <g fill="#df3521" stroke="#fff4d8" stroke-width="3">
-                  <circle cx="280" cy="78" r="17"/>
-                </g>
-                <g fill="#071c32" font-family="system-ui, sans-serif" font-weight="900" font-size="10">
-                  <text x="78" y="36">GLASGOW</text>
-                  <text x="140" y="86">MANCHESTER</text>
-                  <text x="206" y="50">EDINBURGH</text>
-                  <text x="218" y="184">LONDON</text>
-                  <text x="302" y="78">HILLTOP</text>
-                  <text x="102" y="172">VALLEY</text>
-                </g>
+
+                <text class="rf-map-label" x="82" y="38">GLASGOW</text>
+                <text class="rf-map-label-small" x="82" y="49">CORE SITE</text>
+                <text class="rf-map-label" x="140" y="84">MANCHESTER</text>
+                <text class="rf-map-label-small" x="140" y="95">MAIN SITE</text>
+                <text class="rf-map-label" x="204" y="52">EDINBURGH</text>
+                <text class="rf-map-label-small" x="204" y="63">CORE SITE</text>
+                <text class="rf-map-label" x="224" y="184">LONDON</text>
+                <text class="rf-map-label-small" x="224" y="195">CORE SITE</text>
+                <text class="rf-map-label" x="300" y="77">HILLTOP</text>
+                <text class="rf-map-label-small" x="300" y="88">RELAY</text>
+                <text class="rf-map-label" x="104" y="172">VALLEY</text>
+                <text class="rf-map-label-small" x="104" y="183">REMOTE</text>
               </svg>
             </div>
-
-            <div class="rf-legend">
-              <span><i class="rf-dot" style="color:#0d8a3c"></i>Core</span>
-              <span><i class="rf-dot" style="color:#0d8a3c"></i>Main</span>
-              <span><i class="rf-dot" style="color:#df3521"></i>Relay</span>
-              <span><i class="rf-dot" style="color:#1264b2"></i>Remote</span>
-            </div>
-          </section>
-
-          <section class="rf-shell-card">
-            <div class="rf-panel-head">
-              <h2 class="rf-panel-title">Recently opened</h2>
-              <a class="rf-tab" href="sites.html">View all</a>
-            </div>
-            <div class="recent-row">
-              <a class="recent-mini" href="sites.html"><span><span class="recent-mini-name">Hilltop<br>Relay</span><span class="recent-mini-status">Online</span></span></a>
-              <a class="recent-mini" href="sites.html"><span><span class="recent-mini-name">Ridgeway<br>Relay</span><span class="recent-mini-status">Online</span></span></a>
-              <a class="recent-mini" href="sites.html"><span><span class="recent-mini-name">London<br>Core</span><span class="recent-mini-status">Online</span></span></a>
-              <a class="recent-mini" href="sites.html"><span><span class="recent-mini-name">Pinewood<br>Remote</span><span class="recent-mini-status">Online</span></span></a>
-            </div>
-          </section>
-
-          <section class="path-detail">
-            <div class="path-head">
-              <h2 class="path-head-title">Path details</h2>
-            </div>
-            <div class="path-line">
-              <div class="path-site"><small>From</small>London<br>Core Site</div>
-              <div>
-                <div class="path-frequency">6.725 GHz</div>
-                <div class="path-sub">Horizontal</div>
-              </div>
-              <div class="path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
-            </div>
-            <div class="path-wave"></div>
-            <div class="path-stats">
-              <div class="path-stat"><strong>DTT 1</strong><span>Service</span></div>
-              <div class="path-stat"><strong>28</strong><span>MHz</span></div>
-              <div class="path-stat"><strong>64QAM</strong><span>Mod</span></div>
-              <div class="path-stat"><strong>18</strong><span>dBm</span></div>
-              <div class="path-stat"><strong>99.98</strong><span>%</span></div>
-            </div>
-          </section>
-
-          <div class="bottom-panels">
-            <section class="rf-shell-card">
-              <div class="rf-panel-head">
-                <h2 class="rf-panel-title">Services</h2>
-              </div>
-              <table class="compact-table">
-                <tr><th>Service</th><th>Type</th><th>Status</th></tr>
-                <tr><td>DTT MUX 1</td><td>DTT</td><td><span class="status">Online</span></td></tr>
-                <tr><td>DTT MUX 2</td><td>DTT</td><td><span class="status">Online</span></td></tr>
-                <tr><td>Radio 1</td><td>FM</td><td><span class="status">Online</span></td></tr>
-              </table>
-            </section>
-
-            <section class="rf-shell-card">
-              <div class="rf-panel-head">
-                <h2 class="rf-panel-title">Equipment</h2>
-              </div>
-              <div class="equipment-grid">
-                <div class="equipment-item"><strong>2</strong><span>TX</span></div>
-                <div class="equipment-item"><strong>3</strong><span>Ant</span></div>
-                <div class="equipment-item"><strong>2</strong><span>Links</span></div>
-              </div>
-            </section>
           </div>
+
+          <div class="rf-recent-band">
+            <div class="rf-recent-head">
+              <h2 class="rf-recent-title">Recently opened</h2>
+              <a class="rf-view-all" href="sites.html">View all</a>
+            </div>
+            <div class="rf-recent-cards">
+              <a class="rf-recent-card" href="sites.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#df3521" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
+                <span><span class="rf-recent-name">Hilltop<br>Relay</span><span class="rf-recent-status">Online</span></span>
+              </a>
+              <a class="rf-recent-card" href="sites.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1264b2" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
+                <span><span class="rf-recent-name">Ridgeway<br>Relay</span><span class="rf-recent-status">Online</span></span>
+              </a>
+              <a class="rf-recent-card" href="sites.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0d8a3c" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
+                <span><span class="rf-recent-name">London<br>Core</span><span class="rf-recent-status">Online</span></span>
+              </a>
+              <a class="rf-recent-card" href="sites.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1264b2" stroke-width="2" aria-hidden="true"><path d="M12 8v12M8 20l4-12 4 12M8 15h8"/><circle cx="12" cy="6" r="2"/><path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/></svg>
+                <span><span class="rf-recent-name">Pinewood<br>Remote</span><span class="rf-recent-status">Online</span></span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="rf-path-card">
+          <h2 class="rf-path-title">Path details</h2>
+          <div class="rf-path-main">
+            <div class="rf-path-site"><small>From</small>London<br>Core Site</div>
+            <div>
+              <div class="rf-path-freq">6.725 GHz</div>
+              <div class="rf-path-sub">Horizontal</div>
+            </div>
+            <div class="rf-path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
+          </div>
+          <div class="rf-wave"></div>
+          <div class="rf-path-stats">
+            <div class="rf-path-stat"><strong>DTT 1</strong><span>Service</span></div>
+            <div class="rf-path-stat"><strong>28</strong><span>MHz</span></div>
+            <div class="rf-path-stat"><strong>64QAM</strong><span>Mod</span></div>
+            <div class="rf-path-stat"><strong>18</strong><span>dBm</span></div>
+            <div class="rf-path-stat"><strong>99.98</strong><span>%</span></div>
+          </div>
+        </section>
+
+        <div class="rf-bottom-grid">
+          <section class="rf-small-card">
+            <h2 class="rf-small-title">Services on this path</h2>
+            <table class="rf-service-table">
+              <tr><th>Service</th><th>Type</th><th>Status</th></tr>
+              <tr><td>DTT MUX 1</td><td>DTT</td><td><span class="status">Online</span></td></tr>
+              <tr><td>DTT MUX 2</td><td>DTT</td><td><span class="status">Online</span></td></tr>
+              <tr><td>Radio 1</td><td>FM</td><td><span class="status">Online</span></td></tr>
+            </table>
+          </section>
+
+          <section class="rf-small-card">
+            <h2 class="rf-small-title">Equipment summary</h2>
+            <div class="rf-equipment-row">
+              <div class="rf-equipment-item"><strong>2</strong><span>TX</span></div>
+              <div class="rf-equipment-item"><strong>3</strong><span>ANT</span></div>
+              <div class="rf-equipment-item"><strong>2</strong><span>Links</span></div>
+            </div>
+          </section>
         </div>
       </article>
     </section>
   </main>
 
-  <script src="./shell.js?v=0.1.43" defer></script>
+  <script src="./shell.js?v=0.1.44" defer></script>
 </body>
 </html>
