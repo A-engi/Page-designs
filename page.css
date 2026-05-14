@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS PAGE CONTENT v0.1.46
+   RF ATLAS PAGE CONTENT v0.1.47
    Shared prototype content components.
 ========================================================= */
 
@@ -1166,7 +1166,7 @@
 }
 
 
-/* 09. RF v0.1.46 full rebuild
+/* 09. RF v0.1.47 full rebuild
    This rebuild follows the corrected outline: one network shell containing the map
    and recently opened band, then a dark path card, then two compact lower cards. */
 .phone[data-page="rf"] .content-canvas {
@@ -1589,7 +1589,7 @@
 }
 
 
-/* 10. RF v0.1.46 corrected contents rebuild
+/* 10. RF v0.1.47 corrected contents rebuild
    The Network title/buttons now sit directly on the contents page.
    The map plate now encloses the map, legend, and recently-opened area as one continuous block. */
 .phone[data-page="rf"] .content-canvas {
@@ -2023,6 +2023,449 @@
 }
 
 .rfv46-equipment-item span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(7,28,50,0.58);
+  font-size: 6px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+
+/* 11. RF v0.1.47 annotation fix
+   Removes the extra outer box around the network/map/recent section.
+   Removes the gap between recently opened and path details. */
+.phone[data-page="rf"] .content-canvas {
+  overflow: hidden;
+  padding: 0;
+}
+
+.rfv47-home {
+  height: 100%;
+  min-height: 0;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Network title and tabs sit directly on the eggshell content page. */
+.rfv47-network {
+  flex: 0 0 59%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 24px minmax(0, 1fr);
+  gap: 6px;
+}
+
+.rfv47-network-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 3px;
+}
+
+.rfv47-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rfv47-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.rfv47-tab {
+  height: 22px;
+  padding: 0 8px;
+  display: grid;
+  place-items: center;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.16);
+  border-radius: 8px;
+  font-size: 7.5px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rfv47-tab.is-active {
+  background: rgba(255,222,163,0.85);
+  border-color: rgba(130,91,22,0.30);
+}
+
+/* This is not a visible outer card. It is only a layout wrapper. */
+.rfv47-map-recent {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 72px;
+  gap: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The actual visible box starts here: the map paper. */
+.rfv47-map-paper {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-bottom: 0;
+  border-radius: 13px 13px 0 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.78), transparent 44%),
+    linear-gradient(180deg, rgba(255,252,244,0.88), rgba(255,241,208,0.54));
+}
+
+.rfv47-map-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.20;
+  background-image:
+    linear-gradient(24deg, transparent 0 42%, rgba(7,28,50,0.10) 42.25%, transparent 42.8%),
+    linear-gradient(136deg, transparent 0 54%, rgba(7,28,50,0.08) 54.25%, transparent 54.8%),
+    radial-gradient(circle at 22% 35%, rgba(33,90,120,0.08), transparent 18%),
+    radial-gradient(circle at 78% 48%, rgba(33,90,120,0.06), transparent 22%);
+}
+
+.rfv47-map-paper svg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.rfv47-map-label {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 8.3px;
+  font-weight: 900;
+}
+
+.rfv47-map-label-small {
+  fill: #071c32;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 6.8px;
+  font-weight: 820;
+}
+
+.rfv47-legend {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  z-index: 4;
+  height: 18px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  color: rgba(7,28,50,0.72);
+  background: rgba(255,252,244,0.76);
+  border: 1px solid rgba(130,91,22,0.10);
+  border-radius: 8px;
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.rfv47-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 1px rgba(7,28,50,0.14);
+}
+
+/* Recently opened is the lower half of the same visible box. No gap. */
+.rfv47-recent {
+  min-height: 0;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr);
+  gap: 5px;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-top: 0;
+  border-radius: 0 0 13px 13px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.50), transparent 48%),
+    linear-gradient(180deg, rgba(255,252,244,0.80), rgba(255,246,225,0.68));
+}
+
+.rfv47-recent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rfv47-recent-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.rfv47-viewall {
+  padding: 3px 7px;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.14);
+  border-radius: 999px;
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.rfv47-recent-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.rfv47-recent-card {
+  min-width: 0;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 15px minmax(0, 1fr);
+  gap: 3px;
+  align-items: center;
+  overflow: hidden;
+  color: #071c32;
+  background: rgba(255,255,255,0.44);
+  border: 1px solid rgba(130,91,22,0.12);
+  border-radius: 9px;
+}
+
+.rfv47-recent-card svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rfv47-recent-name {
+  display: block;
+  font-size: 6.8px;
+  font-weight: 950;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.rfv47-status {
+  display: block;
+  margin-top: 2px;
+  color: #17692e;
+  font-size: 6.2px;
+  font-weight: 850;
+}
+
+/* Path touches the network/recent block directly. No vertical gap. */
+.rfv47-path {
+  flex: 0 0 20%;
+  min-height: 0;
+  margin-top: 0;
+  padding: 8px;
+  display: grid;
+  grid-template-rows: 15px minmax(0, 1fr) 16px 31px;
+  gap: 5px;
+  overflow: hidden;
+  color: #fff;
+  border: 1px solid rgba(237,191,99,0.56);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,217,133,0.10), transparent 36%),
+    linear-gradient(180deg, #0b243e, #06182b);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 7px 15px rgba(0,0,0,0.16);
+}
+
+.rfv47-path-title {
+  margin: 0;
+  color: #fff;
+  font-size: 10.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.rfv47-path-main {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 102px 1fr;
+  gap: 5px;
+  align-items: center;
+}
+
+.rfv47-path-site {
+  color: #fff;
+  font-size: 7.8px;
+  font-weight: 900;
+  line-height: 1.02;
+}
+
+.rfv47-path-site small {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(255,255,255,0.58);
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rfv47-freq {
+  color: var(--gold-soft);
+  text-align: center;
+  font-size: 17.5px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.rfv47-sub {
+  margin-top: 2px;
+  color: rgba(255,255,255,0.62);
+  text-align: center;
+  font-size: 6.2px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rfv47-wave {
+  height: 16px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,221,160,0.72), transparent 13%),
+    linear-gradient(90deg, #5bd858, var(--gold-soft), #ff563c);
+  box-shadow: 0 0 16px rgba(255,199,75,0.22);
+}
+
+.rfv47-path-stats {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.rfv47-path-stat {
+  padding: 5px 2px;
+  text-align: center;
+  background: rgba(255,255,255,0.045);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.rfv47-path-stat:last-child {
+  border-right: 0;
+}
+
+.rfv47-path-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 8.5px;
+  line-height: 1;
+}
+
+.rfv47-path-stat span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255,255,255,0.58);
+  font-size: 5.5px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rfv47-bottom {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.rfv47-small {
+  min-height: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.20);
+  border-radius: 13px;
+  background: rgba(255,255,255,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 6px 12px rgba(79,56,16,0.07);
+}
+
+.rfv47-small-title {
+  margin: 0 0 5px;
+  color: #071c32;
+  font-size: 9.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.rfv47-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071c32;
+  font-size: 6.5px;
+}
+
+.rfv47-table th,
+.rfv47-table td {
+  padding: 3px 2px;
+  text-align: left;
+  border-bottom: 1px solid rgba(130,91,22,0.13);
+}
+
+.rfv47-table th {
+  color: rgba(7,28,50,0.55);
+  font-size: 5.6px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rfv47-equipment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.rfv47-equipment-item {
+  padding: 7px 3px;
+  text-align: center;
+  border: 1px solid rgba(130,91,22,0.13);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.48);
+}
+
+.rfv47-equipment-item strong {
+  display: block;
+  color: #071c32;
+  font-size: 14.5px;
+  line-height: 1;
+}
+
+.rfv47-equipment-item span {
   display: block;
   margin-top: 3px;
   color: rgba(7,28,50,0.58);
