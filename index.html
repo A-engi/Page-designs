@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>RF Atlas</title>
-  <link rel="stylesheet" href="./shell.css?v=0.1.47" />
-  <link rel="stylesheet" href="./page.css?v=0.1.47" />
+  <link rel="stylesheet" href="./shell.css?v=0.1.48" />
+  <link rel="stylesheet" href="./page.css?v=0.1.48" />
 </head>
 
 <body>
-  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.47">
+  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.48">
     <section class="content-canvas" aria-label="RF Atlas content">
       <article class="rfv47-home">
         <section class="rfv47-network">
@@ -32,9 +32,10 @@
                     <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
                   </filter>
                   <g id="rfv47Mast" stroke="white" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="0" cy="-5" r="2.4" fill="none" stroke-width="1.6"/>
-                    <path d="M0 -2v13M-5 11 0 -2l5 13M-6 5H6" stroke-width="1.6"/>
-                    <path d="M-8 -4a8 8 0 0 1 0 -8M8 -12a8 8 0 0 1 0 8" stroke-width="1.35"/>
+                    <circle cx="0" cy="-6" r="2.6" fill="none" stroke-width="1.8"/>
+                    <path d="M0 -3v14M-6 11 0 -3l6 14M-4 4h8M-2 0l4 5M2 0l-4 5" stroke-width="1.8"/>
+                    <path d="M-9 -5.5a9 9 0 0 1 0 -8M9 -13.5a9 9 0 0 1 0 8" stroke-width="1.55"/>
+                    <path d="M-13 -3.5a14 14 0 0 1 0 -12M13 -15.5a14 14 0 0 1 0 12" stroke-width="1.25" opacity=".9"/>
                   </g>
                 </defs>
 
@@ -45,13 +46,13 @@
                 <path d="M188 52 279 78" stroke="#147c39" stroke-width="2.1" opacity=".78"/>
 
                 <g filter="url(#rfv47Glow)">
-                  <g transform="translate(64 38)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(123 80)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(188 52)"><circle r="14" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(205 162)"><circle r="20" fill="#0d8a3c" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(86 150)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(309 122)"><circle r="14" fill="#1264b2" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
-                  <g transform="translate(279 78)"><circle r="17" fill="#df3521" stroke="#fff4d8" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(64 38)"><circle r="16" fill="#0d8a3c" stroke="#fff4d8" stroke-width="2.4"/><circle r="19" fill="none" stroke="#0d8a3c" stroke-opacity=".20" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(123 80)"><circle r="16" fill="#0d8a3c" stroke="#fff4d8" stroke-width="2.4"/><circle r="19" fill="none" stroke="#0d8a3c" stroke-opacity=".20" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(188 52)"><circle r="15" fill="#0d8a3c" stroke="#fff4d8" stroke-width="2.4"/><circle r="18" fill="none" stroke="#0d8a3c" stroke-opacity=".18" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(205 162)"><circle r="21" fill="#0d8a3c" stroke="#fff4d8" stroke-width="2.4"/><circle r="25" fill="none" stroke="#0d8a3c" stroke-opacity=".18" stroke-width="4"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(86 150)"><circle r="15" fill="#1264b2" stroke="#fff4d8" stroke-width="2.4"/><circle r="18" fill="none" stroke="#1264b2" stroke-opacity=".18" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(309 122)"><circle r="15" fill="#1264b2" stroke="#fff4d8" stroke-width="2.4"/><circle r="18" fill="none" stroke="#1264b2" stroke-opacity=".18" stroke-width="3"/><use href="#rfv47Mast"/></g>
+                  <g transform="translate(279 78)"><circle r="18" fill="#df3521" stroke="#fff4d8" stroke-width="2.4"/><circle r="24" fill="none" stroke="#df3521" stroke-opacity=".22" stroke-width="5"/><circle r="30" fill="none" stroke="#df3521" stroke-opacity=".10" stroke-width="5"/><use href="#rfv47Mast"/></g>
                 </g>
 
                 <text class="rfv47-map-label" x="82" y="38">GLASGOW</text>
@@ -78,7 +79,13 @@
 
             <div class="rfv47-recent">
               <div class="rfv47-recent-head">
-                <h2 class="rfv47-recent-title">Recently opened</h2>
+                <h2 class="rfv47-recent-title">
+                  <svg class="rfv47-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.5"/>
+                    <path d="M12 7.5V12l3 2"/>
+                  </svg>
+                  <span>Recently opened</span>
+                </h2>
                 <a class="rfv47-viewall" href="sites.html">View all</a>
               </div>
               <div class="rfv47-recent-grid">
@@ -147,6 +154,6 @@
     </section>
   </main>
 
-  <script src="./shell.js?v=0.1.47" defer></script>
+  <script src="./shell.js?v=0.1.48" defer></script>
 </body>
 </html>
