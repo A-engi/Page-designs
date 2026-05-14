@@ -1,7 +1,7 @@
-/* RF ATLAS SERVICE WORKER v0.1.42
+/* RF ATLAS SERVICE WORKER v0.1.43
    Caches the public prototype shell so the app can reopen offline. */
 
-const CACHE_NAME = "rf-atlas-v0.1.42";
+const CACHE_NAME = "rf-atlas-v0.1.43";
 const CORE_FILES = [
   "./",
   "./index.html",
