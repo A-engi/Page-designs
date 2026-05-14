@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.52
+   RF ATLAS SHELL v0.1.54
    Shared shell builder, page links, active states, burger,
    search panel, and collapsible quick row.
 ========================================================= */
@@ -232,7 +232,7 @@ const bootRfAtlasShell = () => {
         <div class="shell-menu-footer">
           <div class="shell-menu-version">
             <span>RF Atlas</span>
-            <strong>v0.1.52</strong>
+            <strong>v0.1.54</strong>
           </div>
 
           <label class="github-key-label" for="githubKeyInput">GitHub key</label>
