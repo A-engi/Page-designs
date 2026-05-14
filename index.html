@@ -4,66 +4,130 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>RF Atlas</title>
-  <link rel="stylesheet" href="./shell.css?v=0.1.39" />
-  <link rel="stylesheet" href="./page.css?v=0.1.39" />
+  <link rel="stylesheet" href="./shell.css?v=0.1.40" />
+  <link rel="stylesheet" href="./page.css?v=0.1.40" />
 </head>
 
 <body>
-  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.39">
+  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.40">
     <section class="content-canvas" aria-label="RF Atlas content">
       <article class="page-content">
         <header class="page-head">
           <div class="page-kicker">RF control</div>
           <h1 class="page-title">RF Overview</h1>
-          <p class="page-lede">Live-style overview cards for services, paths, and field status.</p>
+          <p class="page-lede">Network map, recent sites, path detail, services, and equipment status.</p>
         </header>
 
-        <section class="card is-dark signal-hero">
-          <div>
-            <div class="muted">Selected path</div>
-            <div class="frequency">6.725 GHz</div>
-            <div class="muted">London Core to Hilltop Relay</div>
-          </div>
-        </section>
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Network map</h2>
+              <div class="panel-tabs">
+                <span class="panel-tab is-active">RF</span>
+                <span class="panel-tab">IP</span>
+                <span class="panel-tab">All</span>
+              </div>
+            </div>
 
-        <section class="card">
-          <h2 class="card-title">System status</h2>
-          <div class="metric-grid">
-            <div class="metric"><strong>24</strong><span>Sites</span></div>
-            <div class="metric"><strong>18</strong><span>Paths</span></div>
-            <div class="metric"><strong>3</strong><span>Alerts</span></div>
-          </div>
-        </section>
+            <div class="network-board">
+              <svg viewBox="0 0 330 250" fill="none" aria-hidden="true">
+                <path d="M54 52 118 104 172 72 244 98 176 176 86 166 54 52Z" stroke="#137c35" stroke-width="3" opacity=".86"/>
+                <path d="M86 166 176 176 274 144" stroke="#0f5fab" stroke-width="3" opacity=".80"/>
+                <path d="M176 176 244 98" stroke="#e73b21" stroke-width="5" opacity=".78"/>
+                <g fill="#12853b" stroke="#fff4d8" stroke-width="3">
+                  <circle cx="54" cy="52" r="16"/><circle cx="118" cy="104" r="16"/><circle cx="172" cy="72" r="16"/><circle cx="176" cy="176" r="21"/>
+                </g>
+                <g fill="#0f5fab" stroke="#fff4d8" stroke-width="3">
+                  <circle cx="86" cy="166" r="15"/><circle cx="274" cy="144" r="15"/>
+                </g>
+                <g fill="#d5351e" stroke="#fff4d8" stroke-width="3">
+                  <circle cx="244" cy="98" r="18"/>
+                </g>
+                <g fill="#071c32" font-family="system-ui, sans-serif" font-weight="900" font-size="12">
+                  <text x="69" y="48">GLASGOW</text>
+                  <text x="132" y="108">MANCHESTER</text>
+                  <text x="188" y="70">EDINBURGH</text>
+                  <text x="199" y="198">LONDON</text>
+                  <text x="264" y="94">HILLTOP</text>
+                  <text x="98" y="188">VALLEY</text>
+                </g>
+              </svg>
+            </div>
 
-        <section class="card">
-          <h2 class="card-title">Next actions</h2>
-          <div class="action-grid">
-            <a class="action-card" href="paths.html"><span class="action-icon">~</span><strong>View paths</strong></a>
-            <a class="action-card" href="equipment.html"><span class="action-icon">â¦</span><strong>Equipment</strong></a>
-            <a class="action-card" href="sites.html"><span class="action-icon">â</span><strong>Open sites</strong></a>
-            <a class="action-card" href="tools.html"><span class="action-icon">â</span><strong>Field tools</strong></a>
-          </div>
-        </section>
+            <div class="legend-row">
+              <span><i class="legend-dot" style="color:#12853b"></i>Core</span>
+              <span><i class="legend-dot" style="color:#12853b"></i>Main</span>
+              <span><i class="legend-dot" style="color:#d5351e"></i>Relay</span>
+              <span><i class="legend-dot" style="color:#0f5fab"></i>Remote</span>
+            </div>
+          </section>
 
-        <section class="card">
-          <h2 class="card-title">Recently opened</h2>
-          <div class="list">
-            <a class="list-row" href="sites.html">
-              <span class="row-icon">TX</span>
-              <span><b class="row-title">Winter Hill</b><div class="row-sub">Main TX site - DTT / DAB / FM</div></span>
-              <span class="status">Online</span>
-            </a>
-            <a class="list-row" href="network.html">
-              <span class="row-icon">RF</span>
-              <span><b class="row-title">Core microwave path</b><div class="row-sub">Signal route and topology</div></span>
-              <span class="status warn">Watch</span>
-            </a>
+          <section class="panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Recently opened</h2>
+              <a class="panel-tab" href="sites.html">View all</a>
+            </div>
+            <div class="recent-strip">
+              <a class="recent-card" href="sites.html">
+                <span class="recent-icon">â</span>
+                <span><span class="recent-name">Hilltop<br>Relay</span><span class="recent-meta">Online</span></span>
+              </a>
+              <a class="recent-card" href="sites.html">
+                <span class="recent-icon">â</span>
+                <span><span class="recent-name">London<br>Core</span><span class="recent-meta">Online</span></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel is-dark path-panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Path details</h2>
+            </div>
+            <div class="path-top">
+              <div class="path-site"><small>From</small>London<br>Core Site</div>
+              <div class="path-frequency">6.725 GHz</div>
+              <div class="path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
+            </div>
+            <div class="path-wave"></div>
+            <div class="path-stats">
+              <div class="path-stat"><strong>DTT 1</strong><span>Service</span></div>
+              <div class="path-stat"><strong>28</strong><span>MHz</span></div>
+              <div class="path-stat"><strong>64QAM</strong><span>Mod</span></div>
+              <div class="path-stat"><strong>18</strong><span>dBm</span></div>
+              <div class="path-stat"><strong>99.98</strong><span>%</span></div>
+            </div>
+          </section>
+
+          <div class="two-col">
+            <section class="panel">
+              <div class="panel-head">
+                <h2 class="panel-title">Services on path</h2>
+              </div>
+              <table class="compact-table">
+                <tr><th>Service</th><th>Type</th><th>Status</th></tr>
+                <tr><td>DTT MUX 1</td><td>DTT</td><td><span class="status">Online</span></td></tr>
+                <tr><td>DTT MUX 2</td><td>DTT</td><td><span class="status">Online</span></td></tr>
+                <tr><td>Radio 1</td><td>FM</td><td><span class="status">Online</span></td></tr>
+                <tr><td>Radio 2</td><td>FM</td><td><span class="status">Online</span></td></tr>
+              </table>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <h2 class="panel-title">Equipment summary</h2>
+              </div>
+              <div class="equipment-grid">
+                <div class="equipment-item"><strong>2</strong><span>TX</span></div>
+                <div class="equipment-item"><strong>3</strong><span>Antennas</span></div>
+                <div class="equipment-item"><strong>2</strong><span>Links</span></div>
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
       </article>
     </section>
   </main>
 
-  <script src="./shell.js?v=0.1.39" defer></script>
+  <script src="./shell.js?v=0.1.40" defer></script>
 </body>
 </html>
