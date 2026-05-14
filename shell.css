@@ -1,5 +1,5 @@
 /* =========================================================
-   RF ATLAS SHELL v0.1.41
+   RF ATLAS SHELL v0.1.42
    Shared shell styling for command bar, quick row, nav,
    burger menu, search panel, and collapsible service row.
 ========================================================= */
@@ -131,8 +131,8 @@ svg {
   background:
     radial-gradient(circle at 52% -12%, rgba(255,222,158,0.13), transparent 38%),
     linear-gradient(180deg, var(--navy-top) 0%, var(--navy-mid) 62%, var(--navy-low) 100%);
-  border-bottom: 1px solid rgba(237,191,99,0.18);
-  box-shadow: 0 12px 26px rgba(3,10,20,0.24);
+  border-bottom: 0;
+  box-shadow: none;
   transition: height 160ms ease;
 }
 
@@ -141,10 +141,10 @@ svg {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -18px;
-  height: 18px;
+  bottom: -10px;
+  height: 10px;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(3,10,20,0.24), rgba(3,10,20,0));
+  background: linear-gradient(180deg, rgba(3,10,20,0.10), rgba(3,10,20,0));
 }
 
 .command-row {
@@ -347,9 +347,9 @@ svg {
 .quick-toggle {
   position: absolute;
   left: 50%;
-  bottom: 2px;
-  width: 130px;
-  height: 8px;
+  bottom: 3px;
+  width: 84px;
+  height: 10px;
   padding: 0;
   display: grid;
   place-items: center;
@@ -362,13 +362,13 @@ svg {
 
 .quick-toggle::before {
   content: "";
-  width: 74px;
-  height: 3px;
+  width: 54px;
+  height: 5px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(185,190,195,0.78), transparent);
+  background: linear-gradient(180deg, rgba(192,197,202,0.92), rgba(111,118,127,0.88));
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.22),
-    0 0 5px rgba(255,199,75,0.18);
+    inset 0 1px 0 rgba(255,255,255,0.32),
+    0 1px 2px rgba(0,0,0,0.24);
 }
 
 .phone.quick-collapsed .quick-access {
@@ -378,15 +378,15 @@ svg {
 }
 
 .phone.quick-collapsed .quick-toggle {
-  width: 96px;
-  height: 8px;
-  bottom: 2px;
+  width: 72px;
+  height: 10px;
+  bottom: 3px;
 }
 
 .phone.quick-collapsed .quick-toggle::before {
-  width: 52px;
-  height: 3px;
-  opacity: 0.82;
+  width: 42px;
+  height: 5px;
+  opacity: 0.86;
 }
 
 .content-canvas {
@@ -574,6 +574,9 @@ svg {
 }
 
 .shell-panel {
+  max-height: calc(100dvh - var(--top-shell-height) - 22px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   pointer-events: auto;
   border: 1px solid rgba(237,191,99,0.35);
   border-radius: 18px;
@@ -664,6 +667,85 @@ svg {
   padding: 0 12px 14px;
   color: rgba(255,255,255,0.58);
   font-size: 12px;
+}
+
+/* The burger menu footer holds version, connection, and local GitHub key controls. */
+.shell-menu-footer {
+  margin: 0 12px 12px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  color: rgba(255,255,255,0.70);
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+}
+
+.shell-menu-version {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: rgba(255,255,255,0.62);
+  font-size: 10px;
+  font-weight: 780;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.shell-menu-version strong {
+  color: var(--gold-soft);
+}
+
+.github-key-label {
+  color: rgba(255,255,255,0.72);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.github-key-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 6px;
+}
+
+.github-key-input {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 9px;
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  outline: none;
+}
+
+.github-key-button {
+  height: 32px;
+  padding: 0 9px;
+  color: #071c32;
+  background: rgba(255,221,160,0.88);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.github-key-button.is-clear {
+  color: rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.08);
+}
+
+.github-key-note {
+  margin: 0;
+  color: rgba(255,255,255,0.54);
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+.github-key-state {
+  color: var(--gold-soft);
 }
 
 @media (max-width: 390px) {
