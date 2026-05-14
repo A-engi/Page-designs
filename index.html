@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>RF Atlas</title>
-  <link rel="stylesheet" href="./shell.css?v=0.1.48" />
-  <link rel="stylesheet" href="./page.css?v=0.1.48" />
+  <link rel="stylesheet" href="./shell.css?v=0.1.50" />
+  <link rel="stylesheet" href="./page.css?v=0.1.50" />
 </head>
 
 <body>
-  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.48">
+  <main class="phone" data-page="rf" data-nav="rf" data-version="0.1.50">
     <section class="content-canvas" aria-label="RF Atlas content">
       <article class="rfv47-home">
         <section class="rfv47-network">
@@ -109,28 +109,92 @@
             </div>
           </div>
         </section>
+        <section class="rfv50-path-slot" aria-label="Path details">
+          <div class="rf-path">
+            <svg viewBox="0 0 1080 270" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="rf-signal" x1="343" x2="741" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#8cff43"/>
+                  <stop offset=".08" stop-color="#8cff43"/>
+                  <stop offset=".16" stop-color="#f5ff69"/>
+                  <stop offset=".42" stop-color="#f5ff69"/>
+                  <stop offset=".50" stop-color="#ffd94f"/>
+                  <stop offset=".62" stop-color="#ffb24c"/>
+                  <stop offset=".72" stop-color="#ff9a42"/>
+                  <stop offset=".92" stop-color="#ff7a3b"/>
+                  <stop offset="1" stop-color="#ff4432"/>
+                </linearGradient>
 
-        <section class="rfv47-path">
-          <h2 class="rfv47-path-title">Path details</h2>
-          <div class="rfv47-path-main">
-            <div class="rfv47-path-site"><small>From</small>London<br>Core Site</div>
-            <div>
-              <div class="rfv47-freq">6.725 GHz</div>
-              <div class="rfv47-sub">Horizontal</div>
-            </div>
-            <div class="rfv47-path-site" style="text-align:right"><small>To</small>Hilltop<br>Relay Site</div>
-          </div>
-          <div class="rfv47-wave"></div>
-          <div class="rfv47-path-stats">
-            <div class="rfv47-path-stat"><strong>DTT 1</strong><span>Service</span></div>
-            <div class="rfv47-path-stat"><strong>28</strong><span>MHz</span></div>
-            <div class="rfv47-path-stat"><strong>64QAM</strong><span>Mod</span></div>
-            <div class="rfv47-path-stat"><strong>18</strong><span>dBm</span></div>
-            <div class="rfv47-path-stat"><strong>99.98</strong><span>%</span></div>
+                <pattern id="rf-scan" width="12" height="270" patternUnits="userSpaceOnUse">
+                  <path d="M1 0V270" stroke="#fff" stroke-opacity=".035"/>
+                  <path d="M8 0V270" stroke="#76a3ca" stroke-opacity=".025"/>
+                </pattern>
+
+                <symbol id="rf-mast" viewBox="0 0 44 44">
+                  <path d="M22 16v19M14 35h16M16 35l6-19 6 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="22" cy="16" r="2.4" fill="currentColor"/>
+                  <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </symbol>
+              </defs>
+
+              <rect x="8" y="5" width="1064" height="260" rx="31" fill="var(--bg)" filter="drop-shadow(0 8px 9px rgba(0,0,0,.32))"/>
+              <rect x="13" y="10" width="1054" height="250" rx="27" fill="url(#rf-scan)" opacity=".72"/>
+
+              <path d="M42 38h21l6-11 8 24 8-31 8 27 6-9h20" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="136" y="44" class="title" font-size="27" letter-spacing="1.5">PATH DETAILS</text>
+
+              <circle cx="87" cy="104" r="33" fill="var(--green)" stroke="var(--green-edge)" stroke-width="4"/>
+              <use href="#rf-mast" x="65" y="82" width="44" height="44" color="#fff"/>
+              <text x="138" y="84" class="label" font-size="15">FROM</text>
+              <text x="138" y="108" class="site" font-size="27" letter-spacing=".6">LONDON</text>
+              <text x="138" y="132" class="site" font-size="27" letter-spacing=".6">CORE SITE</text>
+
+              <path class="signal" d="M343 82 L500 82 L506 74 L512 88 L520 68 L528 93 L540 47 L552 103 L563 66 L572 92 L580 73 L586 86 L588 82 L741 82"/>
+              <circle class="node-green" cx="343" cy="82" r="12" fill="#fff" stroke="#8dff49" stroke-width="5"/>
+              <circle class="node-red" cx="741" cy="82" r="12" fill="#fff" stroke="#ff4931" stroke-width="5"/>
+
+              <text x="542" y="126" text-anchor="middle" class="freq" font-size="31" letter-spacing=".5">6.725 GHz</text>
+              <text x="542" y="149" text-anchor="middle" class="label" font-size="15" letter-spacing="3">HORIZONTAL</text>
+
+              <text x="800" y="84" class="label" font-size="15">TO</text>
+              <text x="936" y="108" text-anchor="end" class="site" font-size="27" letter-spacing=".6">HILLTOP</text>
+              <text x="936" y="132" text-anchor="end" class="site" font-size="27" letter-spacing=".6">RELAY SITE</text>
+              <circle cx="1006" cy="104" r="33" fill="var(--red)" stroke="var(--red-edge)" stroke-width="4"/>
+              <use href="#rf-mast" x="984" y="82" width="44" height="44" color="#fff"/>
+
+              <line x1="43" y1="166" x2="1038" y2="166" stroke="#b9c6d7" stroke-opacity=".20" stroke-width="2"/>
+
+              <g>
+                <line x1="212" y1="184" x2="212" y2="236" class="divider"/>
+                <line x1="392" y1="184" x2="392" y2="236" class="divider"/>
+                <line x1="568" y1="184" x2="568" y2="236" class="divider"/>
+                <line x1="743" y1="184" x2="743" y2="236" class="divider"/>
+                <line x1="910" y1="184" x2="910" y2="236" class="divider"/>
+
+                <text x="58" y="195" class="metric-label">SERVICE</text>
+                <text x="58" y="228" class="metric-value" letter-spacing=".2">DTT MUX 1</text>
+
+                <text x="250" y="195" class="metric-label">BANDWIDTH</text>
+                <text x="250" y="228" class="metric-value">28 MHz</text>
+
+                <text x="430" y="195" class="metric-label">MODULATION</text>
+                <text x="430" y="228" class="metric-value">64QAM</text>
+
+                <text x="606" y="195" class="metric-label">TX POWER</text>
+                <text x="606" y="228" class="metric-value">18 dBm</text>
+
+                <text x="780" y="195" class="metric-label">AVAILABILITY</text>
+                <text x="780" y="228" class="metric-value">99.98%</text>
+
+                <text x="942" y="195" class="metric-label">STATUS</text>
+                <circle class="node-green" cx="948" cy="218" r="8.5" fill="#8dff49"/>
+                <text x="968" y="228" class="metric-value" font-size="21">ONLINE</text>
+              </g>
+            </svg>
           </div>
         </section>
 
-        <div class="rfv47-bottom">
+<div class="rfv47-bottom">
           <section class="rfv47-small">
             <h2 class="rfv47-small-title">Services</h2>
             <table class="rfv47-table">
@@ -154,6 +218,6 @@
     </section>
   </main>
 
-  <script src="./shell.js?v=0.1.48" defer></script>
+  <script src="./shell.js?v=0.1.50" defer></script>
 </body>
 </html>
