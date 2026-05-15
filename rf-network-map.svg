@@ -2,10 +2,10 @@
      viewBox="43 101 1084 923"
      role="img"
      aria-labelledby="title desc"
-     preserveAspectRatio="xMidYMid meet">
+     preserveAspectRatio="none">
 
-<title id="title">Network Graph Area Only v21</title>
-<desc id="desc">A standalone SVG network map using reusable markers, grouped sites, route paths, dots, labels, compass and legend.</desc>
+<title id="title">Network Graph Area Only wide-fit</title>
+<desc id="desc">A standalone wide-fit SVG network map using reusable markers, grouped sites, route paths, dots, labels, compass and legend.</desc>
 
 <style>
   /* =======================================================
