@@ -9,7 +9,7 @@ const CORE_FILES = [
   "./shell.css?v=0.1.54",
   "./shell.js?v=0.1.54",
   "./rf.css?v=0.1.54",
-  "./rf-network-map.svg",
+  "./rf-demo-map.js",
   "./map.html",
   "./sites.html",
   "./network.html",
