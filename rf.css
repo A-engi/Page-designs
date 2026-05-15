@@ -1,388 +1,906 @@
-/* RF Atlas demo map renderer
-   Uses private/real graph data if it exists, otherwise falls back to demo nodes.
-   Positions resize with the available map area. Marker and label sizes stay clamped. */
+/* =========================================================
+   RF ATLAS — RF PAGE STYLES
+   This file owns only the RF page content inside the shell.
+   Shell/chrome styling belongs in shell.css.
+========================================================= */
 
-(() => {
-  const FALLBACK_GRAPH = {
-    nodes: [
-      {
-        id: "glasgow",
-        name: "Glasgow",
-        type: "core",
-        x: 0.12,
-        y: 0.13,
-        label: { dx: 15, dy: -7, anchor: "start" },
-        labelTight: { dx: 16, dy: -8, anchor: "start" }
-      },
-      {
-        id: "edinburgh",
-        name: "Edinburgh",
-        type: "core",
-        x: 0.66,
-        y: 0.13,
-        label: { dx: 15, dy: -7, anchor: "start" },
-        labelTight: { dx: 15, dy: -8, anchor: "start" }
-      },
-      {
-        id: "manchester",
-        name: "Manchester",
-        type: "main",
-        x: 0.34,
-        y: 0.37,
-        label: { dx: 14, dy: -2, anchor: "start" },
-        labelTight: { dx: 14, dy: -3, anchor: "start" }
-      },
-      {
-        id: "birmingham",
-        name: "Birmingham",
-        type: "main",
-        x: 0.39,
-        y: 0.58,
-        label: { dx: 14, dy: 0, anchor: "start" },
-        labelTight: { dx: -13, dy: 11, anchor: "end" }
-      },
-      {
-        id: "london",
-        name: "London",
-        type: "core",
-        x: 0.52,
-        y: 0.86,
-        size: "large",
-        label: { dx: 0, dy: 23, anchor: "middle" },
-        labelTight: { dx: 0, dy: 20, anchor: "middle" }
-      },
-      {
-        id: "hilltop",
-        name: "Hilltop",
-        type: "relay",
-        x: 0.75,
-        y: 0.39,
-        label: { dx: 15, dy: -5, anchor: "start" },
-        labelTight: { dx: 14, dy: -6, anchor: "start" }
-      },
-      {
-        id: "ridgeway",
-        name: "Ridgeway",
-        type: "relay",
-        x: 0.88,
-        y: 0.61,
-        label: { dx: -14, dy: 0, anchor: "end" },
-        labelTight: { dx: -13, dy: -2, anchor: "end" }
-      },
-      {
-        id: "valley",
-        name: "Valley",
-        type: "remote",
-        x: 0.14,
-        y: 0.75,
-        label: { dx: 15, dy: 11, anchor: "start" },
-        labelTight: { dx: 14, dy: 10, anchor: "start" }
-      },
-      {
-        id: "pinewood",
-        name: "Pinewood",
-        type: "remote",
-        x: 0.88,
-        y: 0.86,
-        label: { dx: -14, dy: 15, anchor: "end" },
-        labelTight: { dx: -13, dy: 12, anchor: "end" }
-      }
-    ],
-    links: [
-      { from: "glasgow", to: "manchester", type: "main" },
-      { from: "edinburgh", to: "manchester", type: "main" },
-      { from: "manchester", to: "birmingham", type: "main" },
-      { from: "birmingham", to: "london", type: "main" },
-      { from: "london", to: "valley", type: "backup" },
-      { from: "london", to: "pinewood", type: "backup" },
-      { from: "london", to: "hilltop", type: "alert" },
-      { from: "hilltop", to: "ridgeway", type: "backup" },
-      { from: "ridgeway", to: "pinewood", type: "backup" }
-    ],
-    selectedPathId: "london-hilltop"
-  };
 
-  const typeLabel = (type) => ({
-    core: "CORE",
-    main: "MAIN",
-    relay: "RELAY",
-    remote: "REMOTE"
-  }[type] || String(type || "SITE").toUpperCase());
+/* =========================================================
+   01. RF CONTENT CANVAS
+   The cream RF dashboard area.
+========================================================= */
 
-  const validateGraph = (data) => (
-    data &&
-    Array.isArray(data.nodes) &&
-    data.nodes.length > 0 &&
-    Array.isArray(data.links)
-  );
+.phone[data-page="rf"] .content-canvas {
+  overflow: hidden;
+  padding: 0;
+  background: #fcf8ee;
+}
 
-  const getGraphData = async () => {
-    if (validateGraph(window.ATLAS_PRIVATE_GRAPH)) return window.ATLAS_PRIVATE_GRAPH;
-    if (validateGraph(window.ATLAS_NETWORK_GRAPH)) return window.ATLAS_NETWORK_GRAPH;
+.phone[data-page="rf"] .content-canvas::before {
+  opacity: 0.06;
+}
 
-    try {
-      const response = await fetch("./data/rf-network-map.json", { cache: "no-store" });
-      if (response.ok) {
-        const json = await response.json();
-        if (validateGraph(json)) return json;
-      }
-    } catch (_) {}
+.rf-home {
+  height: 100%;
+  min-height: 0;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+}
 
-    return FALLBACK_GRAPH;
-  };
 
-  const svg = (tag, attrs = {}, children = []) => {
-    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
-    Object.entries(attrs).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) el.setAttribute(key, String(value));
-    });
-    children.forEach((child) => el.appendChild(child));
-    return el;
-  };
+/* =========================================================
+   02. NETWORK HEADER
+   Title and RF/IP/MW/All buttons.
+========================================================= */
 
-  const text = (value) => document.createTextNode(value);
+.rf-network {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 24px minmax(0, 1fr);
+  gap: 6px;
+}
 
-  const makeMast = (x, y, scale = 1) => {
-    const g = svg("g", { transform: `translate(${x} ${y}) scale(${scale})`, class: "mast" });
-    g.append(
-      svg("path", { d: "M0 -10v22M-7 12L0-10l7 22M-6 3H6M-4-4H4" }),
-      svg("circle", { cx: 0, cy: -12, r: 2.2, fill: "currentColor", stroke: "none" }),
-      svg("path", { d: "M-6-14C-12-8-12 0-6 6M6-14C12-8 12 0 6 6" }),
-      svg("path", { d: "M-11-19C-21-9-21 5-11 15M11-19C21-9 21 5 11 15", opacity: 0.82 })
-    );
-    return g;
-  };
+.rf-network-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 3px;
+}
 
-  const markerRadius = (node, width) => {
-    const tight = width < 330;
-    if (node.size === "large") return tight ? 11.5 : 13;
-    if (node.type === "relay") return tight ? 8.8 : 10.2;
-    return tight ? 8.2 : 9.6;
-  };
+.rf-title {
+  margin: 0;
+  color: #071c32;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
-  const linkCurve = (x1, y1, x2, y2) => {
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const curve = Math.max(-28, Math.min(28, dx * 0.10));
-    const bow = Math.max(-12, Math.min(12, dy * 0.06));
-    return `M${x1} ${y1} C${x1 + curve} ${y1 + bow}, ${x2 - curve} ${y2 - bow}, ${x2} ${y2}`;
-  };
+.rf-tabs {
+  display: flex;
+  gap: 4px;
+}
 
-  const render = (mount, graph) => {
-    const rect = mount.getBoundingClientRect();
-    const width = Math.max(220, Math.round(rect.width));
-    const height = Math.max(120, Math.round(rect.height));
-    const tight = width < 330;
+.rf-tab {
+  height: 22px;
+  padding: 0 8px;
+  display: grid;
+  place-items: center;
+  color: #071c32;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(130,91,22,0.16);
+  border-radius: 8px;
+  font-size: 7.5px;
+  font-weight: 900;
+  white-space: nowrap;
+}
 
-    /*
-      The positions use nearly all available stage space, but visual sizes are fixed.
-      This prevents the graph becoming a giant sticker pile when the side panel is open.
-    */
-    const padX = tight ? 13 : 18;
-    const padTop = Math.max(10, height * 0.045);
-    const padBottom = Math.max(18, height * 0.105);
+.rf-tab.is-active {
+  background: rgba(255,222,163,0.85);
+  border-color: rgba(130,91,22,0.30);
+}
 
-    const xOf = (node) => padX + node.x * (width - padX * 2);
-    const yOf = (node) => padTop + node.y * (height - padTop - padBottom);
 
-    const nodes = new Map(graph.nodes.map((node) => [node.id, node]));
-    const selectedLink =
-      graph.links.find((link) => link.id === graph.selectedPathId) ||
-      graph.links.find((link) => `${link.from}-${link.to}` === graph.selectedPathId) ||
-      graph.links.find((link) => link.type === "alert") ||
-      graph.links[0];
+/* =========================================================
+   03. MAP + RECENTLY OPENED BLOCK
+   Map paper owns the graph and side Path Details pane.
+========================================================= */
 
-    const selectedIds = selectedLink ? new Set([selectedLink.from, selectedLink.to]) : new Set();
+.rf-map-recent {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 72px;
+  gap: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
 
-    const root = svg("svg", {
-      viewBox: `0 0 ${width} ${height}`,
-      role: "img",
-      "aria-label": "Demo network map"
-    });
+.rf-map-paper {
+  --path-pane-width: clamp(92px, 24.5%, 104px);
+  --path-handle-width: 14px;
 
-    root.append(svg("rect", { class: "demo-map-bg", x: 0, y: 0, width, height }));
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-bottom: 0;
+  border-radius: 13px 13px 0 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.72), transparent 44%),
+    linear-gradient(180deg, #fff8e8, #f8ecd2);
+}
 
-    const linkLayer = svg("g", { class: "demo-links" });
-    graph.links.forEach((link) => {
-      const a = nodes.get(link.from);
-      const b = nodes.get(link.to);
-      if (!a || !b) return;
+.rf-map-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.30;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 18% 20%, transparent 0 34%, rgba(124,119,104,0.22) 35%, transparent 36%),
+    radial-gradient(ellipse at 72% 48%, transparent 0 36%, rgba(124,119,104,0.18) 37%, transparent 38%),
+    radial-gradient(ellipse at 48% 78%, transparent 0 30%, rgba(124,119,104,0.16) 31%, transparent 32%),
+    linear-gradient(24deg, transparent 0 42%, rgba(7,28,50,0.08) 42.25%, transparent 42.8%),
+    linear-gradient(136deg, transparent 0 54%, rgba(7,28,50,0.07) 54.25%, transparent 54.8%);
+  background-size: 100% 100%;
+}
 
-      const x1 = xOf(a);
-      const y1 = yOf(a);
-      const x2 = xOf(b);
-      const y2 = yOf(b);
-      const d = linkCurve(x1, y1, x2, y2);
+.rf-map-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: calc(var(--path-pane-width) - var(--path-handle-width));
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 12px 0 0 0;
+  transition: right 180ms ease;
+}
 
-      const isSelectedPath = selectedLink && link.from === selectedLink.from && link.to === selectedLink.to;
-      if (link.type !== "alert") {
-        linkLayer.append(svg("path", {
-          class: `demo-route demo-link-soft ${link.type === "backup" ? "is-backup" : "is-main"}`,
-          d
-        }));
-      }
+.rf-path-toggle:not(:checked) ~ .rf-map-stage {
+  right: var(--path-handle-width);
+}
 
-      linkLayer.append(svg("path", {
-        class: `demo-route is-${link.type || "main"}${isSelectedPath ? " is-selected-path" : ""}`,
-        d
-      }));
-    });
-    root.append(linkLayer);
+.rf-map-stage svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
 
-    const dotLayer = svg("g", { class: "demo-route-dots" });
-    graph.links.forEach((link) => {
-      const a = nodes.get(link.from);
-      const b = nodes.get(link.to);
-      if (!a || !b) return;
 
-      dotLayer.append(svg("circle", {
-        class: `demo-route-dot ${link.type === "alert" ? "red" : link.type === "backup" ? "blue" : "green"}`,
-        cx: (xOf(a) + xOf(b)) / 2,
-        cy: (yOf(a) + yOf(b)) / 2,
-        r: link.type === "alert" ? (tight ? 3.7 : 4.4) : (tight ? 2.6 : 3.2)
-      }));
-    });
-    root.append(dotLayer);
+/* =========================================================
+   04. PATH DETAILS SIDE PANE
+   Collapsible vertical pane inside the Network Map card.
+========================================================= */
 
-    const nodeLayer = svg("g", { class: "demo-nodes" });
-    graph.nodes.forEach((node) => {
-      const x = xOf(node);
-      const y = yOf(node);
-      const radius = markerRadius(node, width);
-      const isSelectedNode = selectedIds.has(node.id);
-      const marker = svg("g", { class: `demo-node ${node.type}${isSelectedNode ? " is-selected" : ""}`, transform: `translate(${x} ${y})` });
+.rf-path-toggle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
 
-      marker.append(
-        svg("circle", {
-          class: `halo ${node.type}${isSelectedNode ? " selected-halo" : ""}`,
-          r: radius + (tight ? 5.7 : 6.8),
-          fill: node.type === "relay" ? "#ff5d32" : "#e8d9a0"
-        }),
-        ...(isSelectedNode ? [svg("circle", {
-          class: "selected-ring",
-          r: radius + (tight ? 9.3 : 10.8)
-        })] : []),
-        svg("circle", {
-          class: node.type,
-          r: radius,
-          "stroke-width": node.type === "relay" ? 1.8 : 1.55
-        }),
-        svg("circle", {
-          class: "inner-ring",
-          r: Math.max(3, radius - 3.4)
-        }),
-        makeMast(0, 0, node.size === "large" ? (tight ? 0.34 : 0.39) : (tight ? 0.25 : 0.30))
-      );
+.rf-path-pane {
+  --pane-line: rgba(255,255,255,0.13);
+  --pane-soft: rgba(219,228,242,0.76);
 
-      nodeLayer.append(marker);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  width: var(--path-pane-width);
+  padding-left: var(--path-handle-width);
+  overflow: hidden;
+  color: #fff;
+  border: 1px solid rgba(237,191,99,0.70);
+  border-radius: 0 12px 12px 0;
+  background:
+    radial-gradient(circle at 45% 0%, rgba(255,210,100,0.10), transparent 34%),
+    linear-gradient(180deg, #0b243e 0%, #06182b 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    -6px 0 14px rgba(3,10,20,0.20);
+  transform: translateX(0);
+  transition: transform 180ms ease;
+}
 
-      const label = (tight && node.labelTight) ? node.labelTight : (node.label || {});
-      const fallbackSide = x > width * 0.72 ? -1 : 1;
-      const anchor = label.anchor || (fallbackSide < 0 ? "end" : "start");
-      const dx = label.dx ?? fallbackSide * (radius + 7);
-      const dy = label.dy ?? -4;
+.rf-path-toggle:not(:checked) ~ .rf-path-pane {
+  transform: translateX(calc(100% - var(--path-handle-width)));
+}
 
-      let labelX = x + dx;
-      const labelY = y + dy;
+.rf-path-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--path-handle-width);
+  display: grid;
+  place-items: center;
+  color: var(--gold-soft);
+  cursor: pointer;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)),
+    rgba(4,16,30,0.78);
+  border-right: 1px solid rgba(237,191,99,0.32);
+  box-shadow: inset -1px 0 0 rgba(0,0,0,0.24);
+}
 
-      const minX = 4;
-      const maxX = width - 4;
-      labelX = Math.max(minX, Math.min(maxX, labelX));
+.rf-path-handle svg {
+  width: 8px;
+  height: 14px;
+  transform: rotate(0deg);
+  transition: transform 180ms ease;
+}
 
-      const labelText = svg("text", {
-        class: `demo-label ${node.type}${tight ? " hide-type" : ""}`,
-        x: labelX,
-        y: labelY,
-        "text-anchor": anchor
-      });
+.rf-path-toggle:not(:checked) ~ .rf-path-pane .rf-path-handle svg {
+  transform: rotate(180deg);
+}
 
-      const name = svg("tspan", { class: "name", x: labelX, y: labelY });
-      name.append(text(node.name || node.id));
+.rf-path-pane-body.is-clean {
+  height: 100%;
+  min-height: 0;
+  padding: 5px 6px 5px 7px;
+  display: grid;
+  grid-template-rows: 22px minmax(0, 1fr) auto;
+  gap: 5px;
+  overflow: hidden;
+}
 
-      const type = svg("tspan", { class: "type", x: labelX, dy: tight ? 0 : 10 });
-      type.append(text(typeLabel(node.type)));
+.rf-path-pane-head {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  gap: 0 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--pane-line);
+}
 
-      labelText.append(name, type);
-      nodeLayer.append(labelText);
-    });
-    root.append(nodeLayer);
+.rf-path-pane-head .rf-path-wave {
+  grid-row: 1 / 3;
+  width: 16px;
+  height: 11px;
+  color: var(--gold-soft);
+}
 
-    const compass = svg("g", {
-      class: "demo-compass",
-      transform: `translate(${padX + 20} ${height - 38})`
-    });
-    compass.append(
-      svg("circle", { r: 17 }),
-      svg("path", { d: "M0-23V23M-23 0H23M-16-16L16 16M16-16L-16 16" }),
-      svg("path", { d: "M0-17L4-4L17 0L4 4L0 17L-4 4L-17 0L-4-4Z" })
-    );
-    const n = svg("text", { x: -3, y: -24 });
-    n.append(text("N"));
-    compass.append(n);
-    root.append(compass);
+.rf-path-pane-head strong {
+  min-width: 0;
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+  line-height: 0.86;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 
-    const legendW = Math.min(220, width - padX * 2 - 4);
-    const legendX = padX + 2;
-    const legendY = height - 22;
-    const legend = svg("g", { transform: `translate(${legendX} ${legendY})` });
-    legend.append(svg("rect", {
-      class: "demo-legend",
-      x: 0,
-      y: 0,
-      width: legendW,
-      height: 16,
-      rx: 7
-    }));
+.rf-path-wave {
+  width: 16px;
+  height: 10px;
+  background:
+    linear-gradient(135deg, transparent 0 28%, currentColor 29% 35%, transparent 36% 100%),
+    linear-gradient(45deg, transparent 0 39%, currentColor 40% 46%, transparent 47% 100%);
+  opacity: 0.95;
+}
 
-    [
-      ["Core", "#106228"],
-      ["Main", "#106228"],
-      ["Relay", "#9f231a"],
-      ["Remote", "#1b4d81"]
-    ].forEach(([label, color], index) => {
-      const itemX = 12 + index * (legendW / 4);
-      legend.append(svg("circle", {
-        cx: itemX,
-        cy: 8,
-        r: 3.2,
-        fill: color,
-        stroke: "#fff7de",
-        "stroke-width": 0.8
-      }));
+.rf-path-ends {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(40px, 1fr) auto auto;
+  gap: 5px;
+  overflow: hidden;
+}
 
-      const t = svg("text", { class: "demo-legend-text", x: itemX + 7, y: 11 });
-      t.append(text(label));
-      legend.append(t);
-    });
-    root.append(legend);
+.rf-path-end {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 5px;
+  align-items: center;
+}
 
-    mount.replaceChildren(root);
-  };
+.rf-path-site-dot {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+}
 
-  const boot = async () => {
-    const mount = document.querySelector("[data-demo-map]");
-    if (!mount) return;
+.rf-path-site-dot svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.8;
+}
 
-    const graph = await getGraphData();
+.rf-path-end.is-from .rf-path-site-dot {
+  color: #8cff43;
+  border: 1px solid rgba(140,255,67,0.46);
+  box-shadow: 0 0 7px rgba(140,255,67,0.18);
+}
 
-    let raf = null;
-    const draw = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => render(mount, graph));
-    };
+.rf-path-end.is-to .rf-path-site-dot {
+  color: #ff6a4b;
+  border: 1px solid rgba(255,90,58,0.46);
+  box-shadow: 0 0 7px rgba(255,90,58,0.18);
+}
 
-    const observer = new ResizeObserver(draw);
-    observer.observe(mount);
+.rf-path-site-copy {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+}
 
-    const toggle = document.querySelector(".rf-path-toggle");
-    if (toggle) toggle.addEventListener("change", () => setTimeout(draw, 210));
+.rf-path-site-copy small {
+  display: block;
+  margin: 0 0 1px;
+  color: var(--pane-soft);
+  font-size: 5.6px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
 
-    draw();
-  };
+.rf-path-site-copy b {
+  display: block;
+  max-width: 100%;
+  color: #fff;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8.4px;
+  font-weight: 700;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-overflow: clip;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
+.rf-path-mini-flow {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 9px 1fr minmax(31px, 43px) 1fr 9px;
+  justify-items: center;
+  align-items: stretch;
+}
+
+.rf-mini-node {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #fff;
+  z-index: 2;
+}
+
+.rf-mini-node.is-green {
+  border: 2.2px solid #8cff43;
+  box-shadow: 0 0 7px rgba(140,255,67,0.72);
+}
+
+.rf-mini-node.is-red {
+  border: 2.2px solid #ff4931;
+  box-shadow: 0 0 7px rgba(255,68,50,0.72);
+}
+
+.rf-mini-line {
+  width: 2px;
+  min-height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, #8cff43, #ffd94f);
+  box-shadow: 0 0 6px rgba(255,215,80,0.45);
+}
+
+.rf-mini-line.is-red {
+  background: linear-gradient(180deg, #ffb24c, #ff4931);
+}
+
+.rf-mini-wave {
+  width: 34px;
+  height: 100%;
+  min-height: 31px;
+  max-height: 43px;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px rgba(255,215,80,0.70));
+}
+
+.rf-mini-wave path {
+  fill: none;
+  stroke: url(#rfPaneSignal);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rf-path-frequency {
+  margin-top: -1px;
+  text-align: center;
+}
+
+.rf-path-frequency strong {
+  display: block;
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10.4px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-frequency span {
+  display: block;
+  margin-top: 2px;
+  color: var(--pane-soft);
+  font-size: 5.7px;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   05. PATH DETAILS DATA LIST
+========================================================= */
+
+.rf-path-data.is-clean {
+  margin: 0;
+  padding: 4px 0 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--pane-line);
+}
+
+.rf-path-data.is-clean div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px;
+  min-height: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.rf-path-data.is-clean dt {
+  color: rgba(218,226,240,0.76);
+  font-size: 5.6px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.rf-path-data.is-clean dd {
+  margin: 0;
+  color: #fff;
+  font-size: 5.9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.rf-path-data.is-clean i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 3px;
+  border-radius: 999px;
+  background: #8cff43;
+  box-shadow: 0 0 6px rgba(140,255,67,0.76);
+}
+
+
+/* =========================================================
+   06. GENERATED DEMO MAP
+   rf-demo-map.js draws these classes.
+========================================================= */
+
+.demo-map-bg {
+  fill: transparent;
+}
+
+.demo-route {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1.5px 1px rgba(0,0,0,0.22));
+}
+
+.demo-route.is-main {
+  stroke: #13682b;
+  stroke-width: 2.35;
+}
+
+.demo-route.is-backup {
+  stroke: #1c5aaf;
+  stroke-width: 2.25;
+}
+
+.demo-route.is-alert {
+  stroke: #d73120;
+  stroke-width: 3.2;
+}
+
+.demo-route.is-selected-path {
+  filter:
+    drop-shadow(0 0 4px rgba(255,225,70,0.72))
+    drop-shadow(0 1.5px 1px rgba(0,0,0,0.22));
+}
+
+.demo-link-soft {
+  opacity: 0.14;
+  stroke-width: 5;
+}
+
+.demo-route-dot {
+  fill: #f7efd3;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.24));
+}
+
+.demo-route-dot.green {
+  stroke: #176e2f;
+}
+
+.demo-route-dot.blue {
+  stroke: #1e62ae;
+}
+
+.demo-route-dot.red {
+  fill: #d72d1e;
+  stroke: #fff8e6;
+  filter: drop-shadow(0 0 4px rgba(255,90,49,0.65));
+}
+
+.demo-node .halo {
+  opacity: 0.26;
+}
+
+.demo-node.is-selected .selected-halo {
+  opacity: 0.42;
+  fill: #ffe6a0;
+}
+
+.demo-node.is-selected .selected-ring {
+  fill: none;
+  stroke: rgba(255,217,105,0.92);
+  stroke-width: 2.2;
+  filter:
+    drop-shadow(0 0 5px rgba(255,213,80,0.72))
+    drop-shadow(0 0 11px rgba(255,213,80,0.35));
+}
+
+.demo-node .core,
+.demo-node .main {
+  fill: #106228;
+  stroke: #5e6e51;
+}
+
+.demo-node .remote {
+  fill: #1b4d81;
+  stroke: #5b7289;
+}
+
+.demo-node .relay {
+  fill: #9f231a;
+  stroke: #8e575d;
+  filter: drop-shadow(0 0 5px rgba(255,93,50,0.36));
+}
+
+.demo-node .inner-ring {
+  fill: none;
+  stroke: rgba(255,247,222,0.64);
+  stroke-width: 1.2;
+}
+
+.demo-node .mast {
+  fill: none;
+  stroke: #fff7de;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.demo-label {
+  font-family: "Arial Narrow", "Roboto Condensed", "Helvetica Neue Condensed", Arial, sans-serif;
+  paint-order: stroke fill;
+  stroke: rgba(239,229,207,0.92);
+  stroke-linejoin: round;
+  text-transform: uppercase;
+}
+
+.demo-label .name {
+  fill: #172033;
+  stroke-width: 1.55px;
+  font-size: 8.4px;
+  font-weight: 850;
+  letter-spacing: 0.08px;
+}
+
+.demo-label .type {
+  stroke-width: 1px;
+  font-size: 5.3px;
+  font-weight: 850;
+  letter-spacing: 0.55px;
+}
+
+.demo-label.hide-type .type {
+  display: none;
+}
+
+.demo-label.core .type,
+.demo-label.main .type {
+  fill: #176e2f;
+}
+
+.demo-label.relay .type {
+  fill: #bc2f21;
+}
+
+.demo-label.remote .type {
+  fill: #1e62ae;
+}
+
+.demo-compass {
+  opacity: 0.18;
+  fill: none;
+  stroke: #9f8751;
+  stroke-width: 1.5;
+}
+
+.demo-compass text {
+  fill: #9f8751;
+  stroke: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+}
+
+.demo-legend {
+  fill: rgba(252,248,238,0.70);
+  stroke: rgba(200,162,93,0.48);
+  stroke-width: 1;
+  filter: drop-shadow(0 1px 2px rgba(108,85,41,0.12));
+}
+
+.demo-legend-text {
+  fill: #2a2a28;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 6.4px;
+  font-weight: 760;
+  letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   07. RECENTLY OPENED
+========================================================= */
+
+.rf-recent {
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  padding: 6px;
+  display: grid;
+  grid-template-rows: 18px minmax(0, 1fr);
+  gap: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.14);
+  border-radius: 14px;
+  background: #fcf8ee;
+  box-shadow: none;
+}
+
+.rf-recent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rf-recent-title {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #071c32;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 520;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.rf-clock {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: #09203a;
+  stroke-width: 1.7;
+}
+
+.rf-viewall {
+  padding: 3px 2px;
+  color: #09203a;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  font-size: 7px;
+  font-weight: 500;
+}
+
+.rf-recent-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.rf-recent-card {
+  min-width: 0;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 15px minmax(0, 1fr);
+  gap: 3px;
+  align-items: center;
+  overflow: hidden;
+  color: #071c32;
+  background: #fff9eb;
+  border: 1px solid rgba(130,91,22,0.12);
+  border-radius: 9px;
+}
+
+.rf-recent-card svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rf-recent-name {
+  display: block;
+  font-size: 6.8px;
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.rf-status {
+  display: block;
+  margin-top: 2px;
+  color: #17692e;
+  font-size: 6.2px;
+  font-weight: 380;
+}
+
+
+/* =========================================================
+   08. LOWER CARDS
+   Services and Equipment.
+========================================================= */
+
+.rf-bottom {
+  flex: 0 0 18%;
+  min-height: 0;
+  margin-top: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.rf-small {
+  min-height: 0;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(130,91,22,0.20);
+  border-radius: 13px;
+  background: rgba(255,255,255,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 6px 12px rgba(79,56,16,0.07);
+}
+
+.rf-small-title {
+  margin: 0 0 5px;
+  color: #071c32;
+  font-size: 9.5px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.rf-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #071c32;
+  font-size: 6.5px;
+}
+
+.rf-table th,
+.rf-table td {
+  padding: 3px 2px;
+  text-align: left;
+  border-bottom: 1px solid rgba(130,91,22,0.13);
+}
+
+.rf-table th {
+  color: rgba(7,28,50,0.55);
+  font-size: 5.6px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rf-equipment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.rf-equipment-item {
+  padding: 7px 3px;
+  text-align: center;
+  border: 1px solid rgba(130,91,22,0.13);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.48);
+}
+
+.rf-equipment-item strong {
+  display: block;
+  color: #071c32;
+  font-size: 14.5px;
+  line-height: 1;
+}
+
+.rf-equipment-item span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(7,28,50,0.58);
+  font-size: 6px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   09. SMALL SCREEN TRIM
+========================================================= */
+
+@media (max-width: 390px) {
+  .rf-home {
+    padding: 6px;
   }
-})();
+
+  .rf-network {
+    grid-template-rows: 23px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .rf-tab {
+    padding-inline: 6px;
+  }
+
+  .rf-map-paper {
+    --path-pane-width: clamp(88px, 24.5%, 98px);
+    --path-handle-width: 13px;
+  }
+
+  .rf-path-pane-body.is-clean {
+    padding-inline: 5px;
+    gap: 4px;
+  }
+
+  .rf-path-site-copy b {
+    font-size: 7.8px;
+  }
+
+  .rf-path-data.is-clean dt,
+  .rf-path-data.is-clean dd {
+    font-size: 5.35px;
+  }
+
+  .rf-recent-grid {
+    gap: 4px;
+  }
+
+  .rf-recent-card {
+    grid-template-columns: 13px minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .rf-recent-card svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .rf-bottom {
+    gap: 6px;
+  }
+}
