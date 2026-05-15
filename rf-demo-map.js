@@ -1,4 +1,4 @@
-/* RF Atlas demo map renderer
+* RF Atlas demo map renderer
    Uses private/real graph data if it exists, otherwise falls back to demo nodes.
    Positions resize with the available map area. Marker and label sizes stay clamped. */
 
@@ -153,6 +153,40 @@
     return g;
   };
 
+  const makeSelectedHalo = (radius) => {
+    const mesh = svg("g", { class: "demo-selected-mesh" });
+    const inner = radius + 8;
+    const mid = radius + 13;
+    const outer = radius + 18;
+
+    mesh.append(
+      svg("circle", { class: "mesh-ring", r: inner }),
+      svg("circle", { class: "mesh-ring", r: mid }),
+      svg("circle", { class: "mesh-ring is-outer", r: outer })
+    );
+
+    for (let index = 0; index < 24; index += 1) {
+      const angle = (Math.PI * 2 * index) / 24;
+      const emphasis = index % 3 === 0;
+      const start = radius + (emphasis ? 6 : 8);
+      const end = radius + (emphasis ? 20 : 16);
+      const x1 = Math.cos(angle) * start;
+      const y1 = Math.sin(angle) * start;
+      const x2 = Math.cos(angle) * end;
+      const y2 = Math.sin(angle) * end;
+
+      mesh.append(svg("line", {
+        class: "mesh-line",
+        x1: x1.toFixed(2),
+        y1: y1.toFixed(2),
+        x2: x2.toFixed(2),
+        y2: y2.toFixed(2)
+      }));
+    }
+
+    return mesh;
+  };
+
   const markerRadius = (node, width) => {
     const tight = width < 330;
     if (node.size === "large") return tight ? 11.5 : 13;
@@ -258,10 +292,13 @@
           r: radius + (tight ? 5.7 : 6.8),
           fill: node.type === "relay" ? "#ff5d32" : "#e8d9a0"
         }),
-        ...(isSelectedNode ? [svg("circle", {
-          class: "selected-ring",
-          r: radius + (tight ? 9.3 : 10.8)
-        })] : []),
+        ...(isSelectedNode ? [
+          makeSelectedHalo(radius),
+          svg("circle", {
+            class: "selected-ring",
+            r: radius + (tight ? 9.3 : 10.8)
+          })
+        ] : []),
         svg("circle", {
           class: node.type,
           r: radius,
