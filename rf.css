@@ -545,17 +545,66 @@
 }
 
 .demo-node.is-selected .selected-halo {
-  opacity: 0.42;
-  fill: #ffe6a0;
+  opacity: 0.46;
+  fill: #ffe3a0;
 }
 
 .demo-node.is-selected .selected-ring {
   fill: none;
-  stroke: rgba(255,217,105,0.92);
-  stroke-width: 2.2;
+  stroke: rgba(255,217,105,0.86);
+  stroke-width: 1.35;
+  opacity: 0.64;
   filter:
-    drop-shadow(0 0 5px rgba(255,213,80,0.72))
-    drop-shadow(0 0 11px rgba(255,213,80,0.35));
+    drop-shadow(0 0 5px rgba(255,213,80,0.70))
+    drop-shadow(0 0 11px rgba(255,213,80,0.34));
+}
+
+.demo-node.is-selected.relay .selected-halo {
+  fill: #ff5d32;
+  opacity: 0.20;
+}
+
+.demo-node.is-selected.relay .selected-ring {
+  stroke: rgba(215,59,35,0.80);
+  opacity: 0.42;
+  filter:
+    drop-shadow(0 0 5px rgba(255,93,50,0.62))
+    drop-shadow(0 0 12px rgba(255,93,50,0.28));
+}
+
+.demo-selected-mesh {
+  pointer-events: none;
+}
+
+.demo-selected-mesh .mesh-ring {
+  fill: none;
+  stroke: rgba(255,217,105,0.74);
+  stroke-width: 1.15;
+  opacity: 0.34;
+}
+
+.demo-selected-mesh .mesh-ring.is-outer {
+  opacity: 0.22;
+}
+
+.demo-selected-mesh .mesh-line {
+  stroke: rgba(255,217,105,0.82);
+  stroke-width: 1.05;
+  stroke-linecap: round;
+  opacity: 0.24;
+}
+
+.demo-node.relay .demo-selected-mesh .mesh-ring,
+.demo-node.relay .demo-selected-mesh .mesh-line {
+  stroke: rgba(215,59,35,0.92);
+}
+
+.demo-node.relay .demo-selected-mesh .mesh-ring {
+  opacity: 0.23;
+}
+
+.demo-node.relay .demo-selected-mesh .mesh-line {
+  opacity: 0.25;
 }
 
 .demo-node .core,
