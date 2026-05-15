@@ -186,6 +186,13 @@
     const yOf = (node) => padTop + node.y * (height - padTop - padBottom);
 
     const nodes = new Map(graph.nodes.map((node) => [node.id, node]));
+    const selectedLink =
+      graph.links.find((link) => link.id === graph.selectedPathId) ||
+      graph.links.find((link) => `${link.from}-${link.to}` === graph.selectedPathId) ||
+      graph.links.find((link) => link.type === "alert") ||
+      graph.links[0];
+
+    const selectedIds = selectedLink ? new Set([selectedLink.from, selectedLink.to]) : new Set();
 
     const root = svg("svg", {
       viewBox: `0 0 ${width} ${height}`,
@@ -207,6 +214,7 @@
       const y2 = yOf(b);
       const d = linkCurve(x1, y1, x2, y2);
 
+      const isSelectedPath = selectedLink && link.from === selectedLink.from && link.to === selectedLink.to;
       if (link.type !== "alert") {
         linkLayer.append(svg("path", {
           class: `demo-route demo-link-soft ${link.type === "backup" ? "is-backup" : "is-main"}`,
@@ -215,7 +223,7 @@
       }
 
       linkLayer.append(svg("path", {
-        class: `demo-route is-${link.type || "main"}`,
+        class: `demo-route is-${link.type || "main"}${isSelectedPath ? " is-selected-path" : ""}`,
         d
       }));
     });
@@ -241,14 +249,19 @@
       const x = xOf(node);
       const y = yOf(node);
       const radius = markerRadius(node, width);
-      const marker = svg("g", { class: `demo-node ${node.type}`, transform: `translate(${x} ${y})` });
+      const isSelectedNode = selectedIds.has(node.id);
+      const marker = svg("g", { class: `demo-node ${node.type}${isSelectedNode ? " is-selected" : ""}`, transform: `translate(${x} ${y})` });
 
       marker.append(
         svg("circle", {
-          class: `halo ${node.type}`,
+          class: `halo ${node.type}${isSelectedNode ? " selected-halo" : ""}`,
           r: radius + (tight ? 5.7 : 6.8),
           fill: node.type === "relay" ? "#ff5d32" : "#e8d9a0"
         }),
+        ...(isSelectedNode ? [svg("circle", {
+          class: "selected-ring",
+          r: radius + (tight ? 9.3 : 10.8)
+        })] : []),
         svg("circle", {
           class: node.type,
           r: radius,
