@@ -30,58 +30,75 @@
 
               <aside class="rf-path-pane" aria-label="Path details">
                 <label class="rf-path-handle" for="rfPathPaneToggle" aria-label="Collapse path details">
-                  <svg viewBox="0 0 12 20" aria-hidden="true"><path d="M8.5 3L3.5 10l5 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg viewBox="0 0 12 20" aria-hidden="true">
+                    <path d="M8.5 3L3.5 10l5 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </label>
 
-                <div class="rf-path-pane-body">
-                  <div class="rf-path-pane-head">
+                <div class="rf-path-pane-body is-clean">
+                  <header class="rf-path-pane-head">
                     <span class="rf-path-wave" aria-hidden="true"></span>
-                    <strong>Path details</strong>
-                  </div>
+                    <strong>Path</strong>
+                    <strong>Details</strong>
+                  </header>
 
-                  <div class="rf-path-site-mini is-from">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                      <path d="M12 8v12M8 20l4-12 4 12M8 15h8" />
-                      <circle cx="12" cy="6" r="2" />
-                      <path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5" />
-                    </svg>
-                    <span><small>From</small>London<br>Core Site</span>
-                  </div>
+                  <section class="rf-path-ends" aria-label="Selected path">
+                    <div class="rf-path-end is-from">
+                      <span class="rf-path-site-dot" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M12 8v12M8 20l4-12 4 12M8 15h8"/>
+                          <circle cx="12" cy="6" r="2"/>
+                          <path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/>
+                        </svg>
+                      </span>
+                      <span class="rf-path-site-copy">
+                        <small>From</small>
+                        <b>London</b>
+                        <b>Core Site</b>
+                      </span>
+                    </div>
 
-                  <div class="rf-path-vertical-graphic" aria-hidden="true">
-                    <span class="rf-node is-green"></span>
-                    <svg viewBox="0 0 80 132" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="rfPaneSignal" x1="0" y1="0" x2="0" y2="132" gradientUnits="userSpaceOnUse">
-                          <stop offset="0" stop-color="#8cff43"/>
-                          <stop offset=".36" stop-color="#f5ff69"/>
-                          <stop offset=".54" stop-color="#ffd94f"/>
-                          <stop offset=".78" stop-color="#ff9a42"/>
-                          <stop offset="1" stop-color="#ff4432"/>
-                        </linearGradient>
-                      </defs>
-                      <path class="rf-pane-trunk" d="M40 8V42" />
-                      <path class="rf-pane-pulse" d="M40 42 L40 54 L32 58 L50 63 L30 68 L52 74 L28 82 L49 88 L38 92 L40 102" />
-                      <path class="rf-pane-trunk" d="M40 102V124" />
-                    </svg>
-                    <span class="rf-node is-red"></span>
-                  </div>
+                    <div class="rf-path-mini-flow" aria-hidden="true">
+                      <span class="rf-mini-node is-green"></span>
+                      <span class="rf-mini-line"></span>
+                      <svg class="rf-mini-wave" viewBox="0 0 52 54" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="rfPaneSignal" x1="0" y1="0" x2="0" y2="54" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#8cff43"/>
+                            <stop offset=".34" stop-color="#f5ff69"/>
+                            <stop offset=".56" stop-color="#ffd94f"/>
+                            <stop offset=".78" stop-color="#ff9a42"/>
+                            <stop offset="1" stop-color="#ff4432"/>
+                          </linearGradient>
+                        </defs>
+                        <path d="M26 3V14M26 14L20 18L34 22L18 26L35 31L19 36L28 40L26 51" />
+                      </svg>
+                      <span class="rf-mini-line is-red"></span>
+                      <span class="rf-mini-node is-red"></span>
+                    </div>
 
-                  <div class="rf-path-frequency">
-                    <strong>6.725 GHz</strong>
-                    <span>Horizontal</span>
-                  </div>
+                    <div class="rf-path-frequency">
+                      <strong>6.725 GHz</strong>
+                      <span>Horizontal</span>
+                    </div>
 
-                  <div class="rf-path-site-mini is-to">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                      <path d="M12 8v12M8 20l4-12 4 12M8 15h8" />
-                      <circle cx="12" cy="6" r="2" />
-                      <path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5" />
-                    </svg>
-                    <span><small>To</small>Hilltop<br>Relay Site</span>
-                  </div>
+                    <div class="rf-path-end is-to">
+                      <span class="rf-path-site-dot" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M12 8v12M8 20l4-12 4 12M8 15h8"/>
+                          <circle cx="12" cy="6" r="2"/>
+                          <path d="M7 6a6 6 0 0 1 0-5M17 1a6 6 0 0 1 0 5"/>
+                        </svg>
+                      </span>
+                      <span class="rf-path-site-copy">
+                        <small>To</small>
+                        <b>Hilltop</b>
+                        <b>Relay Site</b>
+                      </span>
+                    </div>
+                  </section>
 
-                  <dl class="rf-path-data">
+                  <dl class="rf-path-data is-clean">
                     <div><dt>Service</dt><dd>DTT MUX 1</dd></div>
                     <div><dt>Band</dt><dd>28 MHz</dd></div>
                     <div><dt>Mod</dt><dd>64QAM</dd></div>
