@@ -824,3 +824,202 @@
     font-size: 6px;
   }
 }
+
+
+/* 11. Demo network map renderer
+   Replaces the external SVG object with a generated SVG stage.
+   The graph redraws into the available width when the side pane opens/closes. */
+.rf-map-paper {
+  position: relative;
+  isolation: isolate;
+}
+
+.rf-map-object {
+  display: none !important;
+}
+
+.rf-map-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: calc(var(--path-pane-width) - var(--path-handle-width));
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 12px 0 0 0;
+  transition: right 180ms ease;
+}
+
+.rf-path-toggle:not(:checked) ~ .rf-map-stage {
+  right: var(--path-handle-width);
+}
+
+.rf-map-stage svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.demo-map-bg {
+  fill: transparent;
+}
+
+.demo-route {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1.5px 1px rgba(0,0,0,0.22));
+}
+
+.demo-route.is-main {
+  stroke: #13682b;
+  stroke-width: 3.2;
+}
+
+.demo-route.is-backup {
+  stroke: #1c5aaf;
+  stroke-width: 3;
+}
+
+.demo-route.is-alert {
+  stroke: #d73120;
+  stroke-width: 4.5;
+  filter: drop-shadow(0 0 5px rgba(250,90,49,0.46));
+}
+
+.demo-link-soft {
+  opacity: 0.14;
+  stroke-width: 7;
+}
+
+.demo-node .halo {
+  opacity: 0.34;
+}
+
+.demo-node .core,
+.demo-node .main {
+  fill: #106228;
+  stroke: #5e6e51;
+}
+
+.demo-node .remote {
+  fill: #1b4d81;
+  stroke: #5b7289;
+}
+
+.demo-node .relay {
+  fill: #9f231a;
+  stroke: #8e575d;
+  filter: drop-shadow(0 0 5px rgba(255,93,50,0.36));
+}
+
+.demo-node .inner-ring {
+  fill: none;
+  stroke: rgba(255,247,222,0.64);
+  stroke-width: 1.2;
+}
+
+.demo-node .mast {
+  fill: none;
+  stroke: #fff7de;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.demo-label {
+  font-family: "Arial Narrow", "Roboto Condensed", "Helvetica Neue Condensed", Arial, sans-serif;
+  paint-order: stroke fill;
+  stroke: rgba(239,229,207,0.92);
+  stroke-linejoin: round;
+  text-transform: uppercase;
+}
+
+.demo-label .name {
+  fill: #172033;
+  stroke-width: 2px;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+}
+
+.demo-label .type {
+  stroke-width: 1.4px;
+  font-size: 7.5px;
+  font-weight: 850;
+  letter-spacing: 0.9px;
+}
+
+.demo-label.core .type,
+.demo-label.main .type {
+  fill: #176e2f;
+}
+
+.demo-label.relay .type {
+  fill: #bc2f21;
+}
+
+.demo-label.remote .type {
+  fill: #1e62ae;
+}
+
+.demo-route-dot {
+  fill: #f7efd3;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.24));
+}
+
+.demo-route-dot.green {
+  stroke: #176e2f;
+}
+
+.demo-route-dot.blue {
+  stroke: #1e62ae;
+}
+
+.demo-route-dot.red {
+  fill: #d72d1e;
+  stroke: #fff8e6;
+  filter: drop-shadow(0 0 4px rgba(255,90,49,0.65));
+}
+
+.demo-compass {
+  opacity: 0.22;
+  fill: none;
+  stroke: #9f8751;
+  stroke-width: 1.5;
+}
+
+.demo-compass text {
+  fill: #9f8751;
+  stroke: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+}
+
+.demo-legend {
+  fill: rgba(252,248,238,0.70);
+  stroke: rgba(200,162,93,0.48);
+  stroke-width: 1;
+  filter: drop-shadow(0 1px 2px rgba(108,85,41,0.12));
+}
+
+.demo-legend-text {
+  fill: #2a2a28;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7.5px;
+  font-weight: 760;
+  letter-spacing: 0.2px;
+}
+
+/* Give the map a little more breathing room on very narrow phones. */
+@media (max-width: 390px) {
+  .demo-label .name {
+    font-size: 10.5px;
+  }
+
+  .demo-label .type {
+    font-size: 6.8px;
+  }
+}
