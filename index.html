@@ -26,7 +26,7 @@
           <div class="rf-map-recent">
             <div class="rf-map-paper">
               <input class="rf-path-toggle" id="rfPathPaneToggle" type="checkbox" checked aria-hidden="true" />
-              <object class="rf-map-object" type="image/svg+xml" data="./rf-network-map.svg" aria-label="Network map">Network map</object>
+              <div class="rf-map-stage" id="rfMapStage" data-demo-map aria-label="Network map"></div>
 
               <aside class="rf-path-pane" aria-label="Path details">
                 <label class="rf-path-handle" for="rfPathPaneToggle" aria-label="Collapse path details">
@@ -150,5 +150,6 @@
   </main>
 
   <script src="./shell.js?v=0.1.54" defer></script>
+  <script src="./rf-demo-map.js" defer></script>
 </body>
 </html>
