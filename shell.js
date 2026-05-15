@@ -10,6 +10,8 @@ const bootRfAtlasShell = () => {
     sites: "sites.html",
     rf: "index.html",
     network: "network.html",
+    docs: "equipment.html",
+    pm: "pm.html",
     tools: "tools.html",
     dtt: "dtt.html",
     dab: "dab.html",
@@ -26,6 +28,8 @@ const bootRfAtlasShell = () => {
     ["Map", "Network map and regions", pageLinks.map],
     ["Sites", "Site directory and status", pageLinks.sites],
     ["Network", "Topology and link overview", pageLinks.network],
+    ["Docs", "Walkthroughs, equipment, and manuals", pageLinks.docs],
+    ["PM", "Preventive maintenance checks", pageLinks.pm],
     ["Tools", "Calculators and field utilities", pageLinks.tools],
     ["DTT", "Digital terrestrial television services", pageLinks.dtt],
     ["DAB", "Digital audio broadcasting services", pageLinks.dab],
@@ -119,6 +123,20 @@ const bootRfAtlasShell = () => {
       </svg>
     `,
 
+    docs: `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M6 4.5h8.5L18 8v11.5H6z" stroke-linejoin="round" />
+        <path d="M14.5 4.5V8H18M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke-linecap="round" />
+      </svg>
+    `,
+
+    pm: `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="M5 12.5l3.5 3.5L19 6.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12 21a9 9 0 1 1 6.7-15" stroke-linecap="round" />
+      </svg>
+    `,
+
     tools: `
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21 6.4a5 5 0 0 1-6.3 6.2L8.1 19.2a2.6 2.6 0 0 1-3.7-3.7l6.6-6.6A5 5 0 0 1 17.2 2.6l-3 3 2.2 2.2 3-3c.6.4 1.1.9 1.6 1.6Z" />
@@ -160,10 +178,11 @@ const bootRfAtlasShell = () => {
   const buildFooter = (activePage) => {
     const items = [
       ["map", "Map"],
-      ["sites", "Sites"],
       ["rf", "RF"],
-      ["network", "Network"],
-      ["tools", "Tools"]
+      ["network", "Net"],
+      ["docs", "Docs"],
+      ["pm", "PM"],
+      ["tools", "Tool"]
     ];
 
     const activeIndex = Math.max(0, items.findIndex(([key]) => key === activePage));
