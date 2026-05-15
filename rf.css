@@ -505,3 +505,322 @@
   border: 0;
   background: transparent;
 }
+
+
+/* 10. Path details pull-out pane inside Network Map
+   The path panel lives inside the map paper, takes roughly 1/4 to 1/3 of the map width,
+   and collapses to a full-height handle without moving the rest of the page. */
+.rf-network {
+  flex: 1 1 auto;
+}
+
+.rf-bottom {
+  flex: 0 0 18%;
+}
+
+.rf-map-paper {
+  --path-pane-width: clamp(106px, 28%, 124px);
+  --path-handle-width: 16px;
+}
+
+.rf-path-toggle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rf-map-object {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: calc(100% - var(--path-pane-width) + var(--path-handle-width));
+  height: 100%;
+  display: block;
+  border: 0;
+  background: transparent;
+  transition: width 180ms ease;
+}
+
+.rf-path-toggle:not(:checked) ~ .rf-map-object {
+  width: 100%;
+}
+
+.rf-path-pane {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  width: var(--path-pane-width);
+  padding-left: var(--path-handle-width);
+  overflow: hidden;
+  color: #fff;
+  border: 1px solid rgba(237,191,99,0.72);
+  border-radius: 0 12px 12px 0;
+  background:
+    radial-gradient(circle at 45% 0%, rgba(255,210,100,0.10), transparent 34%),
+    linear-gradient(180deg, #0b243e 0%, #06182b 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    -6px 0 14px rgba(3,10,20,0.20);
+  transform: translateX(0);
+  transition: transform 180ms ease;
+}
+
+.rf-path-toggle:not(:checked) ~ .rf-path-pane {
+  transform: translateX(calc(100% - var(--path-handle-width)));
+}
+
+.rf-path-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--path-handle-width);
+  display: grid;
+  place-items: center;
+  color: var(--gold-soft);
+  cursor: pointer;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)),
+    rgba(4,16,30,0.78);
+  border-right: 1px solid rgba(237,191,99,0.32);
+  box-shadow: inset -1px 0 0 rgba(0,0,0,0.24);
+}
+
+.rf-path-handle span {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform 180ms ease;
+}
+
+.rf-path-toggle:not(:checked) ~ .rf-path-pane .rf-path-handle span {
+  transform: rotate(180deg);
+}
+
+.rf-path-pane-body {
+  height: 100%;
+  min-height: 0;
+  padding: 6px 7px 6px 8px;
+  display: grid;
+  grid-template-rows: 16px 43px minmax(62px, 1fr) 34px 43px auto;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.rf-path-pane-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gold-soft);
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rf-path-wave {
+  width: 18px;
+  height: 8px;
+  flex: 0 0 auto;
+  background:
+    linear-gradient(135deg, transparent 0 28%, currentColor 29% 35%, transparent 36% 100%),
+    linear-gradient(45deg, transparent 0 39%, currentColor 40% 46%, transparent 47% 100%);
+  opacity: 0.95;
+}
+
+.rf-path-site-mini {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 5px;
+  align-items: center;
+  color: #fff;
+}
+
+.rf-path-site-mini svg {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border-radius: 999px;
+  stroke-width: 1.8;
+  background: rgba(255,255,255,0.05);
+}
+
+.rf-path-site-mini.is-from svg {
+  color: #8cff43;
+  border: 1px solid rgba(140,255,67,0.45);
+}
+
+.rf-path-site-mini.is-to svg {
+  color: #ff6a4b;
+  border: 1px solid rgba(255,90,58,0.45);
+}
+
+.rf-path-site-mini span {
+  display: block;
+  min-width: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-site-mini small {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(220,226,238,0.76);
+  font-family: Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.rf-path-vertical-graphic {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+
+.rf-path-vertical-graphic svg {
+  width: 74%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px rgba(255,215,80,0.72));
+}
+
+.rf-pane-trunk,
+.rf-pane-pulse {
+  fill: none;
+  stroke: url(#rfPaneSignal);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rf-pane-pulse {
+  stroke-width: 3.2;
+}
+
+.rf-node {
+  position: absolute;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.rf-node.is-green {
+  top: 2px;
+  border: 3px solid #8cff43;
+  box-shadow: 0 0 8px rgba(140,255,67,0.75);
+}
+
+.rf-node.is-red {
+  bottom: 2px;
+  border: 3px solid #ff4931;
+  box-shadow: 0 0 8px rgba(255,68,50,0.75);
+}
+
+.rf-path-frequency {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.rf-path-frequency strong {
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-frequency span {
+  margin-top: 3px;
+  color: rgba(230,236,246,0.78);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rf-path-data {
+  margin: 0;
+  padding: 3px 0 0;
+  display: grid;
+  gap: 1px;
+  border-top: 1px solid rgba(255,255,255,0.13);
+}
+
+.rf-path-data div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  min-height: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.rf-path-data dt {
+  color: rgba(218,226,240,0.74);
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rf-path-data dd {
+  margin: 0;
+  color: #fff;
+  font-size: 7px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.rf-path-data i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  border-radius: 999px;
+  background: #8cff43;
+  box-shadow: 0 0 6px rgba(140,255,67,0.76);
+}
+
+/* Narrow-screen trim for the side pane. */
+@media (max-width: 390px) {
+  .rf-map-paper {
+    --path-pane-width: clamp(98px, 28%, 112px);
+    --path-handle-width: 15px;
+  }
+
+  .rf-path-pane-body {
+    padding-inline: 6px;
+    grid-template-rows: 15px 38px minmax(54px, 1fr) 30px 38px auto;
+  }
+
+  .rf-path-frequency strong {
+    font-size: 12px;
+  }
+
+  .rf-path-site-mini span {
+    font-size: 9px;
+  }
+
+  .rf-path-data dt,
+  .rf-path-data dd {
+    font-size: 6px;
+  }
+}
