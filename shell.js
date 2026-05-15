@@ -11,7 +11,6 @@ const bootRfAtlasShell = () => {
     rf: "index.html",
     network: "network.html",
     docs: "equipment.html",
-    pm: "pm.html",
     tools: "tools.html",
     dtt: "dtt.html",
     dab: "dab.html",
@@ -29,7 +28,6 @@ const bootRfAtlasShell = () => {
     ["Sites", "Site directory and status", pageLinks.sites],
     ["Network", "Topology and link overview", pageLinks.network],
     ["Docs", "Walkthroughs, equipment, and manuals", pageLinks.docs],
-    ["PM", "Preventive maintenance checks", pageLinks.pm],
     ["Tools", "Calculators and field utilities", pageLinks.tools],
     ["DTT", "Digital terrestrial television services", pageLinks.dtt],
     ["DAB", "Digital audio broadcasting services", pageLinks.dab],
@@ -130,12 +128,6 @@ const bootRfAtlasShell = () => {
       </svg>
     `,
 
-    pm: `
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-        <path d="M5 12.5l3.5 3.5L19 6.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M12 21a9 9 0 1 1 6.7-15" stroke-linecap="round" />
-      </svg>
-    `,
 
     tools: `
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -181,7 +173,6 @@ const bootRfAtlasShell = () => {
       ["rf", "RF"],
       ["network", "Net"],
       ["docs", "Docs"],
-      ["pm", "PM"],
       ["tools", "Tool"]
     ];
 
