@@ -1218,3 +1218,301 @@
     font-size: 4.9px;
   }
 }
+
+
+/* 13. Selected route halo + cleaner side Path Details.
+   Keeps the map resize behaviour, restores selected-site halos, and tidies the vertical path pane. */
+.demo-node.is-selected .selected-ring {
+  fill: none;
+  stroke: rgba(255, 217, 105, 0.92);
+  stroke-width: 2.2;
+  filter:
+    drop-shadow(0 0 5px rgba(255, 213, 80, 0.72))
+    drop-shadow(0 0 11px rgba(255, 213, 80, 0.35));
+}
+
+.demo-node.is-selected .selected-halo {
+  opacity: 0.42;
+  fill: #ffe6a0;
+}
+
+.demo-route.is-selected-path {
+  filter:
+    drop-shadow(0 0 4px rgba(255, 225, 70, 0.72))
+    drop-shadow(0 1.5px 1px rgba(0,0,0,0.22));
+}
+
+.rf-path-pane {
+  --pane-line: rgba(255,255,255,0.13);
+  --pane-soft: rgba(219,228,242,0.76);
+  width: clamp(92px, 24.5%, 104px) !important;
+  padding-left: var(--path-handle-width);
+  border-color: rgba(237,191,99,0.70);
+}
+
+.rf-map-paper {
+  --path-pane-width: clamp(92px, 24.5%, 104px);
+  --path-handle-width: 14px;
+}
+
+.rf-path-pane-body.is-clean {
+  height: 100%;
+  min-height: 0;
+  padding: 5px 6px 5px 7px;
+  display: grid;
+  grid-template-rows: 22px minmax(0, 1fr) auto;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.rf-path-pane-head {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  gap: 0 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--pane-line);
+}
+
+.rf-path-pane-head .rf-path-wave {
+  grid-row: 1 / 3;
+  width: 16px;
+  height: 11px;
+  color: var(--gold-soft);
+}
+
+.rf-path-pane-head strong {
+  min-width: 0;
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+  line-height: 0.86;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rf-path-ends {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(40px, 1fr) auto auto;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.rf-path-end {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 5px;
+  align-items: center;
+}
+
+.rf-path-site-dot {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+}
+
+.rf-path-site-dot svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.8;
+}
+
+.rf-path-end.is-from .rf-path-site-dot {
+  color: #8cff43;
+  border: 1px solid rgba(140,255,67,0.46);
+  box-shadow: 0 0 7px rgba(140,255,67,0.18);
+}
+
+.rf-path-end.is-to .rf-path-site-dot {
+  color: #ff6a4b;
+  border: 1px solid rgba(255,90,58,0.46);
+  box-shadow: 0 0 7px rgba(255,90,58,0.18);
+}
+
+.rf-path-site-copy {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.rf-path-site-copy small {
+  display: block;
+  margin: 0 0 1px;
+  color: var(--pane-soft);
+  font-size: 5.6px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rf-path-site-copy b {
+  display: block;
+  max-width: 100%;
+  color: #fff;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8.4px;
+  font-weight: 700;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-overflow: clip;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-mini-flow {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 9px 1fr minmax(31px, 43px) 1fr 9px;
+  justify-items: center;
+  align-items: stretch;
+}
+
+.rf-mini-node {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #fff;
+  z-index: 2;
+}
+
+.rf-mini-node.is-green {
+  border: 2.2px solid #8cff43;
+  box-shadow: 0 0 7px rgba(140,255,67,0.72);
+}
+
+.rf-mini-node.is-red {
+  border: 2.2px solid #ff4931;
+  box-shadow: 0 0 7px rgba(255,68,50,0.72);
+}
+
+.rf-mini-line {
+  width: 2px;
+  min-height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, #8cff43, #ffd94f);
+  box-shadow: 0 0 6px rgba(255,215,80,0.45);
+}
+
+.rf-mini-line.is-red {
+  background: linear-gradient(180deg, #ffb24c, #ff4931);
+}
+
+.rf-mini-wave {
+  width: 34px;
+  height: 100%;
+  min-height: 31px;
+  max-height: 43px;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px rgba(255,215,80,0.70));
+}
+
+.rf-mini-wave path {
+  fill: none;
+  stroke: url(#rfPaneSignal);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rf-path-frequency {
+  margin-top: -1px;
+  text-align: center;
+}
+
+.rf-path-frequency strong {
+  display: block;
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10.4px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-frequency span {
+  display: block;
+  margin-top: 2px;
+  color: var(--pane-soft);
+  font-size: 5.7px;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.rf-path-data.is-clean {
+  margin: 0;
+  padding: 4px 0 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--pane-line);
+}
+
+.rf-path-data.is-clean div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px;
+  min-height: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.rf-path-data.is-clean dt {
+  color: rgba(218,226,240,0.76);
+  font-size: 5.6px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.rf-path-data.is-clean dd {
+  margin: 0;
+  color: #fff;
+  font-size: 5.9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.rf-path-data.is-clean i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 3px;
+  border-radius: 999px;
+  background: #8cff43;
+  box-shadow: 0 0 6px rgba(140,255,67,0.76);
+}
+
+@media (max-width: 390px) {
+  .rf-map-paper {
+    --path-pane-width: clamp(88px, 24.5%, 98px);
+    --path-handle-width: 13px;
+  }
+
+  .rf-path-pane {
+    width: clamp(88px, 24.5%, 98px) !important;
+  }
+
+  .rf-path-pane-body.is-clean {
+    padding-inline: 5px;
+    gap: 4px;
+  }
+
+  .rf-path-site-copy b {
+    font-size: 7.8px;
+  }
+
+  .rf-path-data.is-clean dt,
+  .rf-path-data.is-clean dd {
+    font-size: 5.35px;
+  }
+}
