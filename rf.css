@@ -490,28 +490,18 @@
 }
 
 
-/* 09. Network map placeholder
-   Removes the temporary graph from the RF map paper and keeps the same space reserved. */
+/* 09. External network map SVG
+   The network graph lives in rf-network-map.svg and is loaded into this reserved map paper slot. */
 .rf-map-paper {
-  display: grid;
-  place-items: center;
+  display: block;
 }
 
-.rf-map-placeholder {
-  width: calc(100% - 12px);
-  height: calc(100% - 12px);
-  display: grid;
-  place-items: center;
-  color: rgba(7,28,50,0.48);
-  border: 1px dashed rgba(130,91,22,0.28);
-  border-radius: 12px;
-  background: rgba(252,248,238,0.58);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
-}
-
-.rf-map-placeholder span {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.rf-map-object {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  background: transparent;
 }
