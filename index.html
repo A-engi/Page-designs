@@ -35,89 +35,77 @@
                   </svg>
                 </label>
 
-                <div class="rf-path-pane-body is-svg-card">
-                  <svg class="rf-path-card-vertical" viewBox="0 0 270 1080" role="img" aria-label="Selected path details">
+                <div class="rf-path-pane-body is-panel">
+                  <header class="rf-path-pane-title">
+                    <svg class="rf-path-title-wave" viewBox="0 0 44 18" aria-hidden="true">
+                      <path d="M2 9h9l4-7 5 14 6-14 5 14 4-7h7" />
+                    </svg>
+                    <span>Path Details</span>
+                  </header>
+
+                  <section class="rf-path-site is-from" aria-label="From site">
+                    <span class="rf-path-mast">
+                      <svg viewBox="0 0 44 44" aria-hidden="true">
+                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19" />
+                        <circle cx="22" cy="16" r="2.4" />
+                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" />
+                      </svg>
+                    </span>
+                    <span class="rf-path-site-copy">
+                      <small>From</small>
+                      <b>London</b>
+                      <b>Core Site</b>
+                    </span>
+                  </section>
+
+                  <svg class="rf-path-signal-vertical" viewBox="0 0 58 160" aria-label="RF path signal">
                     <defs>
-                      <linearGradient id="rfPathSignal" x1="343" x2="741" gradientUnits="userSpaceOnUse">
+                      <linearGradient id="rfPaneSignalVertical" x1="0" x2="132" gradientUnits="userSpaceOnUse">
                         <stop offset="0" stop-color="#8cff43"/>
-                        <stop offset=".08" stop-color="#8cff43"/>
-                        <stop offset=".16" stop-color="#f5ff69"/>
-                        <stop offset=".42" stop-color="#f5ff69"/>
-                        <stop offset=".50" stop-color="#ffd94f"/>
-                        <stop offset=".62" stop-color="#ffb24c"/>
-                        <stop offset=".72" stop-color="#ff9a42"/>
-                        <stop offset=".92" stop-color="#ff7a3b"/>
+                        <stop offset=".12" stop-color="#f5ff69"/>
+                        <stop offset=".44" stop-color="#f5ff69"/>
+                        <stop offset=".54" stop-color="#ffd94f"/>
+                        <stop offset=".68" stop-color="#ffb24c"/>
+                        <stop offset=".84" stop-color="#ff8d40"/>
                         <stop offset="1" stop-color="#ff4432"/>
                       </linearGradient>
-
-                      <pattern id="rfPathScan" width="12" height="270" patternUnits="userSpaceOnUse">
-                        <path d="M1 0V270" stroke="#fff" stroke-opacity=".035"/>
-                        <path d="M8 0V270" stroke="#76a3ca" stroke-opacity=".025"/>
-                      </pattern>
-
-                      <symbol id="rfPathMast" viewBox="0 0 44 44">
-                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="22" cy="16" r="2.4" fill="currentColor"/>
-                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                      </symbol>
                     </defs>
 
-                    <g class="rf-path-card-art" transform="translate(270 0) rotate(90)">
-                      <rect x="8" y="5" width="1064" height="260" rx="31" fill="#011532" filter="drop-shadow(0 8px 9px rgba(0,0,0,.32))"/>
-                      <rect x="13" y="10" width="1054" height="250" rx="27" fill="url(#rfPathScan)" opacity=".72"/>
-
-                      <path d="M42 38h21l6-11 8 24 8-31 8 27 6-9h20" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-                      <text x="136" y="44" class="rf-path-title" font-size="27" letter-spacing="1.5">PATH DETAILS</text>
-
-                      <circle cx="87" cy="104" r="33" fill="#01431c" stroke="#5e6e51" stroke-width="4"/>
-                      <use href="#rfPathMast" x="65" y="82" width="44" height="44" color="#fff"/>
-                      <text x="138" y="84" class="rf-path-label" font-size="15">FROM</text>
-                      <text x="138" y="108" class="rf-path-site" font-size="27" letter-spacing=".6">LONDON</text>
-                      <text x="138" y="132" class="rf-path-site" font-size="27" letter-spacing=".6">CORE SITE</text>
-
-                      <path class="rf-path-signal" d="M343 82 L500 82 L506 74 L512 88 L520 68 L528 93 L540 47 L552 103 L563 66 L572 92 L580 73 L586 86 L588 82 L741 82"/>
-                      <circle class="rf-path-node-green" cx="343" cy="82" r="12" fill="#fff" stroke="#8dff49" stroke-width="5"/>
-                      <circle class="rf-path-node-red" cx="741" cy="82" r="12" fill="#fff" stroke="#ff4931" stroke-width="5"/>
-
-                      <text x="542" y="126" text-anchor="middle" class="rf-path-freq" font-size="31" letter-spacing=".5">6.725 GHz</text>
-                      <text x="542" y="149" text-anchor="middle" class="rf-path-label" font-size="15" letter-spacing="3">HORIZONTAL</text>
-
-                      <text x="800" y="84" class="rf-path-label" font-size="15">TO</text>
-                      <text x="936" y="108" text-anchor="end" class="rf-path-site" font-size="27" letter-spacing=".6">HILLTOP</text>
-                      <text x="936" y="132" text-anchor="end" class="rf-path-site" font-size="27" letter-spacing=".6">RELAY SITE</text>
-                      <circle cx="1006" cy="104" r="33" fill="#5f1217" stroke="#8e575d" stroke-width="4"/>
-                      <use href="#rfPathMast" x="984" y="82" width="44" height="44" color="#fff"/>
-
-                      <line x1="43" y1="166" x2="1038" y2="166" stroke="#b9c6d7" stroke-opacity=".20" stroke-width="2"/>
-
-                      <g>
-                        <line x1="212" y1="184" x2="212" y2="236" class="rf-path-divider"/>
-                        <line x1="392" y1="184" x2="392" y2="236" class="rf-path-divider"/>
-                        <line x1="568" y1="184" x2="568" y2="236" class="rf-path-divider"/>
-                        <line x1="743" y1="184" x2="743" y2="236" class="rf-path-divider"/>
-                        <line x1="910" y1="184" x2="910" y2="236" class="rf-path-divider"/>
-
-                        <text x="58" y="195" class="rf-path-metric-label">SERVICE</text>
-                        <text x="58" y="228" class="rf-path-metric-value" letter-spacing=".2">DTT MUX 1</text>
-
-                        <text x="250" y="195" class="rf-path-metric-label">BANDWIDTH</text>
-                        <text x="250" y="228" class="rf-path-metric-value">28 MHz</text>
-
-                        <text x="430" y="195" class="rf-path-metric-label">MODULATION</text>
-                        <text x="430" y="228" class="rf-path-metric-value">64QAM</text>
-
-                        <text x="606" y="195" class="rf-path-metric-label">TX POWER</text>
-                        <text x="606" y="228" class="rf-path-metric-value">18 dBm</text>
-
-                        <text x="780" y="195" class="rf-path-metric-label">AVAILABILITY</text>
-                        <text x="780" y="228" class="rf-path-metric-value">99.98%</text>
-
-                        <text x="942" y="195" class="rf-path-metric-label">STATUS</text>
-                        <circle class="rf-path-node-green" cx="948" cy="218" r="8.5" fill="#8dff49"/>
-                        <text x="968" y="228" class="rf-path-metric-value" font-size="21">ONLINE</text>
-                      </g>
+                    <g class="rf-signal-turned" transform="translate(29 14) rotate(90)">
+                      <path d="M0 0 L44 0 L48 -7 L52 8 L57 -12 L63 13 L70 -17 L77 16 L83 -9 L89 8 L94 -4 L99 5 L102 0 L132 0" />
+                      <circle class="is-green" cx="0" cy="0" r="8.5" />
+                      <circle class="is-red" cx="132" cy="0" r="8.5" />
                     </g>
                   </svg>
+
+                  <div class="rf-path-frequency">
+                    <strong>6.725 GHz</strong>
+                    <span>Horizontal</span>
+                  </div>
+
+                  <section class="rf-path-site is-to" aria-label="To site">
+                    <span class="rf-path-mast">
+                      <svg viewBox="0 0 44 44" aria-hidden="true">
+                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19" />
+                        <circle cx="22" cy="16" r="2.4" />
+                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" />
+                      </svg>
+                    </span>
+                    <span class="rf-path-site-copy">
+                      <small>To</small>
+                      <b>Hilltop</b>
+                      <b>Relay Site</b>
+                    </span>
+                  </section>
+
+                  <dl class="rf-path-data">
+                    <div><dt>Service</dt><dd>DTT MUX 1</dd></div>
+                    <div><dt>Band</dt><dd>28 MHz</dd></div>
+                    <div><dt>Mod</dt><dd>64QAM</dd></div>
+                    <div><dt>Power</dt><dd>18 dBm</dd></div>
+                    <div><dt>Avail</dt><dd>99.98%</dd></div>
+                    <div><dt>Status</dt><dd><i></i>Online</dd></div>
+                  </dl>
                 </div>
               </aside>
             </div>
