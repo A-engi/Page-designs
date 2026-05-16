@@ -35,20 +35,20 @@
                   </svg>
                 </label>
 
-                <div class="rf-path-pane-body is-panel">
+                <div class="rf-path-pane-body">
                   <header class="rf-path-pane-title">
-                    <svg class="rf-path-title-wave" viewBox="0 0 44 18" aria-hidden="true">
-                      <path d="M2 9h9l4-7 5 14 6-14 5 14 4-7h7" />
+                    <svg class="rf-path-title-wave" viewBox="0 0 48 18" aria-hidden="true">
+                      <path d="M2 9h10l4-7 5 14 6-14 5 14 4-7h10"/>
                     </svg>
                     <span>Path Details</span>
                   </header>
 
                   <section class="rf-path-site is-from" aria-label="From site">
-                    <span class="rf-path-mast">
-                      <svg viewBox="0 0 44 44" aria-hidden="true">
-                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19" />
-                        <circle cx="22" cy="16" r="2.4" />
-                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" />
+                    <span class="rf-path-mast" aria-hidden="true">
+                      <svg viewBox="0 0 44 44">
+                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19"/>
+                        <circle cx="22" cy="16" r="2.4"/>
+                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0"/>
                       </svg>
                     </span>
                     <span class="rf-path-site-copy">
@@ -58,24 +58,22 @@
                     </span>
                   </section>
 
-                  <svg class="rf-path-signal-vertical" viewBox="0 0 58 160" aria-label="RF path signal">
+                  <svg class="rf-path-signal-vertical" viewBox="0 0 58 128" aria-label="6.725 GHz selected path">
                     <defs>
-                      <linearGradient id="rfPaneSignalVertical" x1="0" x2="132" gradientUnits="userSpaceOnUse">
+                      <linearGradient id="rfPaneSignalVertical" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
                         <stop offset="0" stop-color="#8cff43"/>
-                        <stop offset=".12" stop-color="#f5ff69"/>
-                        <stop offset=".44" stop-color="#f5ff69"/>
+                        <stop offset=".14" stop-color="#f5ff69"/>
+                        <stop offset=".42" stop-color="#f5ff69"/>
                         <stop offset=".54" stop-color="#ffd94f"/>
-                        <stop offset=".68" stop-color="#ffb24c"/>
-                        <stop offset=".84" stop-color="#ff8d40"/>
+                        <stop offset=".70" stop-color="#ffb24c"/>
+                        <stop offset=".86" stop-color="#ff8d40"/>
                         <stop offset="1" stop-color="#ff4432"/>
                       </linearGradient>
                     </defs>
 
-                    <g class="rf-signal-turned" transform="translate(29 14) rotate(90)">
-                      <path d="M0 0 L44 0 L48 -7 L52 8 L57 -12 L63 13 L70 -17 L77 16 L83 -9 L89 8 L94 -4 L99 5 L102 0 L132 0" />
-                      <circle class="is-green" cx="0" cy="0" r="8.5" />
-                      <circle class="is-red" cx="132" cy="0" r="8.5" />
-                    </g>
+                    <path class="rf-path-signal-line" d="M29 10V40L23 44L35 48L21 53L37 58L20 64L36 70L24 76L34 82L27 88L31 93L29 98V118"/>
+                    <circle class="rf-path-signal-node is-green" cx="29" cy="10" r="7.2"/>
+                    <circle class="rf-path-signal-node is-red" cx="29" cy="118" r="7.2"/>
                   </svg>
 
                   <div class="rf-path-frequency">
@@ -84,11 +82,11 @@
                   </div>
 
                   <section class="rf-path-site is-to" aria-label="To site">
-                    <span class="rf-path-mast">
-                      <svg viewBox="0 0 44 44" aria-hidden="true">
-                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19" />
-                        <circle cx="22" cy="16" r="2.4" />
-                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0" />
+                    <span class="rf-path-mast" aria-hidden="true">
+                      <svg viewBox="0 0 44 44">
+                        <path d="M22 16v19M14 35h16M16 35l6-19 6 19"/>
+                        <circle cx="22" cy="16" r="2.4"/>
+                        <path d="M17 12c3-3 7-3 10 0M13 8c5.4-5.2 12.6-5.2 18 0M9 4c7.4-7 18.6-7 26 0"/>
                       </svg>
                     </span>
                     <span class="rf-path-site-copy">
