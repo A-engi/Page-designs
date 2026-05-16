@@ -1,4 +1,4 @@
-* RF Atlas demo map renderer
+/* RF Atlas demo map renderer
    Uses private/real graph data if it exists, otherwise falls back to demo nodes.
    Positions resize with the available map area. Marker and label sizes stay clamped. */
 
@@ -154,35 +154,30 @@
   };
 
   const makeSelectedHalo = (radius) => {
-    const mesh = svg("g", { class: "demo-selected-mesh" });
-    const inner = radius + 8;
-    const mid = radius + 13;
-    const outer = radius + 18;
+    /*
+      Exact relay-halo-mesh geometry from the original hand-built SVG,
+      scaled around the selected marker. This is the old broadcast-field look,
+      not the newer plain outline.
+    */
+    const scale = Math.max(0.38, Math.min(0.54, (radius + 20) / 72));
+    const mesh = svg("g", {
+      class: "demo-original-halo",
+      transform: `scale(${scale})`
+    });
 
     mesh.append(
-      svg("circle", { class: "mesh-ring", r: inner }),
-      svg("circle", { class: "mesh-ring", r: mid }),
-      svg("circle", { class: "mesh-ring is-outer", r: outer })
+      svg("circle", { class: "relay-halo-ring", r: 51 }),
+      svg("circle", { class: "relay-halo-ring", r: 61 }),
+      svg("circle", { class: "relay-halo-ring is-outer", r: 72 }),
+      svg("path", {
+        class: "relay-halo-line",
+        d: "M42.3 7.5L72.9 12.8 M40.4 14.7L69.5 25.3 M32.9 27.6L56.7 47.6 M27.6 32.9L47.6 56.7 M14.7 40.4L25.3 69.5 M7.5 42.3L12.8 72.9 M-7.5 42.3L-12.8 72.9 M-14.7 40.4L-25.3 69.5 M-27.6 32.9L-47.6 56.7 M-32.9 27.6L-56.7 47.6 M-40.4 14.7L-69.5 25.3 M-42.3 7.5L-72.9 12.8 M-42.3 -7.5L-72.9 -12.8 M-40.4 -14.7L-69.5 -25.3 M-32.9 -27.6L-56.7 -47.6 M-27.6 -32.9L-47.6 -56.7 M-14.7 -40.4L-25.3 -69.5 M-7.5 -42.3L-12.8 -72.9 M7.5 -42.3L12.8 -72.9 M14.7 -40.4L25.3 -69.5 M27.6 -32.9L47.6 -56.7 M32.9 -27.6L56.7 -47.6 M40.4 -14.7L69.5 -25.3 M42.3 -7.5L72.9 -12.8"
+      }),
+      svg("path", {
+        class: "relay-halo-line strong",
+        d: "M38.0 0.0L82.0 0.0 M32.9 19.0L71.0 41.0 M19.0 32.9L41.0 71.0 M0.0 38.0L0.0 82.0 M-19.0 32.9L-41.0 71.0 M-32.9 19.0L-71.0 41.0 M-38.0 0.0L-82.0 0.0 M-32.9 -19.0L-71.0 -41.0 M-19.0 -32.9L-41.0 -71.0 M-0.0 -38.0L-0.0 -82.0 M19.0 -32.9L41.0 -71.0 M32.9 -19.0L71.0 -41.0 M-82 0L82 0 M0 -82L0 82"
+      })
     );
-
-    for (let index = 0; index < 24; index += 1) {
-      const angle = (Math.PI * 2 * index) / 24;
-      const emphasis = index % 3 === 0;
-      const start = radius + (emphasis ? 6 : 8);
-      const end = radius + (emphasis ? 20 : 16);
-      const x1 = Math.cos(angle) * start;
-      const y1 = Math.sin(angle) * start;
-      const x2 = Math.cos(angle) * end;
-      const y2 = Math.sin(angle) * end;
-
-      mesh.append(svg("line", {
-        class: "mesh-line",
-        x1: x1.toFixed(2),
-        y1: y1.toFixed(2),
-        x2: x2.toFixed(2),
-        y2: y2.toFixed(2)
-      }));
-    }
 
     return mesh;
   };
@@ -293,11 +288,7 @@
           fill: node.type === "relay" ? "#ff5d32" : "#e8d9a0"
         }),
         ...(isSelectedNode ? [
-          makeSelectedHalo(radius),
-          svg("circle", {
-            class: "selected-ring",
-            r: radius + (tight ? 9.3 : 10.8)
-          })
+          makeSelectedHalo(radius)
         ] : []),
         svg("circle", {
           class: node.type,
