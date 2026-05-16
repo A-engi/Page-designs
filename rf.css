@@ -885,5 +885,18 @@
 }
 
 
-/* 09. Path pane scale trial.
-   The side-pane contents are currently rendered at half size while keeping the pane itself full-height. */
+/* 09. Path pane SVG scale trial.
+   The pane contents are half-scale, and the turned signal SVG is also reduced. */
+.rf-path-signal-vertical {
+  width: 50%;
+  height: 50%;
+  min-height: 35px;
+  justify-self: center;
+  align-self: center;
+}
+
+.rf-signal-turned {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.5);
+}
