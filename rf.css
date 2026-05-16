@@ -545,19 +545,10 @@
 }
 
 .demo-node.is-selected .selected-halo {
-  opacity: 0.46;
+  opacity: 0.30;
   fill: #ffe3a0;
 }
 
-.demo-node.is-selected .selected-ring {
-  fill: none;
-  stroke: rgba(255,217,105,0.86);
-  stroke-width: 1.35;
-  opacity: 0.64;
-  filter:
-    drop-shadow(0 0 5px rgba(255,213,80,0.70))
-    drop-shadow(0 0 11px rgba(255,213,80,0.34));
-}
 
 .demo-node.is-selected.relay .selected-halo {
   fill: #ff5d32;
@@ -572,39 +563,50 @@
     drop-shadow(0 0 12px rgba(255,93,50,0.28));
 }
 
-.demo-selected-mesh {
+.demo-original-halo {
   pointer-events: none;
 }
 
-.demo-selected-mesh .mesh-ring {
+.demo-original-halo .relay-halo-ring {
   fill: none;
-  stroke: rgba(255,217,105,0.74);
+  stroke: rgba(255,217,105,0.88);
   stroke-width: 1.15;
+  opacity: 0.42;
+}
+
+.demo-original-halo .relay-halo-ring.is-outer {
+  opacity: 0.28;
+}
+
+.demo-original-halo .relay-halo-line {
+  fill: none;
+  stroke: rgba(255,217,105,0.95);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  opacity: 0.36;
+}
+
+.demo-original-halo .relay-halo-line.strong {
+  stroke-width: 1.55;
+  opacity: 0.42;
+}
+
+.demo-node.relay .demo-original-halo .relay-halo-ring {
+  stroke: rgba(215,59,35,0.92);
   opacity: 0.34;
 }
 
-.demo-selected-mesh .mesh-ring.is-outer {
+.demo-node.relay .demo-original-halo .relay-halo-ring.is-outer {
   opacity: 0.22;
 }
 
-.demo-selected-mesh .mesh-line {
-  stroke: rgba(255,217,105,0.82);
-  stroke-width: 1.05;
-  stroke-linecap: round;
-  opacity: 0.24;
+.demo-node.relay .demo-original-halo .relay-halo-line {
+  stroke: rgba(215,59,35,0.95);
+  opacity: 0.36;
 }
 
-.demo-node.relay .demo-selected-mesh .mesh-ring,
-.demo-node.relay .demo-selected-mesh .mesh-line {
-  stroke: rgba(215,59,35,0.92);
-}
-
-.demo-node.relay .demo-selected-mesh .mesh-ring {
-  opacity: 0.23;
-}
-
-.demo-node.relay .demo-selected-mesh .mesh-line {
-  opacity: 0.25;
+.demo-node.relay .demo-original-halo .relay-halo-line.strong {
+  opacity: 0.44;
 }
 
 .demo-node .core,
