@@ -145,7 +145,9 @@
 }
 
 
-/* 04. Collapsible path pane and rotated original path SVG. */
+/* 04. Collapsible path pane and SVG detail pieces.
+   Only the title waveform and the signal line are SVG graphics.
+   The first/signal SVG is turned vertically; the rest is normal layout. */
 
 .rf-path-toggle {
   position: absolute;
@@ -167,7 +169,9 @@
   color: #fff;
   border: 1px solid rgba(237,191,99,0.70);
   border-radius: 0 12px 12px 0;
-  background: #011532;
+  background:
+    radial-gradient(circle at 48% 0%, rgba(255,215,115,0.10), transparent 34%),
+    linear-gradient(180deg, #061f38 0%, #011532 100%);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.10),
     -6px 0 14px rgba(3,10,20,0.20);
@@ -206,70 +210,227 @@
   transform: rotate(180deg);
 }
 
-.rf-path-pane-body.is-svg-card {
-  position: relative;
-  height: 100%;
+.rf-path-pane-body.is-panel {
+  width: 200%;
+  height: 200%;
   min-height: 0;
-  padding: 0;
+  padding: 6px 7px;
+  display: grid;
+  grid-template-rows: 18px auto minmax(70px, 1fr) 28px auto auto;
+  gap: 5px;
   overflow: hidden;
-  background: #011532;
+  transform: scale(0.5);
+  transform-origin: top left;
 }
 
-.rf-path-card-vertical {
-  width: 100%;
-  height: 100%;
-  display: block;
+.rf-path-pane-title {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
 }
 
-.rf-path-title,
-.rf-path-site,
-.rf-path-freq {
-  font-family: Georgia, "Times New Roman", serif;
-  fill: #fff;
-  font-weight: 700;
-  filter: drop-shadow(0 3px 1px rgba(0,0,0,.72));
+.rf-path-title-wave {
+  width: 24px;
+  height: 11px;
+  overflow: visible;
 }
 
-.rf-path-label,
-.rf-path-metric-label {
-  fill: #b9bfcc;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
-
-.rf-path-metric-label {
-  fill: #b7bfcc;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-}
-
-.rf-path-metric-value {
-  fill: #fff;
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.rf-path-divider {
-  stroke: #b9c6d7;
-  stroke-opacity: .18;
-  stroke-width: 2;
-}
-
-.rf-path-signal {
+.rf-path-title-wave path {
   fill: none;
-  stroke: url(#rfPathSignal);
-  stroke-width: 3.6;
+  stroke: #fff;
+  stroke-width: 2.6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 6px rgba(255,225,70,.95));
+  filter: drop-shadow(0 0 3px rgba(255,255,255,0.35));
 }
 
-.rf-path-node-green {
-  filter: drop-shadow(0 0 8px rgba(140,255,67,.85));
+.rf-path-pane-title span {
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.rf-path-node-red {
-  filter: drop-shadow(0 0 8px rgba(255,68,50,.85));
+.rf-path-site {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+}
+
+.rf-path-mast {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+}
+
+.rf-path-mast svg {
+  width: 17px;
+  height: 17px;
+}
+
+.rf-path-mast path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rf-path-mast circle {
+  fill: currentColor;
+}
+
+.rf-path-site.is-from .rf-path-mast {
+  color: #8cff43;
+  border: 1px solid rgba(140,255,67,0.48);
+}
+
+.rf-path-site.is-to .rf-path-mast {
+  color: #ff6a4b;
+  border: 1px solid rgba(255,90,58,0.48);
+}
+
+.rf-path-site-copy {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.rf-path-site-copy small {
+  display: block;
+  margin: 0 0 1px;
+  color: rgba(219,228,242,0.76);
+  font-size: 5.8px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rf-path-site-copy b {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8.6px;
+  font-weight: 700;
+  line-height: 0.93;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-signal-vertical {
+  width: 100%;
+  height: 100%;
+  min-height: 70px;
+  overflow: visible;
+}
+
+.rf-signal-turned path {
+  fill: none;
+  stroke: url(#rfPaneSignalVertical);
+  stroke-width: 3.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(255,225,70,0.76));
+}
+
+.rf-signal-turned circle {
+  fill: #fff;
+  stroke-width: 4.2;
+}
+
+.rf-signal-turned .is-green {
+  stroke: #8dff49;
+  filter: drop-shadow(0 0 7px rgba(140,255,67,0.76));
+}
+
+.rf-signal-turned .is-red {
+  stroke: #ff4931;
+  filter: drop-shadow(0 0 7px rgba(255,68,50,0.76));
+}
+
+.rf-path-frequency {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.rf-path-frequency strong {
+  display: block;
+  color: var(--gold-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 2px 1px rgba(0,0,0,0.55);
+}
+
+.rf-path-frequency span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(219,228,242,0.76);
+  font-size: 5.8px;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.rf-path-data {
+  margin: 0;
+  padding: 4px 0 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.13);
+}
+
+.rf-path-data div {
+  min-height: 12px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.rf-path-data dt {
+  color: rgba(218,226,240,0.76);
+  font-size: 5.55px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.rf-path-data dd {
+  margin: 0;
+  color: #fff;
+  font-size: 5.9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.rf-path-data i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 3px;
+  border-radius: 999px;
+  background: #8cff43;
+  box-shadow: 0 0 6px rgba(140,255,67,0.76);
 }
 
 
@@ -722,3 +883,7 @@
     gap: 6px;
   }
 }
+
+
+/* 09. Path pane scale trial.
+   The side-pane contents are currently rendered at half size while keeping the pane itself full-height. */
