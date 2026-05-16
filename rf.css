@@ -145,9 +145,10 @@
 }
 
 
-/* 04. Collapsible path pane and SVG detail pieces.
-   Only the title waveform and the signal line are SVG graphics.
-   The first/signal SVG is turned vertically; the rest is normal layout. */
+/* 04. Collapsible path pane.
+   Title waveform and selected-signal line are SVG pieces.
+   The selected-signal SVG is drawn vertically at the intended size.
+*/
 
 .rf-path-toggle {
   position: absolute;
@@ -185,9 +186,7 @@
 
 .rf-path-handle {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  inset: 0 auto 0 0;
   width: var(--path-handle-width);
   display: grid;
   place-items: center;
@@ -210,50 +209,47 @@
   transform: rotate(180deg);
 }
 
-.rf-path-pane-body.is-panel {
-  width: 200%;
-  height: 200%;
+.rf-path-pane-body {
+  height: 100%;
   min-height: 0;
   padding: 6px 7px;
   display: grid;
-  grid-template-rows: 18px auto minmax(70px, 1fr) 28px auto auto;
+  grid-template-rows: 17px 31px 92px 24px 31px auto;
   gap: 5px;
   overflow: hidden;
-  transform: scale(0.5);
-  transform-origin: top left;
 }
 
 .rf-path-pane-title {
   min-width: 0;
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: 18px minmax(0, 1fr);
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   padding-bottom: 3px;
   border-bottom: 1px solid rgba(255,255,255,0.14);
 }
 
 .rf-path-title-wave {
-  width: 24px;
-  height: 11px;
+  width: 18px;
+  height: 8px;
   overflow: visible;
 }
 
 .rf-path-title-wave path {
   fill: none;
   stroke: #fff;
-  stroke-width: 2.6;
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,0.35));
+  filter: drop-shadow(0 0 3px rgba(255,255,255,0.30));
 }
 
 .rf-path-pane-title span {
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 10px;
+  font-size: 7.8px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.075em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -262,14 +258,14 @@
 .rf-path-site {
   min-width: 0;
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-columns: 18px minmax(0, 1fr);
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .rf-path-mast {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   display: grid;
   place-items: center;
   border-radius: 999px;
@@ -277,8 +273,8 @@
 }
 
 .rf-path-mast svg {
-  width: 17px;
-  height: 17px;
+  width: 14px;
+  height: 14px;
 }
 
 .rf-path-mast path {
@@ -313,9 +309,9 @@
   display: block;
   margin: 0 0 1px;
   color: rgba(219,228,242,0.76);
-  font-size: 5.8px;
+  font-size: 4.85px;
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -325,41 +321,42 @@
   overflow: hidden;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 8.6px;
+  font-size: 7px;
   font-weight: 700;
-  line-height: 0.93;
+  line-height: 0.94;
   text-transform: uppercase;
   white-space: nowrap;
   text-shadow: 0 2px 1px rgba(0,0,0,0.55);
 }
 
 .rf-path-signal-vertical {
-  width: 100%;
-  height: 100%;
-  min-height: 70px;
+  width: 46px;
+  height: 92px;
+  justify-self: center;
+  align-self: center;
   overflow: visible;
 }
 
-.rf-signal-turned path {
+.rf-path-signal-line {
   fill: none;
   stroke: url(#rfPaneSignalVertical);
-  stroke-width: 3.7;
+  stroke-width: 3.2;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 0 5px rgba(255,225,70,0.76));
 }
 
-.rf-signal-turned circle {
+.rf-path-signal-node {
   fill: #fff;
-  stroke-width: 4.2;
+  stroke-width: 3.8;
 }
 
-.rf-signal-turned .is-green {
+.rf-path-signal-node.is-green {
   stroke: #8dff49;
   filter: drop-shadow(0 0 7px rgba(140,255,67,0.76));
 }
 
-.rf-signal-turned .is-red {
+.rf-path-signal-node.is-red {
   stroke: #ff4931;
   filter: drop-shadow(0 0 7px rgba(255,68,50,0.76));
 }
@@ -374,7 +371,7 @@
   display: block;
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 11px;
+  font-size: 8.8px;
   line-height: 1;
   white-space: nowrap;
   text-shadow: 0 2px 1px rgba(0,0,0,0.55);
@@ -384,9 +381,9 @@
   display: block;
   margin-top: 2px;
   color: rgba(219,228,242,0.76);
-  font-size: 5.8px;
+  font-size: 4.9px;
   font-weight: 850;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -399,7 +396,7 @@
 }
 
 .rf-path-data div {
-  min-height: 12px;
+  min-height: 10px;
   display: grid;
   grid-template-columns: minmax(0,1fr) auto;
   align-items: center;
@@ -409,7 +406,7 @@
 
 .rf-path-data dt {
   color: rgba(218,226,240,0.76);
-  font-size: 5.55px;
+  font-size: 4.8px;
   font-weight: 850;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -418,16 +415,16 @@
 .rf-path-data dd {
   margin: 0;
   color: #fff;
-  font-size: 5.9px;
+  font-size: 5.05px;
   font-weight: 850;
   white-space: nowrap;
 }
 
 .rf-path-data i {
   display: inline-block;
-  width: 5px;
-  height: 5px;
-  margin-right: 3px;
+  width: 4.5px;
+  height: 4.5px;
+  margin-right: 2px;
   border-radius: 999px;
   background: #8cff43;
   box-shadow: 0 0 6px rgba(140,255,67,0.76);
@@ -882,21 +879,4 @@
   .rf-bottom {
     gap: 6px;
   }
-}
-
-
-/* 09. Path pane SVG scale trial.
-   The pane contents are half-scale, and the turned signal SVG is also reduced. */
-.rf-path-signal-vertical {
-  width: 50%;
-  height: 50%;
-  min-height: 35px;
-  justify-self: center;
-  align-self: center;
-}
-
-.rf-signal-turned {
-  transform-box: fill-box;
-  transform-origin: center;
-  transform: scale(0.5);
 }
