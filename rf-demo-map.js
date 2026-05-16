@@ -159,7 +159,7 @@
       scaled around the selected marker. This is the old broadcast-field look,
       not the newer plain outline.
     */
-    const scale = Math.max(0.38, Math.min(0.54, (radius + 20) / 72));
+    const scale = Math.max(0.30, Math.min(0.43, (radius + 15) / 72));
     const mesh = svg("g", {
       class: "demo-original-halo",
       transform: `scale(${scale})`
