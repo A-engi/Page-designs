@@ -91,7 +91,7 @@
 }
 
 .rf-map-paper {
-  --path-pane-width: clamp(92px, 24.5%, 104px);
+  --path-pane-width: clamp(104px, 26.5%, 116px);
   --path-handle-width: 14px;
 
   position: relative;
@@ -146,8 +146,8 @@
 
 
 /* 04. Collapsible path pane.
-   Title waveform and selected-signal line are SVG pieces.
-   The selected-signal SVG is drawn vertically at the intended size.
+   Clean vertical Path Details panel.
+   The title waveform and selected-signal line are SVG pieces.
 */
 
 .rf-path-toggle {
@@ -212,9 +212,9 @@
 .rf-path-pane-body {
   height: 100%;
   min-height: 0;
-  padding: 6px 7px;
+  padding: 6px 6px 6px 7px;
   display: grid;
-  grid-template-rows: 17px 31px 92px 24px 31px auto;
+  grid-template-rows: 18px 32px 86px 24px 32px auto;
   gap: 5px;
   overflow: hidden;
 }
@@ -238,21 +238,24 @@
 .rf-path-title-wave path {
   fill: none;
   stroke: #fff;
-  stroke-width: 2.2;
+  stroke-width: 2.05;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 0 3px rgba(255,255,255,0.30));
 }
 
 .rf-path-pane-title span {
+  min-width: 0;
+  overflow: hidden;
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 7.8px;
+  font-size: 7.2px;
   font-weight: 700;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.055em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
+  text-overflow: clip;
 }
 
 .rf-path-site {
@@ -311,7 +314,7 @@
   color: rgba(219,228,242,0.76);
   font-size: 4.85px;
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -321,7 +324,7 @@
   overflow: hidden;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 7px;
+  font-size: 6.65px;
   font-weight: 700;
   line-height: 0.94;
   text-transform: uppercase;
@@ -330,8 +333,8 @@
 }
 
 .rf-path-signal-vertical {
-  width: 46px;
-  height: 92px;
+  width: 42px;
+  height: 86px;
   justify-self: center;
   align-self: center;
   overflow: visible;
@@ -340,7 +343,7 @@
 .rf-path-signal-line {
   fill: none;
   stroke: url(#rfPaneSignalVertical);
-  stroke-width: 3.2;
+  stroke-width: 3.05;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 0 5px rgba(255,225,70,0.76));
@@ -348,7 +351,7 @@
 
 .rf-path-signal-node {
   fill: #fff;
-  stroke-width: 3.8;
+  stroke-width: 3.5;
 }
 
 .rf-path-signal-node.is-green {
@@ -371,7 +374,7 @@
   display: block;
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 8.8px;
+  font-size: 8.55px;
   line-height: 1;
   white-space: nowrap;
   text-shadow: 0 2px 1px rgba(0,0,0,0.55);
@@ -381,9 +384,9 @@
   display: block;
   margin-top: 2px;
   color: rgba(219,228,242,0.76);
-  font-size: 4.9px;
+  font-size: 4.85px;
   font-weight: 850;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
 }
 
@@ -406,16 +409,16 @@
 
 .rf-path-data dt {
   color: rgba(218,226,240,0.76);
-  font-size: 4.8px;
+  font-size: 4.75px;
   font-weight: 850;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.065em;
   text-transform: uppercase;
 }
 
 .rf-path-data dd {
   margin: 0;
   color: #fff;
-  font-size: 5.05px;
+  font-size: 5px;
   font-weight: 850;
   white-space: nowrap;
 }
@@ -858,7 +861,7 @@
   }
 
   .rf-map-paper {
-    --path-pane-width: clamp(88px, 24.5%, 98px);
+    --path-pane-width: clamp(98px, 26%, 108px);
     --path-handle-width: 13px;
   }
 
