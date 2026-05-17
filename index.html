@@ -58,28 +58,38 @@
                     </span>
                   </section>
 
-                  <svg class="rf-path-signal-vertical" viewBox="0 0 58 128" aria-label="6.725 GHz selected path">
-                    <defs>
-                      <linearGradient id="rfPaneSignalVertical" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stop-color="#8cff43"/>
-                        <stop offset=".14" stop-color="#f5ff69"/>
-                        <stop offset=".42" stop-color="#f5ff69"/>
-                        <stop offset=".54" stop-color="#ffd94f"/>
-                        <stop offset=".70" stop-color="#ffb24c"/>
-                        <stop offset=".86" stop-color="#ff8d40"/>
-                        <stop offset="1" stop-color="#ff4432"/>
-                      </linearGradient>
-                    </defs>
+                  <section class="rf-path-mid" aria-label="Selected frequency">
+                    <svg class="rf-path-signal-vertical" viewBox="0 0 56 132" aria-label="Selected RF path">
+                      <defs>
+                        <linearGradient id="rfPaneSignalVertical" x1="0" y1="8" x2="0" y2="124" gradientUnits="userSpaceOnUse">
+                          <stop offset="0" stop-color="#8cff43"/>
+                          <stop offset=".14" stop-color="#f5ff69"/>
+                          <stop offset=".42" stop-color="#f5ff69"/>
+                          <stop offset=".55" stop-color="#ffd94f"/>
+                          <stop offset=".70" stop-color="#ffb24c"/>
+                          <stop offset=".86" stop-color="#ff8d40"/>
+                          <stop offset="1" stop-color="#ff4432"/>
+                        </linearGradient>
+                      </defs>
+                      <path class="rf-path-signal-line" d="M28 9V39L22 43L34 48L20 53L36 59L19 66L35 73L23 80L33 87L26 93L30 99L28 105V123"/>
+                      <circle class="rf-path-signal-node is-green" cx="28" cy="9" r="7.2"/>
+                      <circle class="rf-path-signal-node is-red" cx="28" cy="123" r="7.2"/>
+                    </svg>
 
-                    <path class="rf-path-signal-line" d="M29 10V40L23 44L35 48L21 53L37 58L20 64L36 70L24 76L34 82L27 88L31 93L29 98V118"/>
-                    <circle class="rf-path-signal-node is-green" cx="29" cy="10" r="7.2"/>
-                    <circle class="rf-path-signal-node is-red" cx="29" cy="118" r="7.2"/>
-                  </svg>
+                    <div class="rf-path-frequency">
+                      <strong>6.725 GHz</strong>
+                      <span>Horizontal</span>
 
-                  <div class="rf-path-frequency">
-                    <strong>6.725 GHz</strong>
-                    <span>Horizontal</span>
-                  </div>
+                      <dl class="rf-path-data">
+                        <div><dt>Service</dt><dd>DTT 1</dd></div>
+                        <div><dt>Band</dt><dd>28 MHz</dd></div>
+                        <div><dt>Mod</dt><dd>64QAM</dd></div>
+                        <div><dt>Power</dt><dd>18 dBm</dd></div>
+                        <div><dt>Avail</dt><dd>99.98%</dd></div>
+                        <div><dt>Status</dt><dd><i></i>Online</dd></div>
+                      </dl>
+                    </div>
+                  </section>
 
                   <section class="rf-path-site is-to" aria-label="To site">
                     <span class="rf-path-mast" aria-hidden="true">
@@ -95,15 +105,6 @@
                       <b>Relay Site</b>
                     </span>
                   </section>
-
-                  <dl class="rf-path-data">
-                    <div><dt>Service</dt><dd>DTT MUX 1</dd></div>
-                    <div><dt>Band</dt><dd>28 MHz</dd></div>
-                    <div><dt>Mod</dt><dd>64QAM</dd></div>
-                    <div><dt>Power</dt><dd>18 dBm</dd></div>
-                    <div><dt>Avail</dt><dd>99.98%</dd></div>
-                    <div><dt>Status</dt><dd><i></i>Online</dd></div>
-                  </dl>
                 </div>
               </aside>
             </div>
