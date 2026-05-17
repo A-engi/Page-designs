@@ -91,7 +91,7 @@
 }
 
 .rf-map-paper {
-  --path-pane-width: clamp(118px, 30%, 132px);
+  --path-pane-width: clamp(116px, 29.5%, 128px);
   --path-handle-width: 14px;
 
   position: relative;
@@ -146,8 +146,8 @@
 
 
 /* 04. Collapsible path pane.
-   Top and bottom are transmitter/name rows.
-   Middle is split: signal SVG left, frequency/metrics right.
+   Sleeker vertical layout:
+   top/bottom site rows, signal SVG left, frequency/metrics right.
 */
 
 .rf-path-toggle {
@@ -212,38 +212,38 @@
 .rf-path-pane-body {
   height: 100%;
   min-height: 0;
-  padding: 6px 7px 6px 8px;
+  padding: 6px 6px 6px 7px;
   display: grid;
-  grid-template-rows: 18px 38px minmax(118px, 1fr) 38px;
-  gap: 6px;
+  grid-template-rows: 17px 36px minmax(104px, 1fr) 36px;
+  gap: 5px;
   overflow: hidden;
 }
 
 .rf-path-pane-title {
   min-width: 0;
   display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
+  grid-template-columns: 18px minmax(0, 1fr);
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   padding-bottom: 3px;
-  border-bottom: 1px solid rgba(255,255,255,0.14);
+  border-bottom: 1px solid rgba(255,255,255,0.13);
 }
 
 .rf-path-title-wave {
-  width: 20px;
-  height: 9px;
+  width: 18px;
+  height: 8px;
   overflow: visible;
 }
 
 .rf-path-title-wave path {
   fill: none;
   stroke: #fff;
-  stroke-width: 2.15;
+  stroke-width: 2.05;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter:
-    drop-shadow(0 0 3px rgba(255,255,255,0.35))
-    drop-shadow(0 0 7px rgba(255,225,135,0.22));
+    drop-shadow(0 0 3px rgba(255,255,255,0.34))
+    drop-shadow(0 0 7px rgba(255,225,135,0.20));
 }
 
 .rf-path-pane-title span {
@@ -251,9 +251,9 @@
   overflow: hidden;
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 7.2px;
+  font-size: 6.45px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -263,14 +263,14 @@
 .rf-path-site {
   min-width: 0;
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-columns: 20px minmax(0, 1fr);
   align-items: center;
   gap: 5px;
 }
 
 .rf-path-mast {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
   border-radius: 999px;
@@ -278,8 +278,8 @@
 }
 
 .rf-path-mast svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 .rf-path-mast path {
@@ -297,13 +297,13 @@
 .rf-path-site.is-from .rf-path-mast {
   color: #8cff43;
   border: 1px solid rgba(140,255,67,0.48);
-  box-shadow: 0 0 8px rgba(140,255,67,0.18);
+  box-shadow: 0 0 8px rgba(140,255,67,0.16);
 }
 
 .rf-path-site.is-to .rf-path-mast {
   color: #ff6a4b;
   border: 1px solid rgba(255,90,58,0.48);
-  box-shadow: 0 0 8px rgba(255,90,58,0.18);
+  box-shadow: 0 0 8px rgba(255,90,58,0.16);
 }
 
 .rf-path-site-copy {
@@ -316,9 +316,9 @@
   display: block;
   margin: 0 0 1px;
   color: rgba(219,228,242,0.76);
-  font-size: 5px;
+  font-size: 4.65px;
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -328,7 +328,7 @@
   overflow: hidden;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 7.2px;
+  font-size: 6.55px;
   font-weight: 700;
   line-height: 0.94;
   text-transform: uppercase;
@@ -340,15 +340,15 @@
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-columns: 34px minmax(0, 1fr);
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .rf-path-signal-vertical {
-  width: 42px;
-  height: 124px;
-  justify-self: center;
+  width: 34px;
+  height: 104px;
+  justify-self: start;
   align-self: center;
   overflow: visible;
 }
@@ -356,31 +356,31 @@
 .rf-path-signal-line {
   fill: none;
   stroke: url(#rfPaneSignalVertical);
-  stroke-width: 3.15;
+  stroke-width: 2.7;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter:
     drop-shadow(0 0 5px rgba(255,225,70,0.88))
-    drop-shadow(0 0 11px rgba(255,145,55,0.30));
+    drop-shadow(0 0 10px rgba(255,145,55,0.26));
 }
 
 .rf-path-signal-node {
   fill: #fff;
-  stroke-width: 3.55;
+  stroke-width: 3.1;
 }
 
 .rf-path-signal-node.is-green {
   stroke: #8dff49;
   filter:
     drop-shadow(0 0 6px rgba(140,255,67,0.90))
-    drop-shadow(0 0 12px rgba(140,255,67,0.28));
+    drop-shadow(0 0 11px rgba(140,255,67,0.26));
 }
 
 .rf-path-signal-node.is-red {
   stroke: #ff4931;
   filter:
     drop-shadow(0 0 6px rgba(255,68,50,0.90))
-    drop-shadow(0 0 12px rgba(255,68,50,0.30));
+    drop-shadow(0 0 11px rgba(255,68,50,0.28));
 }
 
 .rf-path-frequency {
@@ -391,9 +391,10 @@
 
 .rf-path-frequency strong {
   display: block;
+  overflow: hidden;
   color: var(--gold-soft);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 9px;
+  font-size: 7.6px;
   line-height: 1;
   white-space: nowrap;
   text-shadow: 0 2px 1px rgba(0,0,0,0.55);
@@ -403,9 +404,9 @@
   display: block;
   margin: 2px 0 5px;
   color: rgba(219,228,242,0.76);
-  font-size: 4.75px;
+  font-size: 4.25px;
   font-weight: 850;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -418,34 +419,37 @@
 }
 
 .rf-path-data div {
-  min-height: 10px;
+  min-height: 9px;
   display: grid;
   grid-template-columns: minmax(0,1fr) auto;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .rf-path-data dt {
+  min-width: 0;
+  overflow: hidden;
   color: rgba(218,226,240,0.76);
-  font-size: 4.5px;
+  font-size: 4.05px;
   font-weight: 850;
-  letter-spacing: 0.055em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
 .rf-path-data dd {
   margin: 0;
+  overflow: hidden;
   color: #fff;
-  font-size: 4.85px;
+  font-size: 4.45px;
   font-weight: 850;
   white-space: nowrap;
 }
 
 .rf-path-data i {
   display: inline-block;
-  width: 4.3px;
-  height: 4.3px;
+  width: 4px;
+  height: 4px;
   margin-right: 2px;
   border-radius: 999px;
   background: #8cff43;
@@ -880,7 +884,7 @@
   }
 
   .rf-map-paper {
-    --path-pane-width: clamp(108px, 29%, 122px);
+    --path-pane-width: clamp(106px, 28.5%, 118px);
     --path-handle-width: 13px;
   }
 
