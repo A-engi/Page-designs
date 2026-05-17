@@ -146,8 +146,8 @@
 
 
 /* 04. Collapsible path pane.
-   Sleeker vertical layout:
-   top/bottom site rows, signal SVG left, frequency/metrics right.
+   Sleek vertical layout:
+   top/bottom site rows, extended signal SVG left, frequency/metrics right.
 */
 
 .rf-path-toggle {
@@ -214,7 +214,7 @@
   min-height: 0;
   padding: 6px 6px 6px 7px;
   display: grid;
-  grid-template-rows: 17px 36px minmax(104px, 1fr) 36px;
+  grid-template-rows: 17px 36px minmax(132px, 1fr) 36px;
   gap: 5px;
   overflow: hidden;
 }
@@ -347,7 +347,7 @@
 
 .rf-path-signal-vertical {
   width: 34px;
-  height: 104px;
+  height: 132px;
   justify-self: start;
   align-self: center;
   overflow: visible;
